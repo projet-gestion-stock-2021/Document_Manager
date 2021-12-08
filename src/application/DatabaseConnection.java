@@ -13,6 +13,7 @@ public class DatabaseConnection {
 		String databaseUser = "";
 		String databasePassword= "";
 		String url = "jdbc:mariadb://localhost:3306/" + databaseName;
+		
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			databaseLink = DriverManager.getConnection(url,databaseUser,databasePassword);
