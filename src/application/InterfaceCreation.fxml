@@ -8,10 +8,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InterfaceCreationController">
    <children>
       <Button layoutX="66.0" layoutY="396.0" mnemonicParsing="false" text="Valider" />
-      <Button layoutX="215.0" layoutY="396.0" mnemonicParsing="false" text="Annuler" />
+      <Button fx:id="annulerButton" layoutX="215.0" layoutY="396.0" mnemonicParsing="false" onAction="#switchDashboard" text="Annuler" />
       <DatePicker layoutX="66.0" layoutY="121.0" />
       <ImageView fitHeight="302.0" fitWidth="234.0" layoutX="426.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true" />
       <ChoiceBox layoutX="66.0" layoutY="172.0" prefWidth="150.0" />
