@@ -1,11 +1,13 @@
 package application;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.net.URL;
@@ -18,6 +20,7 @@ import java.sql.Statement;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 
 
 public class LoginController  {
@@ -63,6 +66,7 @@ public class LoginController  {
 			while(queryResult.next()) {
 				if (queryResult.getInt(1)== 1) {
 					donneeInvalideLabel.setText("congrats");
+					creerCompte();
 				}
 				else {
 					donneeInvalideLabel.setText("Mauvaise identification");
@@ -74,6 +78,20 @@ public class LoginController  {
 			System.out.println("fuck");
 		e.printStackTrace();
 			e.getCause(); 
+		}
+		
+	}
+	public void creerCompte () {
+		try {
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+			Stage individuStage = new Stage();
+			
+			individuStage.setScene(new Scene(root,778,605));
+			individuStage.show();
+			cancelButtonOnAction(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			e.getCause();
 		}
 	}
 }
