@@ -1,36 +1,40 @@
 package application;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import application.SignInController;
 
-
-
-
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-
-
-public class LoginController  {
+public class LoginController  
+{
 
 	@FXML
 	private Button annulerButton;
+	@FXML
+	private Button signIn;
+	@FXML
+	private Button seConnecterButton;
 	@FXML
 	private Label donneeInvalideLabel;
 	@FXML
 	private TextField identifiantTextField;
 	@FXML
 	private PasswordField mdpTextField;
+	@FXML
+	private ImageView lockImageView;
 
 	
 	
@@ -97,6 +101,7 @@ public class LoginController  {
 		}
 		
 	}
+	
 	public void creerCompte () 
 	{
 		try 
@@ -114,4 +119,23 @@ public class LoginController  {
 			e.getCause();
 		}
 	}
+
+public void signIn () 
+{
+	try 
+	{
+		AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("signIn.fxml"));
+		Stage signIn = new Stage();
+		
+		signIn.setScene(new Scene(root));
+		signIn.show();
+		SignInController.populateCombobox();
+		cancelButtonOnAction(null);
+	} 
+	catch (Exception e) 
+	{
+		e.printStackTrace();
+		e.getCause();
+	}
+}
 }

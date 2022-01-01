@@ -27,8 +27,8 @@ public class CtrlScan {
 	}
 	
 	public boolean envoyerScanDB() throws SQLException {
-		DatabaseConnection connectionDB = new DatabaseConnection();
-		Connection connection = connectionDB.getConnection();
+		//DatabaseConnection connectionDB = new DatabaseConnection();
+		Connection connection = DatabaseConnection.getInstance().getConnection();
 		String requeteInsert = "insert into scan(Nom_Scan) values "; 
 		
 		for(Scan scan:  this.listeScans) {
@@ -49,8 +49,8 @@ public class CtrlScan {
 	}
 	
 	public void importerScanDB() throws SQLException {
-		DatabaseConnection connectionDB = new DatabaseConnection();
-		Connection connection = connectionDB.getConnection();
+		//DatabaseConnection connectionDB = new DatabaseConnection();
+		Connection connection = DatabaseConnection.getInstance().getConnection();
 		String requeteInsert = "select * from scan;";
 		Statement requeteFinal = connection.createStatement();
 		ResultSet resultats = requeteFinal.executeQuery(requeteInsert);

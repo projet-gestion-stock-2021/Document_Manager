@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+<BorderPane prefHeight="438.0" prefWidth="567.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
    <right>
       <AnchorPane prefHeight="400.0" prefWidth="332.0" style="-fx-background-color: #FDFF9F;" BorderPane.alignment="CENTER">
          <children>
@@ -23,6 +23,7 @@
             <Button fx:id="seConnecterButton" layoutX="73.0" layoutY="306.0" mnemonicParsing="false" onAction="#identifiantButtonOnAction" prefHeight="25.0" prefWidth="186.0" style="-fx-background-color: #AA4706;" text="Se connecter" textFill="WHITE" />
             <Button fx:id="annulerButton" layoutX="73.0" layoutY="338.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="25.0" prefWidth="186.0" style="-fx-background-color: #AA4706;" text="Annuler" textFill="WHITE" />
             <Label fx:id="donneeInvalideLabel" layoutX="83.0" layoutY="279.0" prefHeight="17.0" prefWidth="186.0" text="Veuillez insérer vos données" textAlignment="CENTER" />
+            <Button fx:id="signIn" layoutX="72.0" layoutY="394.0" mnemonicParsing="false" onAction="#signIn" prefHeight="25.0" prefWidth="186.0" style="-fx-background-color: #AA4706;" text="Créer un utilisateur" textFill="WHITE" />
          </children>
       </AnchorPane>
    </right>
