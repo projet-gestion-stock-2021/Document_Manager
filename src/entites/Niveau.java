@@ -1,14 +1,14 @@
 package entites;
 
 //import javax.persistence.*;
-import java.util.Collection;
+//import java.util.Collection;
 
 
 public class Niveau {
     private int idNiveau;
     private String nomNiveau;
     //private Collection<NivScan> nivScansByIdNiveau;
-    private Collection<Utilisateur> utilisateursByIdNiveau;
+    //private Collection<Utilisateur> utilisateursByIdNiveau;
 
 
     public int getIdNiveau() {
@@ -58,11 +58,11 @@ public class Niveau {
 //    }
 
 
-    public Collection<Utilisateur> getUtilisateursByIdNiveau() {
-        return utilisateursByIdNiveau;
-    }
-
-    public void setUtilisateursByIdNiveau(Collection<Utilisateur> utilisateursByIdNiveau) {
-        this.utilisateursByIdNiveau = utilisateursByIdNiveau;
-    }
+//    public Collection<Utilisateur> getUtilisateursByIdNiveau() {
+//        return utilisateursByIdNiveau;
+//    }
+//
+//    public void setUtilisateursByIdNiveau(Collection<Utilisateur> utilisateursByIdNiveau) {
+//        this.utilisateursByIdNiveau = utilisateursByIdNiveau;
+//    }
 }

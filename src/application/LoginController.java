@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import application.SignInController;
 
 public class LoginController  
 {
@@ -119,21 +120,22 @@ public class LoginController
 		}
 	}
 
-//public void signIn () 
-//{
-//	try 
-//	{
-//		AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("signIn.fxml"));
-//		Stage signIn = new Stage();
-//		
-//		signIn.setScene(new Scene(root));
-//		signIn.show();
-//		cancelButtonOnAction(null);
-//	} 
-//	catch (Exception e) 
-//	{
-//		e.printStackTrace();
-//		e.getCause();
-//	}
-//}
+public void signIn () 
+{
+	try 
+	{
+		AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("signIn.fxml"));
+		Stage signIn = new Stage();
+		
+		signIn.setScene(new Scene(root));
+		signIn.show();
+		SignInController.populateCombobox();
+		cancelButtonOnAction(null);
+	} 
+	catch (Exception e) 
+	{
+		e.printStackTrace();
+		e.getCause();
+	}
+}
 }
