@@ -10,7 +10,7 @@ public class Scan {
 		this.idScan = idScan;
 		this.nomScan = nomScan;
 	}
-    
+
     public Scan(Scan s) {
     	this.idScan = s.getIdScan();
     	this.nomScan = s.getNomScan();
@@ -39,8 +39,7 @@ public class Scan {
 
         Scan scan = (Scan) o;
 
-        if (idScan != scan.idScan) return false;
-        if (nomScan != null ? !nomScan.equals(scan.nomScan) : scan.nomScan != null) return false;
+        if ((idScan != scan.idScan) || (nomScan != null ? !nomScan.equals(scan.nomScan) : scan.nomScan != null)) return false;
 
         return true;
     }

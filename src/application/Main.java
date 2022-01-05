@@ -1,12 +1,14 @@
 package application;
-	
+
+import java.util.List;
+
+import entites.Utilisateur;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.scene.Scene;
-
-import javafx.scene.layout.BorderPane;
-import javafx.fxml.FXMLLoader;
 
 
 public class Main extends Application {
@@ -23,8 +25,14 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
+		/*
+		 * System.out.println("en cours de developement"); DataAccess database =new
+		 * DataAccess(); List<Utilisateur> list =database.getAll();
+		 * 
+		 * List<Utilisateur> list1 =database.getUtilistaeurByKeyWord(2);
+		 */
 	}
 }

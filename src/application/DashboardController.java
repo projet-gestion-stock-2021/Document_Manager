@@ -9,15 +9,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class DashboardController {
-	
+
 	@FXML
 	private Button creationDocumentButton, rechercheDocumentButton, exitDashboard;
-	
+
 	public void switchInterfaceCreation () {
 		try {
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("InterfaceCreation.fxml"));
 			Stage individuStage = new Stage();
-			
+
 			individuStage.setScene(new Scene(root,778,605));
 			individuStage.show();
 			Stage stage = (Stage) creationDocumentButton.getScene().getWindow();
@@ -31,7 +31,7 @@ public class DashboardController {
 		try {
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("InterfaceRecherche.fxml"));
 			Stage individuStage = new Stage();
-			
+
 			individuStage.setScene(new Scene(root,778,605));
 			individuStage.show();
 			Stage stage = (Stage) rechercheDocumentButton.getScene().getWindow();

@@ -3,7 +3,7 @@ package entites;
 import java.sql.Timestamp;
 
 public class Document {
-	
+
 	private int idDocument;
     private String nomDocument;
     private Timestamp dateDocument;
@@ -60,17 +60,14 @@ public class Document {
 
         Document document = (Document) o;
 
-        if (idDocument != document.idDocument) return false;
-        if (nomDocument != null ? !nomDocument.equals(document.nomDocument) : document.nomDocument != null)
-            return false;
-        if (dateDocument != null ? !dateDocument.equals(document.dateDocument) : document.dateDocument != null)
-            return false;
-        if (dateScan != null ? !dateScan.equals(document.dateScan) : document.dateScan != null) return false;
+        if ((idDocument != document.idDocument) || (nomDocument != null ? !nomDocument.equals(document.nomDocument) : document.nomDocument != null) || (dateDocument != null ? !dateDocument.equals(document.dateDocument) : document.dateDocument != null)
+				|| (dateScan != null ? !dateScan.equals(document.dateScan) : document.dateScan != null)) return false;
         if (flagDocument != null ? !flagDocument.equals(document.flagDocument) : document.flagDocument != null)
             return false;
 
         return true;
     }
+
 
 
 
