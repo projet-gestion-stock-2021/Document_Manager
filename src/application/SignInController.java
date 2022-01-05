@@ -1,11 +1,18 @@
 package application;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.control.ComboBox;
 
 import java.sql.CallableStatement;
@@ -34,11 +41,13 @@ public class SignInController
 	
 	public static void populateCombobox()
 	{
-		ArrayList<Niveau> niv = new ArrayList<Niveau>();
+		ObservableList<Niveau> listNiveau = FXCollections.observableArrayList();
 		
 		Connection connectDb = DatabaseConnection.getInstance().getConnection();
 		
 		String query = "{CALL select_niveau()}";
+		
+		niveau = new ComboBox<Niveau>();
 		
 		try 
 		{
@@ -47,13 +56,18 @@ public class SignInController
 			CallableStatement stmt = connectDb.prepareCall(query);
 			
 			ResultSet queryResult = stmt.executeQuery();
+			
+			Niveau temp = new Niveau();
 					
 			while(queryResult.next()) 
 			{
-				Niveau temp = null;
-				temp.setIdNiveau(stmt.getInt("Id_Niveau"));
-				temp.setNomNiveau(stmt.getString("Nom_Niveau"));
-				niv.add(temp);
+				temp.setIdNiveau(queryResult.getInt("Id_Niveau"));
+				temp.setNomNiveau(queryResult.getString("Nom_Niveau"));
+				listNiveau.add(temp);
+				//La liste se rempli bien
+				//System.out.println("\n"+ listNiveau.get(temp.getIdNiveau()-1).getNomNiveau());
+				niveau.getItems().add(temp);
+				
 			}
 				
 		} 
@@ -64,7 +78,7 @@ public class SignInController
 			e.printStackTrace();
 			e.getCause(); 
 		}
-		niveau.getItems().addAll(niv);
+		//niveau.setItems(listNiveau);
 	}
 	
 	public void validate(ActionEvent event)
@@ -80,9 +94,11 @@ public class SignInController
 			stmt.setString(2, prenom.getText().trim());
 			stmt.setString(3, login.getText().trim());
 			stmt.setString(4, mdp.getText());
-			stmt.setInt(5, niveau.getValue().getIdNiveau());
+			stmt.setInt(5, 1);
+			//stmt.setInt(5, niveau.getValue().getIdNiveau());
 			
 			stmt.execute(); 
+			System.out.print("uploaded successfully\n");
 				
 		} 
 		catch(Exception e)
@@ -91,6 +107,27 @@ public class SignInController
 			System.out.println("\ninsert_utilisateur NAN\n");
 			e.printStackTrace();
 			e.getCause(); 
+		}
+	}
+	
+	public void cancel(ActionEvent event) 
+	{
+		Stage stage = (Stage) annuler.getScene().getWindow();
+		stage.close();
+		
+		try 
+		{
+			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("LoginView.fxml"));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
+			stage.setScene(scene);
+			stage.show();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			e.getCause();
 		}
 	}
 	

@@ -10,7 +10,12 @@ public class Niveau {
     //private Collection<NivScan> nivScansByIdNiveau;
     //private Collection<Utilisateur> utilisateursByIdNiveau;
 
-
+    public Niveau()
+    {
+    	setIdNiveau(idNiveau);
+    	setNomNiveau(nomNiveau);
+    }
+    
     public int getIdNiveau() {
         return idNiveau;
     }
