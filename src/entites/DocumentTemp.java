@@ -40,10 +40,7 @@ public class DocumentTemp {
 
 	        DocumentTemp that = (DocumentTemp) o;
 
-	        if (idDocumentTemp != that.idDocumentTemp) return false;
-	        if (nomDocumentTemp != null ? !nomDocumentTemp.equals(that.nomDocumentTemp) : that.nomDocumentTemp != null)
-	            return false;
-	        if (dateDocumentTemp != null ? !dateDocumentTemp.equals(that.dateDocumentTemp) : that.dateDocumentTemp != null)
+	        if ((idDocumentTemp != that.idDocumentTemp) || (nomDocumentTemp != null ? !nomDocumentTemp.equals(that.nomDocumentTemp) : that.nomDocumentTemp != null) || (dateDocumentTemp != null ? !dateDocumentTemp.equals(that.dateDocumentTemp) : that.dateDocumentTemp != null))
 	            return false;
 
 	        return true;

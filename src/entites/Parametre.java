@@ -1,7 +1,7 @@
 package entites;
 
 public class Parametre {
-	
+
 	private int idParametre;
     private String pathStock;
     private String pathBackup;
@@ -37,9 +37,7 @@ public class Parametre {
 
         Parametre parametre = (Parametre) o;
 
-        if (idParametre != parametre.idParametre) return false;
-        if (pathStock != null ? !pathStock.equals(parametre.pathStock) : parametre.pathStock != null) return false;
-        if (pathBackup != null ? !pathBackup.equals(parametre.pathBackup) : parametre.pathBackup != null) return false;
+        if ((idParametre != parametre.idParametre) || (pathStock != null ? !pathStock.equals(parametre.pathStock) : parametre.pathStock != null) || (pathBackup != null ? !pathBackup.equals(parametre.pathBackup) : parametre.pathBackup != null)) return false;
 
         return true;
     }

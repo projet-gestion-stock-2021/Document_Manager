@@ -1,6 +1,13 @@
-package entites;
+package application2;
 
 public class Utilisateur {
+
+	@Override
+	public String toString() {
+		return "Utilisateur [idUtilisateur=" + idUtilisateur + ", nom=" + nom + ", prenom=" + prenom + ", login="
+				+ login + ", mdp=" + mdp + "]";
+	}
+
 
 	private int idUtilisateur;
     private String nom;
@@ -15,17 +22,25 @@ public class Utilisateur {
 		this.login = login;
 		this.mdp = mdp;
 	}
-
-	private Byte flagUtilisateur;
-    private String niveau;
-
-    public String getNiveau() {
-		return niveau;
+    public Utilisateur(String nom, String prenom, String login, String mdp) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.login = login;
+		this.mdp = mdp;
+	}
+	
+	  public Utilisateur() {
+		
 	}
 
-	public void setNiveau(String niveau) {
-		this.niveau = niveau;
-	}
+
+	private Byte flagUtilisateur; private String niveau;
+	  
+	  public String getNiveau() { return niveau; }
+	  
+	  public void setNiveau(String niveau) { this.niveau = niveau; }
+	 
 
 	public int getIdUtilisateur() {
         return idUtilisateur;
@@ -69,29 +84,30 @@ public class Utilisateur {
     }
 
 
-    public Byte getFlagUtilisateur() {
-        return flagUtilisateur;
-    }
-
-    public void setFlagUtilisateur(Byte flagUtilisateur) {
-        this.flagUtilisateur = flagUtilisateur;
-    }
+	
+	  public Byte getFlagUtilisateur() { return flagUtilisateur; }
+	  
+	  public void setFlagUtilisateur(Byte flagUtilisateur) { this.flagUtilisateur =
+	  flagUtilisateur; }
+	 
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Utilisateur that = (Utilisateur) o;
-
-        if ((idUtilisateur != that.idUtilisateur) || (nom != null ? !nom.equals(that.nom) : that.nom != null) || (prenom != null ? !prenom.equals(that.prenom) : that.prenom != null)
-				|| (login != null ? !login.equals(that.login) : that.login != null)) return false;
-        if (mdp != null ? !mdp.equals(that.mdp) : that.mdp != null) return false;
-        if (flagUtilisateur != null ? !flagUtilisateur.equals(that.flagUtilisateur) : that.flagUtilisateur != null)
-            return false;
-
-        return true;
-    }
+	
+	  public boolean equals(Object o) { if (this == o) return true; if (o == null
+	  || getClass() != o.getClass()) return false;
+	  
+	  Utilisateur that = (Utilisateur) o;
+	  
+	  if ((idUtilisateur != that.idUtilisateur) || (nom != null ?
+	  !nom.equals(that.nom) : that.nom != null) || (prenom != null ?
+	  !prenom.equals(that.prenom) : that.prenom != null) || (login != null ?
+	  !login.equals(that.login) : that.login != null)) return false; if (mdp !=
+	  null ? !mdp.equals(that.mdp) : that.mdp != null) return false; if
+	  (flagUtilisateur != null ? !flagUtilisateur.equals(that.flagUtilisateur) :
+	  that.flagUtilisateur != null) return false;
+	  
+	  return true; }
+	 
 
     @Override
     public int hashCode() {

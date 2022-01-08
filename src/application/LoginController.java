@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import application.SignInController;
@@ -37,58 +38,57 @@ public class LoginController
 	@FXML
 	private ImageView lockImageView;
 
-	
-	
-	public void identifiantButtonOnAction (ActionEvent event) 
+
+
+	public void identifiantButtonOnAction (ActionEvent event)
 	{
-		
-		
-		if(identifiantTextField.getText().isBlank() == false && mdpTextField.getText().isBlank() == false)  
+
+
+		if(!identifiantTextField.getText().isBlank() && !mdpTextField.getText().isBlank())
 		{
 			validationIdent();
-		} 
-		else 
+		}
+		else
 		{
 			donneeInvalideLabel.setText("Entrez votre MDP et identifiant");
 		}
-		
+
 	}
-	
-	public void cancelButtonOnAction(ActionEvent event) 
+
+	public void cancelButtonOnAction(ActionEvent event)
 	{
 		Stage stage = (Stage) annulerButton.getScene().getWindow();
-		stage.close(); 
+		stage.close();
 	}
-	
-	public void validationIdent() 
+
+	public void validationIdent()
 	{
 //		DatabaseConnection connectNow = new DatabaseConnection();
 //		Connection connectDb = connectNow.getConnection();
-		
+
 		Connection connectDb = DatabaseConnection.getInstance().getConnection();
-		
+
 		//String query = "select count(1) from client where nomClient = '" + mdpTextField.getText().trim() + "' and prenom = '" + identifiantTextField.getText().trim() + "' ";
 		String query = "{CALL user_identification(?,?)}";
-		
-		try 
+
+		try
 		{
-			
+
 			//Statement statement = connectDb.createStatement();
 			CallableStatement stmt = connectDb.prepareCall(query);
 			stmt.setString(1, identifiantTextField.getText().trim());
 			stmt.setString(2, mdpTextField.getText().trim());
-			
+
 			ResultSet queryResult = stmt.executeQuery();
-					
-			while(queryResult.next()) 
+
+			while(queryResult.next())
 			{
-				if (queryResult.getInt(1)== 1) 
+				if (queryResult.getInt(1)== 1)
 				{
 					donneeInvalideLabel.setText("congrats");
 					creerCompte();
-					templateWindow();
 				}
-				else 
+				else
 				{
 					donneeInvalideLabel.setText("Mauvaise identification");
 				}
