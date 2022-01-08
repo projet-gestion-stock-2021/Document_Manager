@@ -96,7 +96,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="annuler" cancelButton="true" mnemonicParsing="false" text="Annuler">
+                  <Button fx:id="annuler" cancelButton="true" mnemonicParsing="false" onAction="#cancel" text="Annuler">
                      <font>
                         <Font size="20.0" />
                      </font>
