@@ -1,17 +1,30 @@
 package entites;
 
+import java.util.*;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 public class Document {
 	
 	private int idDocument;
     private String nomDocument;
-    private Timestamp dateDocument;
+    private Date dateDocument;
     private Timestamp dateScan;
-    private Byte flagDocument;
+    private Boolean flagDocument;
+    
+    
 
 
-    public int getIdDocument() {
+    public Document(int idDocument, String nomDocument, Date dateDocument, Timestamp dateScan, Boolean flagDocument) {
+		super();
+		this.idDocument = idDocument;
+		this.nomDocument = nomDocument;
+		this.dateDocument = dateDocument;
+		this.dateScan = dateScan;
+		this.flagDocument = flagDocument;
+	}
+
+	public int getIdDocument() {
         return idDocument;
     }
 
@@ -28,11 +41,11 @@ public class Document {
     }
 
 
-    public Timestamp getDateDocument() {
+    public Date getDateDocument() {
         return dateDocument;
     }
 
-    public void setDateDocument(Timestamp dateDocument) {
+    public void setDateDocument(Date dateDocument) {
         this.dateDocument = dateDocument;
     }
 
@@ -45,11 +58,11 @@ public class Document {
         this.dateScan = dateScan;
     }
 
-    public Byte getFlagDocument() {
+    public Boolean getFlagDocument() {
         return flagDocument;
     }
 
-    public void setFlagDocument(Byte flagDocument) {
+    public void setFlagDocument(Boolean flagDocument) {
         this.flagDocument = flagDocument;
     }
 
