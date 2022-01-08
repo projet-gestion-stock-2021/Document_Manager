@@ -10,25 +10,25 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InterfaceCreationController">
    <children>
-      <Button layoutX="66.0" layoutY="396.0" mnemonicParsing="false" text="Valider" />
+      <Button fx:id="btnValider" layoutX="66.0" layoutY="396.0" mnemonicParsing="false" onAction="#valider" text="Valider" />
       <Button fx:id="annulerButton" layoutX="215.0" layoutY="396.0" mnemonicParsing="false" onAction="#switchDashboard" text="Annuler" />
-      <DatePicker layoutX="66.0" layoutY="121.0" />
       <ImageView fitHeight="302.0" fitWidth="234.0" layoutX="426.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true" />
-      <ChoiceBox layoutX="66.0" layoutY="172.0" prefWidth="150.0" />
-      <ChoiceBox layoutX="66.0" layoutY="223.0" prefWidth="150.0" />
-      <ChoiceBox layoutX="66.0" layoutY="278.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="tag1" layoutX="66.0" layoutY="172.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="tag2" layoutX="66.0" layoutY="223.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="tag3" layoutX="66.0" layoutY="278.0" prefWidth="150.0" />
       <Label layoutX="66.0" layoutY="103.0" text="Date Création" />
       <Label layoutX="66.0" layoutY="155.0" text="TAG 1" />
       <Label layoutX="66.0" layoutY="263.0" text="TAG 3" />
       <Label layoutX="66.0" layoutY="206.0" text="TAG 2" />
-      <TextField layoutX="154.0" layoutY="62.0" />
-      <TextField layoutX="241.0" layoutY="172.0" />
-      <TextField layoutX="242.0" layoutY="223.0" />
+      <TextField fx:id="nomDoc" layoutX="154.0" layoutY="62.0" />
+      <TextField fx:id="tagPerso1" layoutX="241.0" layoutY="172.0" />
+      <TextField fx:id="tagPerso2" layoutX="242.0" layoutY="223.0" />
       <Label layoutX="186.0" layoutY="44.0" text="Nom Document" />
       <Label layoutX="241.0" layoutY="155.0" text="TAG Perso 1" />
       <Label layoutX="242.0" layoutY="206.0" prefHeight="18.0" prefWidth="74.0" text="TAG Perso 2" />
       <Label layoutX="489.0" layoutY="103.0" text="Appercu du document" />
-      <TextField layoutX="426.0" layoutY="49.0" />
       <Label layoutX="426.0" layoutY="36.0" text="Recherche" />
+      <Button fx:id="btnRecherche" layoutX="426.0" layoutY="62.0" mnemonicParsing="false" onAction="#rechercher" text="Recherche" />
+      <DatePicker fx:id="dateC" layoutX="54.0" layoutY="125.0" />
    </children>
 </AnchorPane>
