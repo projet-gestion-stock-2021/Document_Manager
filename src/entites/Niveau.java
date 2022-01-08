@@ -12,8 +12,13 @@ public class Niveau {
 
     public Niveau()
     {
-    	setIdNiveau(idNiveau);
-    	setNomNiveau(nomNiveau);
+    	
+    }
+    
+    public Niveau(int id, String nom)
+    {
+    	setIdNiveau(id);
+    	setNomNiveau(nom);
     }
     
     public int getIdNiveau() {
@@ -51,6 +56,17 @@ public class Niveau {
         int result = idNiveau;
         result = 31 * result + (nomNiveau != null ? nomNiveau.hashCode() : 0);
         return result;
+    }
+    
+    @Override
+    public String toString() {
+       return this.getNomNiveau();
+    }
+    
+  
+    public int toInt()
+    {
+    	return this.getIdNiveau();
     }
 
 

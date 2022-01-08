@@ -14,6 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import application.SignInController;
@@ -85,6 +86,7 @@ public class LoginController
 				{
 					donneeInvalideLabel.setText("congrats");
 					creerCompte();
+					templateWindow();
 				}
 				else 
 				{
@@ -102,6 +104,28 @@ public class LoginController
 		
 	}
 	
+	/**
+	 * TEST window dashboard, replacement for Dashboard.fxml ???!!!
+	 */
+	private void templateWindow() {
+		// TODO Auto-generated method stub
+		try 
+		{
+			//MUST RENAME THE VARIABLES!!!!
+			VBox root = (VBox) FXMLLoader.load(getClass().getResource("template.fxml"));
+			Stage individuStage = new Stage();
+			
+			individuStage.setScene(new Scene(root));
+			individuStage.show();
+			cancelButtonOnAction(null);
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			e.getCause();
+		}
+	}
+
 	public void creerCompte () 
 	{
 		try 
@@ -109,7 +133,7 @@ public class LoginController
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
 			Stage individuStage = new Stage();
 			
-			individuStage.setScene(new Scene(root,778,605));
+			individuStage.setScene(new Scene(root));
 			individuStage.show();
 			cancelButtonOnAction(null);
 		} 
@@ -129,7 +153,6 @@ public void signIn ()
 		
 		signIn.setScene(new Scene(root));
 		signIn.show();
-		SignInController.populateCombobox();
 		cancelButtonOnAction(null);
 	} 
 	catch (Exception e) 

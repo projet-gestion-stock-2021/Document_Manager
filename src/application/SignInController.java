@@ -5,24 +5,34 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.control.ComboBox;
 
+import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import entites.Niveau;
 
-public class SignInController 
+/**
+ * Controller of the signIn Window. The main purpose of this Controller is to create a new user.
+ * 
+ * @author Neil
+ *
+ */
+public class SignInController implements Initializable
 {
 	@FXML
 	private Button annuler;
@@ -37,55 +47,19 @@ public class SignInController
 	@FXML
 	private PasswordField mdp;
 	@FXML
-	private static ComboBox<Niveau> niveau;
+	private ComboBox<Niveau> niveau;
 	
-	public static void populateCombobox()
-	{
-		ObservableList<Niveau> listNiveau = FXCollections.observableArrayList();
-		
-		Connection connectDb = DatabaseConnection.getInstance().getConnection();
-		
-		String query = "{CALL select_niveau()}";
-		
-		niveau = new ComboBox<Niveau>();
-		
-		try 
-		{
-			
-			//Statement statement = connectDb.createStatement();
-			CallableStatement stmt = connectDb.prepareCall(query);
-			
-			ResultSet queryResult = stmt.executeQuery();
-			
-			Niveau temp = new Niveau();
-					
-			while(queryResult.next()) 
-			{
-				temp.setIdNiveau(queryResult.getInt("Id_Niveau"));
-				temp.setNomNiveau(queryResult.getString("Nom_Niveau"));
-				listNiveau.add(temp);
-				//La liste se rempli bien
-				//System.out.println("\n"+ listNiveau.get(temp.getIdNiveau()-1).getNomNiveau());
-				niveau.getItems().add(temp);
-				
-			}
-				
-		} 
-		catch(Exception e)
-		{
-			
-			System.out.println("\nProblem PopulateCombobox\n");
-			e.printStackTrace();
-			e.getCause(); 
-		}
-		//niveau.setItems(listNiveau);
-	}
-	
+	/**
+	 * On validation, when the button is clicked, it "takes" all the data in the textFields and ComboBox
+	 * and put them in a callableStatement to insert a user in the database.
+	 * @param event
+	 */
 	public void validate(ActionEvent event)
 	{	
 		Connection connectDb = DatabaseConnection.getInstance().getConnection();
 		
 		String query = "{CALL insert_utilisateur(?,?,?,?,?)}";
+		
 		
 		try 
 		{
@@ -94,8 +68,12 @@ public class SignInController
 			stmt.setString(2, prenom.getText().trim());
 			stmt.setString(3, login.getText().trim());
 			stmt.setString(4, mdp.getText());
-			stmt.setInt(5, 1);
-			//stmt.setInt(5, niveau.getValue().getIdNiveau());
+			//stmt.setInt(5, 1);
+			//Niveau temp = (Niveau) niveau.getValue();
+//			Niveau temp = new Niveau();
+//			temp = niveau.getSelectionModel().getSelectedItem().getIdNiveau();
+//			System.out.println("ID: " +temp.getIdNiveau()+"/n");
+			stmt.setInt(5, (int) niveau.getSelectionModel().getSelectedItem().getIdNiveau());
 			
 			stmt.execute(); 
 			System.out.print("uploaded successfully\n");
@@ -110,6 +88,10 @@ public class SignInController
 		}
 	}
 	
+	/**
+	 * When the cancel button is clicked, the window "signIn.fxml" closes and "LoginView.fxml" opens back.
+	 * @param event
+	 */
 	public void cancel(ActionEvent event) 
 	{
 		Stage stage = (Stage) annuler.getScene().getWindow();
@@ -129,6 +111,58 @@ public class SignInController
 			e.printStackTrace();
 			e.getCause();
 		}
+	}
+
+	/**
+	 * Initialize the ComboBox containing the "level names" of the user.
+	 * It makes a call to the database and fill the ComboBox with data from the "niveau" table and fill the Niveau() class objects. 
+	 */
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) 
+	{
+		// TODO Auto-generated method stub
+		ObservableList<Niveau> listNiveau = FXCollections.observableArrayList();
+		
+		Connection connectDb = DatabaseConnection.getInstance().getConnection();
+		
+		String query = "{CALL select_niveau()}";
+	
+		
+		try 
+		{
+			
+			//Statement statement = connectDb.createStatement();
+			CallableStatement stmt = connectDb.prepareCall(query);
+			
+			ResultSet queryResult = stmt.executeQuery();
+			
+			
+			
+			//int i =0;
+					
+			while(queryResult.next()) 
+			{
+				Niveau temp = new Niveau();
+				temp.setIdNiveau(queryResult.getInt("Id_Niveau")) ;
+				temp.setNomNiveau(queryResult.getString("Nom_Niveau"));
+				listNiveau.add(temp);
+				//La liste se rempli bien
+				//System.out.println("\n"+ listNiveau.get(i).getNomNiveau());
+				//i++;
+			}
+				
+		} 
+		catch(Exception e)
+		{
+			
+			System.out.println("\nProblem PopulateCombobox\n");
+			e.printStackTrace();
+			e.getCause(); 
+		}
+		
+		niveau.getItems().addAll(listNiveau);
+		
+		
 	}
 	
 }
