@@ -14,6 +14,8 @@ import ctrlEntites.CtrlDossier;
 import ctrlEntites.CtrlTypeDoc;
 import ctrlEntites.CtrlTypeDossier;
 import entites.Document;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,7 +40,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+
+import application.DiskFileExplorer;
 
 public class InterfaceCreationController implements Initializable{
 	
@@ -57,9 +62,7 @@ public class InterfaceCreationController implements Initializable{
 	@FXML
 	private TextArea textarea;
 	@FXML
-	private Label labelTest;
-	@FXML
-	private Button annulerButton;
+	private Label labelPath;
 	@FXML
 	private TextField nomDoc;
 	@FXML
@@ -74,9 +77,158 @@ public class InterfaceCreationController implements Initializable{
 	private ChoiceBox tag3;
     @FXML
 	private DatePicker dateC;
+    @FXML
+    private CheckBox recursiveCheckBox;
+   
+    @FXML
+    private Label nbfiles;
+    @FXML
+    private Label nbfolders;
+//    @FXML
+//    private Button clearList;
     
+    @FXML
+    private ListView listViewAffiche;
+    
+    private File selectedDirectory;
+    public int filecount = 0;
+    public int dircount = 0;
+    
+    /**
+     * Gets the directory path in a File object.
+     * @param event
+     */
+	@FXML
+	private void handleDirectory(ActionEvent event) 
+	{
+		//reset list and counts
+		clearListView();
+		dircount = 0;
+		filecount = 0;
+		
+	    DirectoryChooser directoryChooser = new DirectoryChooser();
+	    selectedDirectory = directoryChooser.showDialog(null);
+	    
+	    if (selectedDirectory == null) 
+	    {
+	    	nomDoc.setText("No Directory selected");
+	    }
+	    else 
+	    {
+	    	nomDoc.setText(selectedDirectory.getAbsolutePath());
+	    	showListFiles(selectedDirectory);
+	    }
+	    
+	}
 	
-	public void valider() {
+	@FXML
+	private void checkBoxSetOnAction()
+	{
+		clearListView();
+		dircount = 0;
+		filecount = 0;
+		showListFiles(selectedDirectory);
+		
+	}
+	
+	/**
+	 * Show list of all files in a directory, recursively or not
+	 * @param directoryPath
+	 */
+	@FXML //lier avec la checkbox?
+	private void showListFiles(File directoryPath)
+	{
+		
+		if (directoryPath != null) 
+    		{
+				File[] files = directoryPath.listFiles();
+				
+				for(int i = 0; i < files.length; i++)
+				{
+					if (files[i].isDirectory() == true) 
+					{
+						listViewAffiche.getItems().add(files[i].getName());
+	                    System.out.println("Dossier: " + files[i].getAbsolutePath());
+	                    this.dircount++;
+	                } 
+					else 
+	                {
+						listViewAffiche.getItems().add(files[i].getName());
+	                    System.out.println("  Fichier: " + files[i].getName());
+	                    this.filecount++;
+	                }
+	                if (files[i].isDirectory() == true && recursiveCheckBox.isSelected() == true) 
+	                {
+	                	showListFiles(files[i]);
+	                }
+			
+				}
+    			
+    			//labelPath.setText(selectedFile.getName());
+
+    		}
+    		else 
+    		{
+    			labelPath.setText("Le dossier n'est pas valide");
+    		}
+		nbfiles.setText("Number of files: "+ filecount);
+		nbfolders.setText("Number of folders: "+ dircount);
+	}
+	
+	@FXML
+	private void clearListView()
+	{
+		listViewAffiche.getItems().clear();
+	}
+	
+	
+    public void browserRechercheOnAction() 
+    {
+    	try 
+    	{
+//    		FileChooser fileChooser = new FileChooser();
+//    		fileChooser.setTitle("Ouvrir un document");
+//    		fileChooser.getExtensionFilters().addAll(
+//    				new ExtensionFilter("All Files", "."),
+//    				new ExtensionFilter("Text Files", ".txt"),
+//    				new ExtensionFilter("Image Files", ".png", ".jpg", ".gif"),
+//    				new ExtensionFilter("Audio Files", ".wav", ".mp3", "*.aac"));
+//    		File selectedFile = fileChooser.showOpenDialog(null);
+//    		
+//    		if (selectedFile != null) 
+//    		{
+//    			Desktop desktop = Desktop.getDesktop();
+//    			desktop.open(selectedFile);
+//    			listViewAffiche.getItems().add(selectedFile.getPath());
+//    			labelPath.setText(selectedFile.getName());
+//
+//    		}
+    		
+
+//    		if (selectedFile != null) 
+//    		{
+//    			Desktop desktop = Desktop.getDesktop();
+//    			desktop.open(selectedFile);
+//    			listViewAffiche.getItems().add(selectedFile.getPath());
+//    			labelPath.setText(selectedFile.getName());
+//
+//    		}
+//    		else 
+//    		{
+//    			labelPath.setText("Le fichier n'est pas valide");
+//    		}
+
+    	} 
+    	catch (Exception e)
+    	{
+    		e.printStackTrace();
+    		e.getCause();
+    	}
+    }
+
+	
+	public void valider() 
+	{
 		int idDocument = ctrlDoc.getIdCourant() + 1;
 		ctrlDoc.setIdCourant(idDocument);
 	    String nomDocument = nomDoc.getText();
@@ -86,6 +238,7 @@ public class InterfaceCreationController implements Initializable{
 	    Boolean flagDocument = false;
 		
 		ctrlDoc.getListeDoc().add(new Document(idDocument,nomDocument,dateDoc,null,flagDocument));
+		
 		for(Document doc: ctrlDoc.getListeDoc())
 		{
 			System.out.println("Nom : " + doc.getNomDocument() +  "\n Date : " + doc.getDateDocument() + "\n ----------------" );
@@ -102,7 +255,7 @@ public class InterfaceCreationController implements Initializable{
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
 			Stage individuStage = new Stage();
 
-			individuStage.setScene(new Scene(root, 778, 605));
+			individuStage.setScene(new Scene(root));
 			individuStage.show();
 			Stage stage = (Stage) annulerButton.getScene().getWindow();
 			stage.close();
@@ -121,9 +274,10 @@ public class InterfaceCreationController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 				file.setInitialDirectory(
-				new File("C:\\Users\\Meriem\\Dropbox\\Mon PC (DESKTOP-29Q3FOJ)\\Desktop\\Nouveau dossier"));
+				new File("./"));
 		
-		try {
+		try 
+		{
 			ctrlDoc.charger();
 			ctrlDossier.charger();
 			ctrlTypeDoc.charger();
@@ -164,22 +318,29 @@ public class InterfaceCreationController implements Initializable{
 
 	}
 
-	public void save(MouseEvent event) {
+	public void save(MouseEvent event) 
+	{
 
 		File file1 = file.showSaveDialog(new Stage());
-		if (file1 != null) {
+		
+		if (file1 != null) 
+		{
 			saveSystem(file1, textarea.getText());
 
 		}
 	}
 
 
-	public void saveSystem(File file, String content) {
-		try {
+	public void saveSystem(File file, String content) 
+	{
+		try 
+		{
 			PrintWriter printWriter = new PrintWriter(file);
 			printWriter.write(content);
 			printWriter.close();
-		} catch (FileNotFoundException e) {
+		} 
+		catch (FileNotFoundException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

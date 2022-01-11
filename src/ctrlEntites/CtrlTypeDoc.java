@@ -30,7 +30,7 @@ public class CtrlTypeDoc{
 	}
 
 	public void charger() throws SQLException {
-		CallableStatement fctCall = connexion.prepareCall("{call select_type_doc()}"); 
+		CallableStatement fctCall = connexion.prepareCall("{call select_type_de_document()}"); 
 		ResultSet resultatRequete = fctCall.executeQuery();
 		
 		while(resultatRequete.next())

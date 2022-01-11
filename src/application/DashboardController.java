@@ -18,7 +18,7 @@ public class DashboardController {
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("InterfaceCreation.fxml"));
 			Stage individuStage = new Stage();
 			
-			individuStage.setScene(new Scene(root,778,605));
+			individuStage.setScene(new Scene(root));
 			individuStage.show();
 			Stage stage = (Stage) creationDocumentButton.getScene().getWindow();
 			stage.close();
@@ -32,7 +32,7 @@ public class DashboardController {
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("InterfaceRecherche.fxml"));
 			Stage individuStage = new Stage();
 			
-			individuStage.setScene(new Scene(root,778,605));
+			individuStage.setScene(new Scene(root));
 			individuStage.show();
 			Stage stage = (Stage) rechercheDocumentButton.getScene().getWindow();
 			stage.close();

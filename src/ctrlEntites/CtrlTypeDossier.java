@@ -31,14 +31,14 @@ public class CtrlTypeDossier{
 	}
 	
 	public void charger() throws SQLException {
-		CallableStatement fctCall = connexion.prepareCall("{call select_dossier()}"); 
+		CallableStatement fctCall = connexion.prepareCall("{call select_type_dossier()}"); 
 		ResultSet resultatRequete = fctCall.executeQuery();
 		
 		while(resultatRequete.next())
 		{
-			 if(!resultatRequete.getBoolean("Flag_dossier"))
+			 if(!resultatRequete.getBoolean("Flag_type_dossier"))
 			 {
-				 listeDossier.add(resultatRequete.getString("Nom_dossier"));
+				 listeDossier.add(resultatRequete.getString("Nom_type_dossier"));
 			 }		     
 		}
 	}

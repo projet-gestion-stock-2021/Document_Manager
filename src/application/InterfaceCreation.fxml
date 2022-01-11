@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -9,12 +10,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InterfaceCreationController">
+<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="965.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InterfaceCreationController">
    <children>
-      <Button layoutX="40.0" layoutY="443.0" mnemonicParsing="false" text="Valider" />
+      <Button layoutX="40.0" layoutY="443.0" mnemonicParsing="false" onAction="#valider" text="Valider" />
       <Button fx:id="annulerButton" layoutX="99.0" layoutY="443.0" mnemonicParsing="false" onAction="#switchDashboard" text="Annuler" />
       <DatePicker layoutX="66.0" layoutY="121.0" />
-      <ImageView fitHeight="302.0" fitWidth="234.0" layoutX="426.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true" />
       <ChoiceBox fx:id="tag1" layoutX="66.0" layoutY="172.0" prefWidth="150.0" />
       <ChoiceBox fx:id="tag2" layoutX="66.0" layoutY="223.0" prefWidth="150.0" />
       <ChoiceBox fx:id="tag3" layoutX="66.0" layoutY="278.0" prefWidth="150.0" />
@@ -22,20 +22,23 @@
       <Label layoutX="66.0" layoutY="155.0" text="TAG 1" />
       <Label layoutX="66.0" layoutY="263.0" text="TAG 3" />
       <Label layoutX="66.0" layoutY="206.0" text="TAG 2" />
-      <TextField fx:id="nomDoc" layoutX="67.0" layoutY="62.0" />
-      <TextField fx:id="tagPerso1" layoutX="241.0" layoutY="172.0" />
-      <TextField fx:id="tagPerso2" layoutX="242.0" layoutY="223.0" />
-      <Label layoutX="67.0" layoutY="36.0" text="Nom Document" />
-      <Label layoutX="241.0" layoutY="155.0" text="TAG Perso 1" />
-      <Label layoutX="242.0" layoutY="206.0" prefHeight="18.0" prefWidth="74.0" text="TAG Perso 2" />
-      <Label fx:id="labelPath" layoutX="489.0" layoutY="103.0" text="Appercu du document" />
-      <Label layoutX="445.0" layoutY="36.0" text="Recherche" />
-      <Button fx:id="btnRecherche" layoutX="343.0" layoutY="62.0" mnemonicParsing="false" onAction="#rechercher" text="Recherche" />
-      <TextField fx:id="txtrecherche" layoutX="445.0" layoutY="62.0" />
-      <Button fx:id="bnt_browser" layoutX="229.0" layoutY="62.0" mnemonicParsing="false" onAction="#browserRechercheOnAction" text="Browser" />
-      <Label fx:id="labelTest" layoutX="430.0" layoutY="14.0" prefHeight="17.0" prefWidth="119.0" />
-      <TextArea fx:id="textarea" layoutX="467.0" layoutY="148.0" prefHeight="295.0" prefWidth="233.0" />
+      <TextField fx:id="nomDoc" layoutX="530.0" layoutY="81.0" prefHeight="25.0" prefWidth="333.0" />
+      <TextField fx:id="tagPerso1" layoutX="66.0" layoutY="338.0" />
+      <TextField fx:id="tagPerso2" layoutX="67.0" layoutY="389.0" />
+      <Label layoutX="279.0" layoutY="85.0" text="Nom Document" />
+      <Label layoutX="66.0" layoutY="321.0" text="TAG Perso 1" />
+      <Label layoutX="67.0" layoutY="372.0" prefHeight="18.0" prefWidth="74.0" text="TAG Perso 2" />
+      <Label fx:id="labelPath" layoutX="262.0" layoutY="459.0" text="Appercu du document" />
+      <Button fx:id="btnRecherche" layoutX="701.0" layoutY="443.0" mnemonicParsing="false" onAction="#rechercher" text="Recherche" />
+      <TextField fx:id="txtrecherche" layoutX="781.0" layoutY="443.0" />
+      <Button fx:id="bnt_browser" layoutX="871.0" layoutY="81.0" mnemonicParsing="false" onAction="#handleDirectory" text="Browser" />
+      <Label fx:id="labelPath" layoutX="677.0" layoutY="53.0" prefHeight="17.0" prefWidth="250.0" />
+      <TextArea fx:id="textarea" layoutX="262.0" layoutY="480.0" prefHeight="141.0" prefWidth="663.0" />
       <Button fx:id="btnsave" layoutX="169.0" layoutY="443.0" mnemonicParsing="false" onMouseClicked="#save" text="Save" />
-      <ListView fx:id="listViewAffiche" layoutX="243.0" layoutY="263.0" prefHeight="178.0" prefWidth="200.0" />
+      <ListView fx:id="listViewAffiche" layoutX="268.0" layoutY="119.0" prefHeight="322.0" prefWidth="663.0" />
+      <CheckBox fx:id="recursiveCheckBox" layoutX="530.0" layoutY="53.0" mnemonicParsing="false" onAction="#checkBoxSetOnAction" text="Recherche Recursive?" />
+      <Button fx:id="clearList" layoutX="542.0" layoutY="443.0" mnemonicParsing="false" onAction="#clearListView" text="Clear" />
+      <Label fx:id="nbfiles" layoutX="52.0" layoutY="502.0" prefHeight="17.0" prefWidth="191.0" text="nbfiles" />
+      <Label fx:id="nbfolders" layoutX="52.0" layoutY="533.0" prefHeight="17.0" prefWidth="191.0" text="nbfolders" />
    </children>
 </AnchorPane>

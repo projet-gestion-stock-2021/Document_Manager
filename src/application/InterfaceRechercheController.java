@@ -15,7 +15,7 @@ public class InterfaceRechercheController {
 		try {
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
 			Stage individuStage = new Stage();
-			individuStage.setScene(new Scene(root,778,605));
+			individuStage.setScene(new Scene(root));
 			individuStage.show();
 			Stage stage = (Stage) annulerButton.getScene().getWindow();
 			stage.close();
@@ -28,7 +28,7 @@ public class InterfaceRechercheController {
 		try {
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("InterfaceCreation.fxml"));
 			Stage individuStage = new Stage();
-			individuStage.setScene(new Scene(root,778,605));
+			individuStage.setScene(new Scene(root));
 			individuStage.show();
 			Stage stage = (Stage) switchSceneButton.getScene().getWindow();
 			stage.close();

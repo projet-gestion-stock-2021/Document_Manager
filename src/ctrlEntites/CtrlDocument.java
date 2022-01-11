@@ -29,7 +29,7 @@ public class CtrlDocument{
 
 	public void charger() throws SQLException {
 		
-		CallableStatement fctCall = connexion.prepareCall("{call select_doc()}"); 
+		CallableStatement fctCall = connexion.prepareCall("{call select_document()}"); 
 		ResultSet resultatRequete = fctCall.executeQuery();
 		
 		while(resultatRequete.next())
