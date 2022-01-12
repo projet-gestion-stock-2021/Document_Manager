@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InterfaceRechercheController">
+<AnchorPane stylesheets="@application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InterfaceRechercheController">
    <children>
       <AnchorPane layoutX="-1.0" prefHeight="634.0" prefWidth="830.0">
          <children>
