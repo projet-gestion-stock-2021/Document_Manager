@@ -68,12 +68,12 @@ public class SignInController implements Initializable
 			stmt.setString(2, prenom.getText().trim());
 			stmt.setString(3, login.getText().trim());
 			stmt.setString(4, mdp.getText());
-			//stmt.setInt(5, 1);
+			stmt.setInt(5, 1);
 			//Niveau temp = (Niveau) niveau.getValue();
 //			Niveau temp = new Niveau();
 //			temp = niveau.getSelectionModel().getSelectedItem().getIdNiveau();
 //			System.out.println("ID: " +temp.getIdNiveau()+"/n");
-			stmt.setInt(5, (int) niveau.getSelectionModel().getSelectedItem().getIdNiveau());
+			//stmt.setInt(5, (int) niveau.getSelectionModel().getSelectedItem().getIdNiveau());
 			
 			stmt.execute(); 
 			System.out.print("uploaded successfully\n");

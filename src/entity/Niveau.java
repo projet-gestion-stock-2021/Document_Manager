@@ -9,6 +9,13 @@ public class Niveau {
     private String nomNiveau;
     private Collection<NivScan> nivScansByIdNiveau;
     private Collection<Utilisateur> utilisateursByIdNiveau;
+    
+    @Override
+    public String toString()
+    {
+		return this.getNomNiveau();
+    	
+    }
 
     @Id
     @Column(name = "Id_Niveau")
