@@ -14,34 +14,33 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 
-import entity.TypeDossier;
+import entity.Reference;
 
-public class CtrlTypeDossier{
+public class CtrlReference{
 	
-	private ObservableList<TypeDossier> listeDossier = FXCollections.observableArrayList();
+	private ObservableList<Reference> listeReference = FXCollections.observableArrayList();
 	private Connection connexion = DatabaseConnection.getInstance().getConnection();
 	
 
-	public ObservableList<TypeDossier> getListeDossier() {
-		return listeDossier;
+	public ObservableList<Reference> getListeDossier() {
+		return listeReference;
 	}
 
 
 
-	public void setListeDossier(ObservableList<TypeDossier> listeDossier) {
-		this.listeDossier = listeDossier;
+	public void setListeDossier(ObservableList<Reference> listeReference) {
+		this.listeReference = listeReference;
 	}
 	
 	public void charger() throws SQLException {
-		CallableStatement fctCall = connexion.prepareCall("{call select_type_dossier()}"); 
+		CallableStatement fctCall = connexion.prepareCall("{call select_reference()}"); 
 		ResultSet resultatRequete = fctCall.executeQuery();
 		
 		while(resultatRequete.next())
 		{
-			 if(!resultatRequete.getBoolean("Flag_type_dossier"))
-			 {
-				 listeDossier.add(new TypeDossier(resultatRequete));
-			 }		     
+
+				 listeReference.add(new Reference(resultatRequete));
+			
 		}
 	}
 

@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
 
-import entites.Document;
+import entity.Document;
 import javafx.fxml.Initializable;
 import application.DatabaseConnection;
 
@@ -40,7 +40,7 @@ public class CtrlDocument{
 		     Timestamp dateScan = resultatRequete.getTimestamp("DateScan");
 		     Boolean flagDocument = resultatRequete.getBoolean("Flag_document");
 		     
-		     listeDoc.add(new Document(idDocument,nomDocument,dateDocument,dateScan,flagDocument));
+		     //listeDoc.add(new Document(idDocument,nomDocument,dateDocument,dateScan,flagDocument));
 		     
 		     if(!resultatRequete.next()) {
 		    	 this.setIdCourant(idDocument);

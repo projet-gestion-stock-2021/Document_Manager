@@ -24,7 +24,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import entites.Niveau;
+import entity.Niveau;
 
 /**
  * Controller of the signIn Window. The main purpose of this Controller is to create a new user.
