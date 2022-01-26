@@ -6,7 +6,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.time.Instant;
@@ -156,8 +158,9 @@ public class InterfaceCreationController implements Initializable
     {
 		Connection connectDb = DatabaseConnection.getInstance().getConnection();
 		
-		String query = "{CALL insert_document(?,?,?,?)}";
+		String query = "{CALL insert_document(?,?,?,?,?)}";
 		
+		int lastID_Doc = 0;
 		
 		try 
 		{
@@ -175,9 +178,14 @@ public class InterfaceCreationController implements Initializable
 			
 			selectedTypeDoc = (TypeDeDocument) tag1.getSelectionModel().getSelectedItem();
 			stmt.setInt(4, selectedTypeDoc.getIdTypeDeDocument());
+			stmt.registerOutParameter(5,Types.INTEGER);
 
 			stmt.execute(); 
+			
+			lastID_Doc = stmt.getInt(5);
+			
 			System.out.print("uploaded doc successfully\n");
+			
 				
 		} 
 		catch(Exception e)
@@ -263,21 +271,25 @@ public class InterfaceCreationController implements Initializable
 		}
 		*/
 		
-		query = "{CALL insert_reference(?)}";
-		
+		query = "{CALL insert_reference(?,?)}";
+		int lastID_Ref1 = 0;
+		//int lastID_Ref2 = 0;
 		
 		try 
 		{
 			CallableStatement stmt = connectDb.prepareCall(query);
 			
 			stmt.setString(1, tagPerso1.getText());
-
+			stmt.registerOutParameter(2,Types.INTEGER);
 			stmt.execute();
 			
 			stmt.setString(1, tagPerso2.getText());
-
-			stmt.execute(); 
-			System.out.print("uploaded tag1 and tag2 successfully\n");
+			stmt.registerOutParameter(2,Types.INTEGER);
+			stmt.execute();
+			
+			lastID_Ref1 = stmt.getInt(2);
+		      
+			System.out.print("uploaded tag1 and tag2 successfully lastID_Ref: " + lastID_Ref1 +"\n");
 				
 		} 
 		catch(Exception e)
@@ -288,21 +300,18 @@ public class InterfaceCreationController implements Initializable
 			e.getCause(); 
 		}
 		
-//		query = "{CALL insert_typer(?,?)}";
-//		
+//		query = "{CALL select_reference(?)}";
+//		int lastIDtag = 0;
 //		
 //		try 
 //		{
 //			CallableStatement stmt = connectDb.prepareCall(query);
 //			
-//			stmt.setInt(1, selected);
+//			lastIDtag = stmt.getInt("");
 //
 //			stmt.execute();
 //			
-//			stmt.setString(1, tagPerso2.getText());
-//
-//			stmt.execute(); 
-//			System.out.print("uploaded tag1 and tag2 successfully\n");
+//			System.out.print("tag2 lastID\n");
 //				
 //		} 
 //		catch(Exception e)
@@ -313,14 +322,54 @@ public class InterfaceCreationController implements Initializable
 //			e.getCause(); 
 //		}
 		
+		
+		query = "{CALL insert_typer(?,?)}";//insert table pivot pour lier le document enregistré et les tags
+		
+		
+		try 
+		{
+			CallableStatement stmt = connectDb.prepareCall(query);
+			
+			//tag2
+			stmt.setInt(2, lastID_Ref1);
+			stmt.setInt(1, lastID_Doc);
+			stmt.execute();
+			
+			//tag1
+			stmt.setInt(2, lastID_Ref1 - 1);
+			stmt.setInt(1, lastID_Doc);
+			stmt.execute();
+			
+			System.out.print("uploaded typer pivot\n");
+				
+		} 
+		catch(Exception e)
+		{
+			
+			System.out.println("\nPROBLEME insert_typer validerOnClicked\n");
+			e.printStackTrace();
+			e.getCause(); 
+		}
+		
 		this.createPathAndCopy();
 		//listDoc.remove(listViewAffiche.getSelectionModel().getSelectedIndex());
 		listViewAffiche.getItems().remove(listViewAffiche.getSelectionModel().getSelectedItem());//OK ça marche
 		listViewAffiche.refresh();
     }
     
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+	public void initialize(URL arg0, ResourceBundle arg1) 
+	{
+		//listener de listview, permet de reprendre le document selectionné
+		listViewAffiche.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Document>() 
+		{
+
+		    @Override
+		    public void changed(ObservableValue<? extends Document> observable, Document oldValue, Document newValue) {
+		        // Your action here
+		    	selectedDoc = (Document) listViewAffiche.getSelectionModel().getSelectedItem();
+		        System.out.println("Selected item: " + newValue);
+		    }
+		});
 				
 		try 
 		{
@@ -348,7 +397,7 @@ public class InterfaceCreationController implements Initializable
     		System.out.println("Desktop is not supported");
     		return;
     	}
-    	selectedDoc = (Document) listViewAffiche.getSelectionModel().getSelectedItem();
+    	//selectedDoc = (Document) listViewAffiche.getSelectionModel().getSelectedItem();
     	Desktop desktop = Desktop.getDesktop();
     	
     	
