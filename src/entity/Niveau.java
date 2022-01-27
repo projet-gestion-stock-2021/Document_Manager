@@ -17,13 +17,6 @@ public class Niveau {
     	
     }
 
-//	@Override
-//	public Niveau fromString(String string) 
-//	{
-//		return niveau.getItems().stream().filter(ap -> 
-//		ap.getNomNiveau().equals(string)).findFirst().orElse(null);
-//	}
-
     @Id
     @Column(name = "Id_Niveau")
     public int getIdNiveau() {

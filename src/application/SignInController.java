@@ -15,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.StringConverter;
 import javafx.scene.control.ComboBox;
 
 import java.net.URL;
@@ -50,8 +49,6 @@ public class SignInController implements Initializable
 	@FXML
 	private ComboBox<Niveau> niveau;
 	
-	private Niveau niv;
-	
 	/**
 	 * On validation, when the button is clicked, it "takes" all the data in the textFields and ComboBox
 	 * and put them in a callableStatement to insert a user in the database.
@@ -71,8 +68,12 @@ public class SignInController implements Initializable
 			stmt.setString(2, prenom.getText().trim());
 			stmt.setString(3, login.getText().trim());
 			stmt.setString(4, mdp.getText());
-
-			stmt.setInt(5, niv.getIdNiveau());
+			stmt.setInt(5, 1);
+			//Niveau temp = (Niveau) niveau.getValue();
+//			Niveau temp = new Niveau();
+//			temp = niveau.getSelectionModel().getSelectedItem().getIdNiveau();
+//			System.out.println("ID: " +temp.getIdNiveau()+"/n");
+			//stmt.setInt(5, (int) niveau.getSelectionModel().getSelectedItem().getIdNiveau());
 			
 			stmt.execute(); 
 			System.out.print("uploaded successfully\n");
@@ -82,7 +83,6 @@ public class SignInController implements Initializable
 		{
 			
 			System.out.println("\ninsert_utilisateur NAN\n");
-			System.out.print(niveau.getSelectionModel().getSelectedItem().getIdNiveau());//vide?
 			e.printStackTrace();
 			e.getCause(); 
 		}
@@ -120,28 +120,6 @@ public class SignInController implements Initializable
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
-		//LISTENER when value changes
-		niveau.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
-			 niv = niveau.getSelectionModel().getSelectedItem();
-			   System.out.println(newValue + " " + newValue.getIdNiveau());
-			}); 
-		
-//		niveau.setConverter(new StringConverter<Niveau>() 
-//		{
-//			
-//			@Override
-//			public String toString(Niveau object) {
-//				return object.getNomNiveau();
-//			}
-//			
-//			@Override
-//			public Niveau fromString(String string) {
-//				return niveau.getItems().stream().filter(ap -> 
-//				ap.getNomNiveau().equals(string)).findFirst().orElse(null);
-//			}
-//		});
-		
-
 		// TODO Auto-generated method stub
 		ObservableList<Niveau> listNiveau = FXCollections.observableArrayList();
 		
@@ -184,7 +162,7 @@ public class SignInController implements Initializable
 		
 		niveau.getItems().addAll(listNiveau);
 		
-
+		
 	}
 	
 }

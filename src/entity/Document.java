@@ -54,12 +54,6 @@ public class Document {
 		this.dateScan = dateScan;
 		this.flagDocument = flagDocument;
 	}
-    
-    //transforme le string en une StringProperty pour pouvoir l'afficher dans la tableview
-    public StringProperty documentNameProperty() { 
-        if (nomDocument1 == null) nomDocument1 = new SimpleStringProperty(this, "nomDocument");
-        return nomDocument1; 
-    }
 
 	public int getIdDocument() {
         return idDocument;
