@@ -8,12 +8,11 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1200.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InterfaceCreationController">
+<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1500.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InterfaceCreationController">
    <children>
       <DatePicker layoutX="66.0" layoutY="121.0" />
       <ChoiceBox fx:id="tag1" layoutX="66.0" layoutY="172.0" prefWidth="150.0" />
@@ -31,18 +30,12 @@
       <Label layoutX="67.0" layoutY="372.0" prefHeight="18.0" prefWidth="74.0" text="TAG Perso 2" />
       <Button fx:id="bnt_browser" layoutX="871.0" layoutY="81.0" mnemonicParsing="false" onAction="#handleDirectory" text="Browser" />
       <Label fx:id="labelPath" layoutX="677.0" layoutY="53.0" prefHeight="17.0" prefWidth="250.0" />
-      <ListView fx:id="listViewAffiche" layoutX="268.0" layoutY="119.0" prefHeight="500.0" prefWidth="589.0" />
+      <ListView fx:id="listViewAffiche" layoutX="268.0" layoutY="149.0" prefHeight="470.0" prefWidth="589.0" />
       <CheckBox fx:id="recursiveCheckBox" layoutX="530.0" layoutY="53.0" mnemonicParsing="false" onAction="#checkBoxSetOnAction" text="Recherche Recursive?" />
       <Button fx:id="clearList" layoutX="412.0" layoutY="81.0" mnemonicParsing="false" onAction="#clearListView" text="Clear" />
       <Label fx:id="nbfiles" layoutX="52.0" layoutY="502.0" prefHeight="17.0" prefWidth="191.0" text="nbfiles" />
       <Label fx:id="nbfolders" layoutX="52.0" layoutY="533.0" prefHeight="17.0" prefWidth="191.0" text="nbfolders" />
-      <TableView fx:id="tabView" layoutX="867.0" layoutY="123.0" prefHeight="492.0" prefWidth="318.0">
-        <columns>
-          <TableColumn fx:id="docNamecol" prefWidth="75.0" text="Doc" />
-          <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="Column X" />
-        </columns>
-      </TableView>
+      <TableView fx:id="tabView" layoutX="867.0" layoutY="123.0" prefHeight="492.0" prefWidth="617.0" />
       <Button fx:id="openButton" layoutX="194.0" layoutY="593.0" mnemonicParsing="false" onAction="#onListCellClicked" text="Open File" />
       <Button fx:id="validerButton" layoutX="33.0" layoutY="593.0" mnemonicParsing="false" onAction="#validerOnClicked" text="Valider" />
    </children>

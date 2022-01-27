@@ -93,13 +93,13 @@ public class InterfaceCreationController implements Initializable
     @FXML
     private ListView listViewAffiche;
     
-//    @FXML
-//    private TableView<Document> tabView;
+    @FXML
+    private TableView<Document> tabView;
 //    @FXML
 //    private TableColumn<Document,String> docNamecol;
 //    
 //    
-//    public ObservableList<Document> observableDocs = FXCollections.observableArrayList();
+    public ObservableList<Document> observableDocs = FXCollections.observableArrayList();
     
 	private CtrlDocument ctrlDoc = new CtrlDocument();
 	private CtrlDossier ctrlDossier = new CtrlDossier();
@@ -121,6 +121,10 @@ public class InterfaceCreationController implements Initializable
     
     Reference ref;
     
+    /*
+     * Create the path with the 3 categories if it doesn't exist.
+     * And it copies the file selected in this path.
+     */
     public void createPathAndCopy()
     {
     	String path = "..\\" + tag1.getSelectionModel().getSelectedItem().toString()+ "\\"
@@ -367,13 +371,29 @@ public class InterfaceCreationController implements Initializable
 		    public void changed(ObservableValue<? extends Document> observable, Document oldValue, Document newValue) {
 		        // Your action here
 		    	selectedDoc = (Document) listViewAffiche.getSelectionModel().getSelectedItem();
+		    	
 		        System.out.println("Selected item: " + newValue);
 		    }
 		});
 				
+		//ok ça crée bien une colonne avec le bon nom
+		TableColumn<Document, String> col_DocumentName = new TableColumn<Document, String>("File Name");
+		tabView.getColumns().setAll(col_DocumentName);
+		
+		//ENFIN!!!!!! le nom du doc s'affiche dans la colonne, Merci Oracle!
+		col_DocumentName.setCellValueFactory(new Callback<CellDataFeatures<Document, String>, ObservableValue<String>>() 
+		{
+		     public ObservableValue<String> call(CellDataFeatures<Document, String> p) 
+		     {
+		         // p.getValue() returns the Person instance for a particular TableView row
+		         return p.getValue().documentNameProperty();
+		     }
+		  });
+		 
+		
 		try 
 		{
-			ctrlDoc.charger();
+//			ctrlDoc.charger();
 			ctrlDossier.charger();
 			ctrlTypeDoc.charger();
 			ctrlTypeDossier.charger();
@@ -389,7 +409,9 @@ public class InterfaceCreationController implements Initializable
 		
 	}
 
-    
+    /*
+     * Opens the file selected in the list.
+     */
     public void onListCellClicked()
     {
     	if(!Desktop.isDesktopSupported())
@@ -508,7 +530,7 @@ public class InterfaceCreationController implements Initializable
 					else 
 	                {
 						listDoc.add(new Document(files[i].toPath().toAbsolutePath()));
-						//observableDocs.add(new Document(files[i].toPath().getFileName()));
+						observableDocs.add(new Document(files[i].toPath().toAbsolutePath()));
 						
 						//listViewAffiche.getItems().add(listDoc.);
 	                    //System.out.println("  Fichier: " + files[i].getName());
@@ -533,7 +555,7 @@ public class InterfaceCreationController implements Initializable
 //					});
 				listViewAffiche.getItems().addAll(listDoc);
 				
-				//tabView.setItems(observableDocs);
+				tabView.setItems(observableDocs);
     			
     			//labelPath.setText(selectedFile.getName());
 
