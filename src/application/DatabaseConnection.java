@@ -22,7 +22,7 @@ public class DatabaseConnection {
 	{
 		DatabaseConnection.databaseName = "testdm";
 		DatabaseConnection.databaseUser = "root";
-		DatabaseConnection.databasePassword = "Dddd1234";
+		DatabaseConnection.databasePassword = "leahpar7";
 		DatabaseConnection.url = "jdbc:mariadb://localhost:3306/" + getDatabaseName();
 		
 		System.out.println("\t\tInstance creation ! ! !\n");
