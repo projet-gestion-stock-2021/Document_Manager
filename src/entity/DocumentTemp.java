@@ -1,7 +1,8 @@
 package entity;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "document_temp", schema = "testdm", catalog = "")
