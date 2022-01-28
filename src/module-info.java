@@ -6,7 +6,7 @@ module Document_Manager {
 	requires java.sql;
 	requires javafx.base;
 	requires java.desktop;
-	//requires dom4j;
+	requires dom4j;
 	requires java.persistence;
 	requires java.xml;
 	requires jdk.compiler;
