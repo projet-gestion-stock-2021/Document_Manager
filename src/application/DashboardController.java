@@ -13,8 +13,10 @@ public class DashboardController {
 	@FXML
 	private Button creationDocumentButton, rechercheDocumentButton, exitDashboard;
 	
-	public void switchInterfaceCreation () {
-		try {
+	public void switchInterfaceCreation () 
+	{
+		try 
+		{
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("InterfaceCreation.fxml"));
 			Stage individuStage = new Stage();
 			
@@ -22,21 +24,28 @@ public class DashboardController {
 			individuStage.show();
 			Stage stage = (Stage) creationDocumentButton.getScene().getWindow();
 			stage.close();
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 			e.getCause();
 		}
 	}
-	public void switchInterfaceRecherche () {
-		try {
-			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("InterfaceRecherche.fxml"));
+	
+	public void switchInterfaceRecherche () 
+	{
+		try 
+		{
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("ScanDoc.fxml"));
 			Stage individuStage = new Stage();
 			
 			individuStage.setScene(new Scene(root));
 			individuStage.show();
 			Stage stage = (Stage) rechercheDocumentButton.getScene().getWindow();
 			stage.close();
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 			e.getCause();
 		}

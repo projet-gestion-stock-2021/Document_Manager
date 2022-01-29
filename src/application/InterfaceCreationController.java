@@ -36,11 +36,13 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
+import javafx.scene.Scene;
 //import javax.security.auth.callback.Callback;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.stage.DirectoryChooser;
 import java.awt.Desktop;
@@ -100,6 +102,7 @@ public class InterfaceCreationController implements Initializable
 //    
 //    
     public ObservableList<Document> observableDocs = FXCollections.observableArrayList();
+    List<Document> listDoc = new LinkedList<Document>();
     
 	private CtrlDocument ctrlDoc = new CtrlDocument();
 	private CtrlDossier ctrlDossier = new CtrlDossier();
@@ -110,8 +113,6 @@ public class InterfaceCreationController implements Initializable
     private File selectedDirectory;
     public int filecount = 0;
     public int dircount = 0;
-    
-    List<Document> listDoc = new LinkedList<Document>();
     
     Document selectedDoc;
     
@@ -460,6 +461,8 @@ public class InterfaceCreationController implements Initializable
     }
     */
     
+    
+    
     /**
      * Gets the directory path in a File object.
      * @param event
@@ -578,7 +581,23 @@ public class InterfaceCreationController implements Initializable
 		listViewAffiche.getItems().clear();
 	}
 
-
+	public void switchDashboard () 
+	{
+		try 
+		{
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+			Stage individuStage = new Stage();
+			individuStage.setScene(new Scene(root));
+			individuStage.show();
+			Stage stage = (Stage) annulerButton.getScene().getWindow();
+			stage.close();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			e.getCause();
+		}
+	}
 
 
 /*

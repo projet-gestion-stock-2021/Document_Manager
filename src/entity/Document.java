@@ -2,6 +2,8 @@ package entity;
 
 import java.util.*;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -9,8 +11,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 
 public class Document {
@@ -19,7 +24,9 @@ public class Document {
 	private String nomDocument;
 	private StringProperty nomDocument1;
     private FileTime dateDocument;
+    private ObjectProperty <FileTime> p_dateDocument;
     private LocalDate dateScan;
+    private ObjectProperty <LocalDate> p_dateScan;
     private Boolean flagDocument;
     private Path docPath;
     
@@ -55,10 +62,44 @@ public class Document {
 		this.flagDocument = flagDocument;
 	}
     
-    //transforme le string en une StringProperty pour pouvoir l'afficher dans la tableview
+    public Document(ResultSet resultatRequete) 
+    {
+    	try 
+    	{
+    		this.setIdDocument(resultatRequete.getInt("Id_Document"));
+    		
+    		this.setNomDocument1(new SimpleStringProperty(resultatRequete.getString("Nom_Document")));
+    		this.setNomDocument(resultatRequete.getString("Nom_Document"));
+    		
+    		this.setDateDocument(resultatRequete.getDate("DateDocument")); 
+    		documentDateModifiedProperty() ;
+    		this.setDateScan(resultatRequete.getTimestamp("DateScan"));
+    		documentDateScanProperty() ;
+    		this.setFlagDocument(resultatRequete.getBoolean("Flag_document"));
+    	} 
+    	catch (SQLException e) 
+    	{
+    		System.out.println("\nProbleme Document(ResultSet rst)\n");
+    		e.printStackTrace();
+    	}
+    	//System.out.println(this.toString());
+    }
+
+
+	//transforme le string en une StringProperty pour pouvoir l'afficher dans la tableview
     public StringProperty documentNameProperty() { 
         if (nomDocument1 == null) nomDocument1 = new SimpleStringProperty(this, "nomDocument");
         return nomDocument1; 
+    }
+    
+    public ObjectProperty <LocalDate> documentDateScanProperty() { 
+        if (p_dateScan == null) p_dateScan = new SimpleObjectProperty <LocalDate> (this, "dateScan");
+        return p_dateScan; 
+    }
+    
+    public ObjectProperty <FileTime> documentDateModifiedProperty() { 
+        if (p_dateDocument == null) p_dateDocument = new SimpleObjectProperty <FileTime> (this, "dateDocument");
+        return p_dateDocument; 
     }
 
 	public int getIdDocument() {
@@ -92,17 +133,32 @@ public class Document {
 		return simpleDateFormat.format( getDateDocument() );
     }
 
-    public void setDateDocument(FileTime dateDocument) {
+    public void setDateDocument(FileTime dateDocument) 
+    {
         this.dateDocument = dateDocument;
     }
+    
+    //Overload
+    public void setDateDocument(Date dateDocument) 
+    {
+    	//OK dur de transformer un Date en Instant parce que la méthode n'est plus supporté
+        this.dateDocument = FileTime.from(new java.util.Date(dateDocument.getTime()).toInstant());
+    }
 
-
-    public LocalDate getDateScan() {
+    public LocalDate getDateScan() 
+    {
         return dateScan;
     }
 
-    public void setDateScan(LocalDate dateScan) {
+    public void setDateScan(LocalDate dateScan) 
+    {
         this.dateScan = dateScan;
+    }
+    
+    //overload
+    public void setDateScan(Timestamp dateScan) 
+    {
+        this.dateScan = dateScan.toLocalDateTime().toLocalDate();
     }
 
     public Boolean getFlagDocument() {
@@ -130,9 +186,12 @@ public class Document {
 
     public String toString()
     {
-		return this.getNomDocument() +"\t" + this.getDateScan() +"\t"+ new SimpleDateFormat("dd/MM/yyyy hh:mm.ss").format(Date.from(this.getDateDocument().toInstant())) 
- +"\t"+ this.getDocPath().toString();
+    	String str = this.getNomDocument() +"\t" + this.getDateScan() +"\t"+ new SimpleDateFormat("dd/MM/yyyy hh:mm.ss").format(Date.from(this.getDateDocument().toInstant())) 
+    			 +"\t";
     	
+    	if(this.getDocPath()!= null) str+= this.getDocPath().toString();
+    	
+		return str;
     }
 
 
