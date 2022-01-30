@@ -24,9 +24,9 @@ public class Document {
 	private String nomDocument;
 	private StringProperty nomDocument1;
     private FileTime dateDocument;
-    private ObjectProperty <FileTime> p_dateDocument;
+    private StringProperty p_dateDocument;
     private LocalDate dateScan;
-    private ObjectProperty <LocalDate> p_dateScan;
+    private StringProperty p_dateScan;
     private Boolean flagDocument;
     private Path docPath;
     
@@ -53,7 +53,8 @@ public class Document {
     }
 
 
-    public Document(int idDocument, String nomDocument, FileTime dateDocument, LocalDate dateScan, Boolean flagDocument) {
+    public Document(int idDocument, String nomDocument, FileTime dateDocument, LocalDate dateScan, Boolean flagDocument)
+    {
 		super();
 		this.idDocument = idDocument;
 		this.nomDocument = nomDocument;
@@ -72,10 +73,14 @@ public class Document {
     		this.setNomDocument(resultatRequete.getString("Nom_Document"));
     		
     		this.setDateDocument(resultatRequete.getDate("DateDocument")); 
-    		documentDateModifiedProperty() ;
+    		this.p_dateDocument = new SimpleStringProperty(resultatRequete.getDate("DateDocument").toString());
+    		
     		this.setDateScan(resultatRequete.getTimestamp("DateScan"));
-    		documentDateScanProperty() ;
+    		this.p_dateScan = new SimpleStringProperty(resultatRequete.getTimestamp("DateScan").toString());
+    		
     		this.setFlagDocument(resultatRequete.getBoolean("Flag_document"));
+    		
+    		System.out.println(getNomDocument());
     	} 
     	catch (SQLException e) 
     	{
@@ -92,13 +97,13 @@ public class Document {
         return nomDocument1; 
     }
     
-    public ObjectProperty <LocalDate> documentDateScanProperty() { 
-        if (p_dateScan == null) p_dateScan = new SimpleObjectProperty <LocalDate> (this, "dateScan");
+    public StringProperty documentDateScanProperty() { 
+        if (p_dateScan == null) p_dateScan = new SimpleStringProperty(this, "dateScan");
         return p_dateScan; 
     }
     
-    public ObjectProperty <FileTime> documentDateModifiedProperty() { 
-        if (p_dateDocument == null) p_dateDocument = new SimpleObjectProperty <FileTime> (this, "dateDocument");
+    public StringProperty documentDateModifiedProperty() { 
+        if (p_dateDocument == null) p_dateDocument = new SimpleStringProperty(this, "dateDocument");
         return p_dateDocument; 
     }
 
@@ -141,7 +146,10 @@ public class Document {
     //Overload
     public void setDateDocument(Date dateDocument) 
     {
-    	//OK dur de transformer un Date en Instant parce que la méthode n'est plus supporté
+    	//OK dur de transformer un Date en Instant parce que la méthode n'est plus supportée
+    	/*
+    	 * 
+    	 */
         this.dateDocument = FileTime.from(new java.util.Date(dateDocument.getTime()).toInstant());
     }
 

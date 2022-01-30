@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 @Entity
-public class Reference {
+public class Reference implements Comparable<Reference>
+{
     private int idReference;
     private String nomReference;
     private Collection<Typer> typersByIdReference;
@@ -29,7 +30,7 @@ public class Reference {
 	}
 
     /*
-     * to display the Dossier object name in the comboBox
+     * to display the Tags object name in the comboBox
      */
     @Override
     public String toString() 
@@ -87,4 +88,12 @@ public class Reference {
     public void setTypersByIdReference(Collection<Typer> typersByIdReference) {
         this.typersByIdReference = typersByIdReference;
     }
+
+    //sinon Caused by: java.lang.ClassCastException: class entity.Reference cannot be cast to class java.lang.Comparable
+	@Override
+	public int compareTo(Reference tag) 
+	{
+		// we sort objects on the basis of Student Name using compareTo of String Class
+		return this.getNomReference().compareTo(tag.getNomReference());
+	}
 }

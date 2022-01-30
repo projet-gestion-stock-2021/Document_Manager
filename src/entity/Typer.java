@@ -66,7 +66,8 @@ public class Typer {
         return referenceByIdReference;
     }
 
-    public void setReferenceByIdReference(Reference referenceByIdReference) {
+    public void setReferenceByIdReference(Reference referenceByIdReference) 
+    {
         this.referenceByIdReference = referenceByIdReference;
     }
 }

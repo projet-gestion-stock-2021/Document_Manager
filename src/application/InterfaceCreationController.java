@@ -461,8 +461,6 @@ public class InterfaceCreationController implements Initializable
     }
     */
     
-    
-    
     /**
      * Gets the directory path in a File object.
      * @param event
