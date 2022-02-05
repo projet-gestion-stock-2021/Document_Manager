@@ -1,5 +1,7 @@
 package entity;
 
+import java.sql.ResultSet;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +12,13 @@ public class Typer {
     private Document documentByIdDocument;
     private Reference referenceByIdReference;
 
-    @Id
+   
+
+	public Typer(ResultSet resultatRequete) {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Id
     @Column(name = "Id_Document")
     public int getIdDocument() {
         return idDocument;
