@@ -15,5 +15,6 @@ module Document_Manager {
 	requires org.hibernate.orm.jpamodelgen;
 	requires jdk.jpackage;
 	requires java.base;
+	requires org.controlsfx.controls;
 	opens application to javafx.graphics, javafx.fxml;
 }

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="1165.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InterfaceRechercheController">
    <children>
@@ -13,5 +14,6 @@
       <TextField fx:id="tag2" layoutX="14.0" layoutY="232.0" promptText="tag 2" />
       <Button fx:id="switchSceneButton" layoutX="14.0" layoutY="751.0" mnemonicParsing="false" onAction="#switchSceneOnAction" text="Creation" />
       <Button fx:id="annulerButton" layoutX="89.0" layoutY="751.0" mnemonicParsing="false" onAction="#switchDashboard" text="Annuler" />
+      <CustomTextField fx:id="tag3" layoutX="15.0" layoutY="278.0" />
    </children>
 </AnchorPane>

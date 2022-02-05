@@ -14,6 +14,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.SortedSet;
 
+import org.controlsfx.control.textfield.CustomTextField;
+import org.controlsfx.control.textfield.TextFields;
+
+import AutoCompletionComponent.AutocompleteMultiSelectionBox;
 import ctrlEntites.CtrlDocument;
 import ctrlEntites.CtrlDossier;
 import ctrlEntites.CtrlTypeDoc;
@@ -24,6 +28,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,6 +60,8 @@ public class InterfaceRechercheController implements Initializable
 	private TextField tag2;
 	@FXML
 	private TextField tag1;
+	@FXML
+	private CustomTextField tag3;
 	
     //public ObservableList<Document> observableDocs = FXCollections.observableArrayList();
 //    List<Document> listDoc = new LinkedList<Document>();
@@ -62,7 +69,9 @@ public class InterfaceRechercheController implements Initializable
 	private CtrlDocument ctrlDoc = new CtrlDocument();
 	private CtrlReference ctrlTag = new CtrlReference();
 	private ObservableList<Document> observableDoc = FXCollections.observableArrayList();
+//	private ObservableSet<String> suggestions = FXCollections.observableSet();
 	//private SortedSet<Reference> tagSortedList ;
+
 	
 	public void enterTag1()
 	{
@@ -202,19 +211,29 @@ public class InterfaceRechercheController implements Initializable
 		//https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions
 		//tagSortedList.addAll(ctrlTag.getListeDossier());
 		
-		AutoCompleteTextField<Reference> text = new AutoCompleteTextField<Reference>(ctrlTag.getListeDossier());
+/*		
+		tag3 = new AutoCompleteTextField<Reference>(ctrlTag.getListeDossier());
 		
-		text.getEntryMenu().setOnAction(e ->
+		tag3.getEntryMenu().setOnAction(e ->
 		{
 		    ((MenuItem) e.getTarget()).addEventHandler(Event.ANY, event ->
 		    {
-		         if (text.getLastSelectedObject() != null)
+		         if (tag3.getLastSelectedObject() != null)
 		         {
-		            text.setText(text.getLastSelectedObject().toString());
-		            System.out.println(text.getLastSelectedObject().getNomReference());
+		        	 tag3.setText(tag3.getLastSelectedObject().toString());
+		            System.out.println(tag3.getLastSelectedObject().getNomReference());
 		         }
 		    });
 		});
+		*/
+		
+//		AutocompleteMultiSelectionBox field = new AutocompleteMultiSelectionBox();
+//		ctrlTag.getListeDossier().forEach(i -> suggestions.add(i.toString()));
+//		field.setSuggestions(suggestions);
+		
+		//field.getTags().addAll(ctrlTag.getListeDossier().toString());   //getEntries().addAll(YOUR_ARRAY_OF_STRINGS);
+		
+		TextFields.bindAutoCompletion(tag3,ctrlTag.getListeDossier().toString());
 		
 		//Listener on observableList, to refresh the tableview when list change
 		ctrlDoc.getListeDoc().addListener(new ListChangeListener<Document>(){
