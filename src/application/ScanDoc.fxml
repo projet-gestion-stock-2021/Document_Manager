@@ -10,10 +10,9 @@
    <children>
       <TableView fx:id="documentTable" layoutX="224.0" layoutY="147.0" prefHeight="645.0" prefWidth="924.0" />
       <TextField fx:id="searchField" layoutX="224.0" layoutY="114.0" prefHeight="25.0" prefWidth="294.0" promptText="recherche par titre" />
-      <TextField fx:id="tag1" layoutX="14.0" layoutY="183.0" onAction="#enterTag1" promptText="tag 1" />
-      <TextField fx:id="tag2" layoutX="14.0" layoutY="232.0" promptText="tag 2" />
       <Button fx:id="switchSceneButton" layoutX="14.0" layoutY="751.0" mnemonicParsing="false" onAction="#switchSceneOnAction" text="Creation" />
       <Button fx:id="annulerButton" layoutX="89.0" layoutY="751.0" mnemonicParsing="false" onAction="#switchDashboard" text="Annuler" />
-      <CustomTextField fx:id="tag3" layoutX="15.0" layoutY="278.0" />
+      <CustomTextField fx:id="tag1" layoutX="14.0" layoutY="166.0" onAction="#enterTag1" promptText="tag1" styleClass="auto-complete-popup" stylesheets="@style.css" />
+      <CustomTextField fx:id="tag2" layoutX="14.0" layoutY="207.0" onAction="#enterTag1" promptText="tag2" styleClass="auto-complete-popup" stylesheets="@style.css" />
    </children>
 </AnchorPane>

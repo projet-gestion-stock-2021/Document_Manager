@@ -62,7 +62,7 @@ CREATE TABLE `document` (
   KEY `Id_Type_De_Document` (`Id_Type_De_Document`),
   CONSTRAINT `document_ibfk_1` FOREIGN KEY (`Id_CreationDoc`) REFERENCES `creationdoc` (`Id_CreationDoc`),
   CONSTRAINT `document_ibfk_2` FOREIGN KEY (`Id_Type_De_Document`) REFERENCES `type_de_document` (`Id_Type_De_Document`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +71,7 @@ CREATE TABLE `document` (
 
 LOCK TABLES `document` WRITE;
 /*!40000 ALTER TABLE `document` DISABLE KEYS */;
-INSERT INTO `document` VALUES (1,'All MATLAB Books Collection','2008-04-06 00:00:00','2019-03-05 00:00:00',0,4,3),(2,'Cisco','2014-09-12 00:00:00','2019-02-08 00:00:00',0,2,1),(3,'DiaNeil','2001-12-12 00:00:00','2008-12-02 00:00:00',1,2,3),(4,'GameDev PDF','2013-12-09 00:00:00','2006-06-10 00:00:00',0,1,3),(5,'Hack Ressources','2013-06-11 00:00:00','2001-05-08 00:00:00',0,3,3),(6,'Math_Phys','2019-03-01 00:00:00','2013-05-03 00:00:00',0,5,3),(7,'OS pdf','2003-03-03 00:00:00','2021-05-06 00:00:00',0,4,2),(8,'PowerShell','2015-02-08 00:00:00','2001-11-07 00:00:00',0,5,3),(9,'Progra&Web','2003-01-07 00:00:00','2014-08-11 00:00:00',0,1,1),(10,'Remédiation','2018-04-08 00:00:00','2022-05-11 00:00:00',0,4,1),(11,'reseau','2006-10-12 00:00:00','2002-01-09 00:00:00',0,5,3),(12,'0123706173-physical_chemistry__third_edition.pdf','2011-06-09 00:00:00','2009-03-07 00:00:00',0,3,3),(13,'0201704315.pdf','2020-01-03 00:00:00','2007-05-04 00:00:00',0,1,2),(14,'0201704315_TOC.pdf','2001-01-02 00:00:00','2012-04-03 00:00:00',0,2,2),(15,'0409_E10589_N552VX_C.pdf','2011-07-01 00:00:00','2007-06-10 00:00:00',1,1,1),(16,'040C_F10589_N552VX_A.pdf','2021-02-07 00:00:00','2023-01-07 00:00:00',0,2,2),(17,'11406-programmez-avec-le-langage-c.pdf','2013-03-12 00:00:00','2013-06-01 00:00:00',1,5,2),(18,'1300_math_formulas.pdf','2007-04-03 00:00:00','2020-10-12 00:00:00',1,3,3),(19,'14-c++-STL.pdf','2018-04-01 00:00:00','2018-04-01 00:00:00',0,4,1),(20,'2014_09_13-motor-uk.pdf','2017-08-03 00:00:00','2001-08-09 00:00:00',0,5,1),(21,'4 Basic SQL.pdf','2012-03-01 00:00:00','2021-07-04 00:00:00',0,3,2),(22,'4-Tour-Algo-draft.pdf','2017-06-08 00:00:00','2016-05-05 00:00:00',0,2,1),(23,'9780321227256_TOC.pdf','2018-02-02 00:00:00','2011-12-03 00:00:00',0,3,3),(24,'9780321992789.pdf','2015-04-04 00:00:00','2017-10-11 00:00:00',0,4,1),(25,'9780735652163.pdf','2012-09-11 00:00:00','2020-07-01 00:00:00',0,2,2),(26,'9780735675117.pdf','2012-03-08 00:00:00','2019-09-10 00:00:00',0,5,1),(27,'9782409013287.pdf','2012-06-06 00:00:00','2018-04-09 00:00:00',0,4,3),(28,'A Handbook of Agile Software Craftsmanship By Robert C Martin.pdf ( PDFDrive ).pdf','2010-06-11 00:00:00','2011-12-12 00:00:00',0,5,3),(29,'Accelerated C++ - Andrew Koenig, Barbara E. Moo.pdf ( PDFDrive ).epub','2008-04-12 00:00:00','2007-07-07 00:00:00',0,5,3),(30,'Accelerated C++ - Andrew Koenig, Barbara E. Moo.pdf ( PDFDrive ).pdf','2019-06-12 00:00:00','2019-05-05 00:00:00',0,5,1),(31,'Accelerated C++ Practical Programming by Example ( PDFDrive ).pdf','2018-01-02 00:00:00','2009-08-05 00:00:00',0,5,1),(32,'Active Directory Cookbook, 4th Edition.pdf','2002-06-05 00:00:00','2019-01-12 00:00:00',1,1,1),(33,'Active Directory Designing, Deploying, and Running Active Directory ( PDFDrive )(1).epub','2003-06-09 00:00:00','2015-02-02 00:00:00',0,3,1),(34,'Active Directory Designing, Deploying, and Running Active Directory ( PDFDrive ).epub','2015-02-03 00:00:00','2002-07-06 00:00:00',0,4,1),(35,'Active Directory Designing, Deploying, and Running Active Directory ( PDFDrive ).pdf','2015-08-03 00:00:00','2012-02-08 00:00:00',0,3,2),(36,'Active Directory Infrastructure Self-Study Training Kit ( PDFDrive ).pdf','2023-01-06 00:00:00','2012-10-12 00:00:00',0,2,1),(37,'adams-sig07.pdf','2016-01-01 00:00:00','2013-03-09 00:00:00',0,1,2),(38,'ADTs Data Structure.pdf','2002-01-12 00:00:00','2015-01-11 00:00:00',0,3,1),(39,'A Handbook of Agile Software Craftsmanship By Robert C Martin.pdf ( PDFDrive ).pdf','2010-06-11 00:00:00','2011-12-12 00:00:00',0,5,3),(40,'Accelerated C++ - Andrew Koenig, Barbara E. Moo.pdf ( PDFDrive ).epub','2008-04-12 00:00:00','2007-07-07 00:00:00',0,5,3),(41,'Accelerated C++ - Andrew Koenig, Barbara E. Moo.pdf ( PDFDrive ).pdf','2019-06-12 00:00:00','2019-05-05 00:00:00',0,5,1),(42,'Accelerated C++ Practical Programming by Example ( PDFDrive ).pdf','2018-01-02 00:00:00','2009-08-05 00:00:00',0,5,1),(43,'Active Directory Cookbook, 4th Edition.pdf','2002-06-05 00:00:00','2019-01-12 00:00:00',1,1,1),(44,'Active Directory Designing, Deploying, and Running Active Directory ( PDFDrive )(1).epub','2003-06-09 00:00:00','2015-02-02 00:00:00',0,3,1),(45,'Active Directory Designing, Deploying, and Running Active Directory ( PDFDrive ).epub','2015-02-03 00:00:00','2002-07-06 00:00:00',0,4,1),(46,'Active Directory Designing, Deploying, and Running Active Directory ( PDFDrive ).pdf','2015-08-03 00:00:00','2012-02-08 00:00:00',0,3,2),(47,'Active Directory Infrastructure Self-Study Training Kit ( PDFDrive ).pdf','2023-01-06 00:00:00','2012-10-12 00:00:00',0,2,1),(48,'adams-sig07.pdf','2016-01-01 00:00:00','2013-03-09 00:00:00',0,1,2),(49,'ADTs Data Structure.pdf','2002-01-12 00:00:00','2015-01-11 00:00:00',0,3,1),(50,'Advanced Automotive Fault Diagnosis. Automotive Technology. Vehicle Maintenance and Repair ( PDFDrive ).pdf','2013-06-10 00:00:00','2015-12-05 00:00:00',0,3,1),(51,'Advanced book on Mathematics Olympiad ( PDFDrive ).epub','2008-05-01 00:00:00','2004-04-04 00:00:00',0,1,3),(52,'Advanced book on Mathematics Olympiad ( PDFDrive ).pdf','2005-03-12 00:00:00','2011-02-02 00:00:00',0,4,1),(53,'Advanced engineering mathematics ( PDFDrive ).epub','2005-04-04 00:00:00','2012-06-04 00:00:00',0,4,2),(54,'Advanced engineering mathematics ( PDFDrive ).mobi','2005-05-11 00:00:00','2013-09-10 00:00:00',0,3,2),(55,'Advanced engineering mathematics ( PDFDrive ).pdf','2011-02-03 00:00:00','2013-07-02 00:00:00',0,5,2),(56,'Alain_Jenotte-Linux-Notesdecours.pdf','2011-09-04 00:00:00','2007-12-04 00:00:00',0,2,2),(57,'Algorithms and Data Structures - csPrinceton.pdf','2022-11-11 00:00:00','2003-02-08 00:00:00',0,4,2),(58,'AlgorithmsNotesForProfessionals.pdf','2010-06-09 00:00:00','2001-05-08 00:00:00',0,2,1),(59,'Angular2NotesForProfessionals.pdf','2001-06-03 00:00:00','2022-04-01 00:00:00',0,3,1),(60,'AngularJSNotesForProfessionals.pdf','2003-05-02 00:00:00','2005-01-12 00:00:00',0,1,3),(61,'Applying Uml And Patterns An Introduction To Object-Oriented Analysis And Design And The Unified Process ( PDFDrive ).epub','2018-01-12 00:00:00','2007-06-09 00:00:00',0,3,1),(62,'Applying Uml And Patterns An Introduction To Object-Oriented Analysis And Design And The Unified Process ( PDFDrive ).pdf','2015-10-07 00:00:00','2001-10-04 00:00:00',0,4,1),(63,'Aptitude Test Problems in Physics Science for Everyone by S Krotov ( PDFDrive ).epub','2016-01-07 00:00:00','2004-08-12 00:00:00',0,1,1),(64,'Aptitude Test Problems in Physics Science for Everyone by S Krotov ( PDFDrive ).pdf','2003-06-04 00:00:00','2004-11-08 00:00:00',0,5,1),(65,'arrays-ds-English.pdf','2010-02-07 00:00:00','2018-03-11 00:00:00',0,5,3),(66,'Asbl.pdf','2019-12-07 00:00:00','2007-02-11 00:00:00',1,4,3),(67,'Attacking Network Protocols A Hacker’s Guide to Capture, Analysis, and Exploitation ( PDFDrive ).pdf','2008-03-05 00:00:00','2021-09-08 00:00:00',0,2,2),(68,'Auto Repair For Dummies ( PDFDrive ).epub','2010-04-01 00:00:00','2002-05-07 00:00:00',0,3,2),(69,'Auto Repair For Dummies ( PDFDrive ).pdf','2014-12-07 00:00:00','2002-03-05 00:00:00',0,4,1),(70,'Automobile Mechanical and Electrical Systems Automotive Technology Vehicle Maintenance and Repair (Vehicle Maintenance & Repr Nv2) ( PDFDrive ).pdf','2020-01-10 00:00:00','2013-09-02 00:00:00',0,5,3),(71,'Automotive Engines Diagnosis, Repair, Rebuilding ( PDFDrive ).pdf','2008-10-07 00:00:00','2017-09-07 00:00:00',0,2,1),(72,'Automotive Technology Principles, Diagnosis, and Service (4th Edition) ( PDFDrive ).pdf','2016-01-08 00:00:00','2008-11-04 00:00:00',0,5,3),(73,'list2.txt','2022-01-11 00:00:00','2022-01-25 12:50:24',0,1,2),(75,'merise.pdf','2020-12-01 00:00:00','2022-01-25 14:14:08',0,1,1),(76,'RAPPORT - Copie.odt','2021-01-17 00:00:00','2022-01-25 14:36:13',0,1,3),(77,'RAPPORT - Copie.odt','2021-01-17 00:00:00','2022-01-25 14:47:57',0,1,4),(78,'MMORPG.mcd','2021-01-17 00:00:00','2022-01-25 15:34:07',0,1,7),(79,'MMORPG.mcd','2021-01-17 00:00:00','2022-01-25 15:36:53',0,1,4),(80,'MMORPG.mcd','2021-01-17 00:00:00','2022-01-25 15:37:59',0,1,4),(81,'Novel_MLD.mcd','2021-01-17 00:00:00','2022-01-25 15:38:11',0,1,4),(82,'subway.mcd','2021-01-17 00:00:00','2022-01-25 15:44:14',0,1,7),(83,'subway.mcd','2021-01-17 00:00:00','2022-01-25 15:44:16',0,1,7),(84,'subway.mcd','2021-01-17 00:00:00','2022-01-25 15:46:23',0,1,7),(85,'merise.pdf','2020-12-01 00:00:00','2022-01-25 15:55:16',0,1,2),(86,'merise.pdf','2020-12-01 00:00:00','2022-01-25 18:05:39',0,1,3),(87,'Novel_MLD','2021-01-10 00:00:00','2022-01-25 18:06:52',0,1,3),(88,'merise.pdf','2020-12-01 00:00:00','2022-01-25 19:52:55',0,1,2),(89,'Alerts-CISA.png','2021-11-21 00:00:00','2022-01-25 20:45:29',0,1,2),(90,'addFeedly.png','2021-11-21 00:00:00','2022-01-25 21:03:13',0,1,3),(91,'CompanyHRExcel.zip','2021-03-15 00:00:00','2022-01-26 21:25:24',0,1,2),(92,'Capture d’écran (725).png','2021-11-22 00:00:00','2022-01-26 21:34:41',0,1,4),(93,'bountyHunters.PNG','2021-11-20 00:00:00','2022-01-26 21:35:16',0,1,4),(94,'bountyHunters3.png','2021-11-22 00:00:00','2022-01-26 21:35:21',0,1,4),(95,'addFeedly.png','2021-11-21 00:00:00','2022-01-26 21:35:24',0,1,4),(96,'Capture d’écran (737).png','2021-11-22 00:00:00','2022-01-26 21:35:26',0,1,4);
+INSERT INTO `document` VALUES (1,'All MATLAB Books Collection','2008-04-06 00:00:00','2019-03-05 00:00:00',0,4,3),(2,'Cisco','2014-09-12 00:00:00','2019-02-08 00:00:00',0,2,1),(3,'DiaNeil','2001-12-12 00:00:00','2008-12-02 00:00:00',1,2,3),(4,'GameDev PDF','2013-12-09 00:00:00','2006-06-10 00:00:00',0,1,3),(5,'Hack Ressources','2013-06-11 00:00:00','2001-05-08 00:00:00',0,3,3),(6,'Math_Phys','2019-03-01 00:00:00','2013-05-03 00:00:00',0,5,3),(7,'OS pdf','2003-03-03 00:00:00','2021-05-06 00:00:00',0,4,2),(8,'PowerShell','2015-02-08 00:00:00','2001-11-07 00:00:00',0,5,3),(9,'Progra&Web','2003-01-07 00:00:00','2014-08-11 00:00:00',0,1,1),(10,'Remédiation','2018-04-08 00:00:00','2022-05-11 00:00:00',0,4,1),(11,'reseau','2006-10-12 00:00:00','2002-01-09 00:00:00',0,5,3),(12,'0123706173-physical_chemistry__third_edition.pdf','2011-06-09 00:00:00','2009-03-07 00:00:00',0,3,3),(13,'0201704315.pdf','2020-01-03 00:00:00','2007-05-04 00:00:00',0,1,2),(14,'0201704315_TOC.pdf','2001-01-02 00:00:00','2012-04-03 00:00:00',0,2,2),(15,'0409_E10589_N552VX_C.pdf','2011-07-01 00:00:00','2007-06-10 00:00:00',1,1,1),(16,'040C_F10589_N552VX_A.pdf','2021-02-07 00:00:00','2023-01-07 00:00:00',0,2,2),(17,'11406-programmez-avec-le-langage-c.pdf','2013-03-12 00:00:00','2013-06-01 00:00:00',1,5,2),(18,'1300_math_formulas.pdf','2007-04-03 00:00:00','2020-10-12 00:00:00',1,3,3),(19,'14-c++-STL.pdf','2018-04-01 00:00:00','2018-04-01 00:00:00',0,4,1),(20,'2014_09_13-motor-uk.pdf','2017-08-03 00:00:00','2001-08-09 00:00:00',0,5,1),(21,'4 Basic SQL.pdf','2012-03-01 00:00:00','2021-07-04 00:00:00',0,3,2),(22,'4-Tour-Algo-draft.pdf','2017-06-08 00:00:00','2016-05-05 00:00:00',0,2,1),(23,'9780321227256_TOC.pdf','2018-02-02 00:00:00','2011-12-03 00:00:00',0,3,3),(24,'9780321992789.pdf','2015-04-04 00:00:00','2017-10-11 00:00:00',0,4,1),(25,'9780735652163.pdf','2012-09-11 00:00:00','2020-07-01 00:00:00',0,2,2),(26,'9780735675117.pdf','2012-03-08 00:00:00','2019-09-10 00:00:00',0,5,1),(27,'9782409013287.pdf','2012-06-06 00:00:00','2018-04-09 00:00:00',0,4,3),(28,'A Handbook of Agile Software Craftsmanship By Robert C Martin.pdf ( PDFDrive ).pdf','2010-06-11 00:00:00','2011-12-12 00:00:00',0,5,3),(29,'Accelerated C++ - Andrew Koenig, Barbara E. Moo.pdf ( PDFDrive ).epub','2008-04-12 00:00:00','2007-07-07 00:00:00',0,5,3),(30,'Accelerated C++ - Andrew Koenig, Barbara E. Moo.pdf ( PDFDrive ).pdf','2019-06-12 00:00:00','2019-05-05 00:00:00',0,5,1),(31,'Accelerated C++ Practical Programming by Example ( PDFDrive ).pdf','2018-01-02 00:00:00','2009-08-05 00:00:00',0,5,1),(32,'Active Directory Cookbook, 4th Edition.pdf','2002-06-05 00:00:00','2019-01-12 00:00:00',1,1,1),(33,'Active Directory Designing, Deploying, and Running Active Directory ( PDFDrive )(1).epub','2003-06-09 00:00:00','2015-02-02 00:00:00',0,3,1),(34,'Active Directory Designing, Deploying, and Running Active Directory ( PDFDrive ).epub','2015-02-03 00:00:00','2002-07-06 00:00:00',0,4,1),(35,'Active Directory Designing, Deploying, and Running Active Directory ( PDFDrive ).pdf','2015-08-03 00:00:00','2012-02-08 00:00:00',0,3,2),(36,'Active Directory Infrastructure Self-Study Training Kit ( PDFDrive ).pdf','2023-01-06 00:00:00','2012-10-12 00:00:00',0,2,1),(37,'adams-sig07.pdf','2016-01-01 00:00:00','2013-03-09 00:00:00',0,1,2),(38,'ADTs Data Structure.pdf','2002-01-12 00:00:00','2015-01-11 00:00:00',0,3,1),(39,'A Handbook of Agile Software Craftsmanship By Robert C Martin.pdf ( PDFDrive ).pdf','2010-06-11 00:00:00','2011-12-12 00:00:00',0,5,3),(40,'Accelerated C++ - Andrew Koenig, Barbara E. Moo.pdf ( PDFDrive ).epub','2008-04-12 00:00:00','2007-07-07 00:00:00',0,5,3),(41,'Accelerated C++ - Andrew Koenig, Barbara E. Moo.pdf ( PDFDrive ).pdf','2019-06-12 00:00:00','2019-05-05 00:00:00',0,5,1),(42,'Accelerated C++ Practical Programming by Example ( PDFDrive ).pdf','2018-01-02 00:00:00','2009-08-05 00:00:00',0,5,1),(43,'Active Directory Cookbook, 4th Edition.pdf','2002-06-05 00:00:00','2019-01-12 00:00:00',1,1,1),(44,'Active Directory Designing, Deploying, and Running Active Directory ( PDFDrive )(1).epub','2003-06-09 00:00:00','2015-02-02 00:00:00',0,3,1),(45,'Active Directory Designing, Deploying, and Running Active Directory ( PDFDrive ).epub','2015-02-03 00:00:00','2002-07-06 00:00:00',0,4,1),(46,'Active Directory Designing, Deploying, and Running Active Directory ( PDFDrive ).pdf','2015-08-03 00:00:00','2012-02-08 00:00:00',0,3,2),(47,'Active Directory Infrastructure Self-Study Training Kit ( PDFDrive ).pdf','2023-01-06 00:00:00','2012-10-12 00:00:00',0,2,1),(48,'adams-sig07.pdf','2016-01-01 00:00:00','2013-03-09 00:00:00',0,1,2),(49,'ADTs Data Structure.pdf','2002-01-12 00:00:00','2015-01-11 00:00:00',0,3,1),(50,'Advanced Automotive Fault Diagnosis. Automotive Technology. Vehicle Maintenance and Repair ( PDFDrive ).pdf','2013-06-10 00:00:00','2015-12-05 00:00:00',0,3,1),(51,'Advanced book on Mathematics Olympiad ( PDFDrive ).epub','2008-05-01 00:00:00','2004-04-04 00:00:00',0,1,3),(52,'Advanced book on Mathematics Olympiad ( PDFDrive ).pdf','2005-03-12 00:00:00','2011-02-02 00:00:00',0,4,1),(53,'Advanced engineering mathematics ( PDFDrive ).epub','2005-04-04 00:00:00','2012-06-04 00:00:00',0,4,2),(54,'Advanced engineering mathematics ( PDFDrive ).mobi','2005-05-11 00:00:00','2013-09-10 00:00:00',0,3,2),(55,'Advanced engineering mathematics ( PDFDrive ).pdf','2011-02-03 00:00:00','2013-07-02 00:00:00',0,5,2),(56,'Alain_Jenotte-Linux-Notesdecours.pdf','2011-09-04 00:00:00','2007-12-04 00:00:00',0,2,2),(57,'Algorithms and Data Structures - csPrinceton.pdf','2022-11-11 00:00:00','2003-02-08 00:00:00',0,4,2),(58,'AlgorithmsNotesForProfessionals.pdf','2010-06-09 00:00:00','2001-05-08 00:00:00',0,2,1),(59,'Angular2NotesForProfessionals.pdf','2001-06-03 00:00:00','2022-04-01 00:00:00',0,3,1),(60,'AngularJSNotesForProfessionals.pdf','2003-05-02 00:00:00','2005-01-12 00:00:00',0,1,3),(61,'Applying Uml And Patterns An Introduction To Object-Oriented Analysis And Design And The Unified Process ( PDFDrive ).epub','2018-01-12 00:00:00','2007-06-09 00:00:00',0,3,1),(62,'Applying Uml And Patterns An Introduction To Object-Oriented Analysis And Design And The Unified Process ( PDFDrive ).pdf','2015-10-07 00:00:00','2001-10-04 00:00:00',0,4,1),(63,'Aptitude Test Problems in Physics Science for Everyone by S Krotov ( PDFDrive ).epub','2016-01-07 00:00:00','2004-08-12 00:00:00',0,1,1),(64,'Aptitude Test Problems in Physics Science for Everyone by S Krotov ( PDFDrive ).pdf','2003-06-04 00:00:00','2004-11-08 00:00:00',0,5,1),(65,'arrays-ds-English.pdf','2010-02-07 00:00:00','2018-03-11 00:00:00',0,5,3),(66,'Asbl.pdf','2019-12-07 00:00:00','2007-02-11 00:00:00',1,4,3),(67,'Attacking Network Protocols A Hacker’s Guide to Capture, Analysis, and Exploitation ( PDFDrive ).pdf','2008-03-05 00:00:00','2021-09-08 00:00:00',0,2,2),(68,'Auto Repair For Dummies ( PDFDrive ).epub','2010-04-01 00:00:00','2002-05-07 00:00:00',0,3,2),(69,'Auto Repair For Dummies ( PDFDrive ).pdf','2014-12-07 00:00:00','2002-03-05 00:00:00',0,4,1),(70,'Automobile Mechanical and Electrical Systems Automotive Technology Vehicle Maintenance and Repair (Vehicle Maintenance & Repr Nv2) ( PDFDrive ).pdf','2020-01-10 00:00:00','2013-09-02 00:00:00',0,5,3),(71,'Automotive Engines Diagnosis, Repair, Rebuilding ( PDFDrive ).pdf','2008-10-07 00:00:00','2017-09-07 00:00:00',0,2,1),(72,'Automotive Technology Principles, Diagnosis, and Service (4th Edition) ( PDFDrive ).pdf','2016-01-08 00:00:00','2008-11-04 00:00:00',0,5,3),(73,'list2.txt','2022-01-11 00:00:00','2022-01-25 12:50:24',0,1,2),(75,'merise.pdf','2020-12-01 00:00:00','2022-01-25 14:14:08',0,1,1),(76,'RAPPORT - Copie.odt','2021-01-17 00:00:00','2022-01-25 14:36:13',0,1,3),(77,'RAPPORT - Copie.odt','2021-01-17 00:00:00','2022-01-25 14:47:57',0,1,4),(78,'MMORPG.mcd','2021-01-17 00:00:00','2022-01-25 15:34:07',0,1,7),(79,'MMORPG.mcd','2021-01-17 00:00:00','2022-01-25 15:36:53',0,1,4),(80,'MMORPG.mcd','2021-01-17 00:00:00','2022-01-25 15:37:59',0,1,4),(81,'Novel_MLD.mcd','2021-01-17 00:00:00','2022-01-25 15:38:11',0,1,4),(82,'subway.mcd','2021-01-17 00:00:00','2022-01-25 15:44:14',0,1,7),(83,'subway.mcd','2021-01-17 00:00:00','2022-01-25 15:44:16',0,1,7),(84,'subway.mcd','2021-01-17 00:00:00','2022-01-25 15:46:23',0,1,7),(85,'merise.pdf','2020-12-01 00:00:00','2022-01-25 15:55:16',0,1,2),(86,'merise.pdf','2020-12-01 00:00:00','2022-01-25 18:05:39',0,1,3),(87,'Novel_MLD','2021-01-10 00:00:00','2022-01-25 18:06:52',0,1,3),(88,'merise.pdf','2020-12-01 00:00:00','2022-01-25 19:52:55',0,1,2),(89,'Alerts-CISA.png','2021-11-21 00:00:00','2022-01-25 20:45:29',0,1,2),(90,'addFeedly.png','2021-11-21 00:00:00','2022-01-25 21:03:13',0,1,3),(91,'CompanyHRExcel.zip','2021-03-15 00:00:00','2022-01-26 21:25:24',0,1,2),(92,'Capture d’écran (725).png','2021-11-22 00:00:00','2022-01-26 21:34:41',0,1,4),(93,'bountyHunters.PNG','2021-11-20 00:00:00','2022-01-26 21:35:16',0,1,4),(94,'bountyHunters3.png','2021-11-22 00:00:00','2022-01-26 21:35:21',0,1,4),(95,'addFeedly.png','2021-11-21 00:00:00','2022-01-26 21:35:24',0,1,4),(96,'Capture d’écran (737).png','2021-11-22 00:00:00','2022-01-26 21:35:26',0,1,4),(97,'list2.txt','2022-01-11 00:00:00','2022-01-28 11:10:36',0,1,7),(98,'APM02.pdf','2019-09-26 00:00:00','2022-01-28 14:13:06',0,1,21),(99,'icon.png','2018-10-09 00:00:00','2022-01-29 18:30:44',0,1,17),(100,'focus.odt','2020-11-29 00:00:00','2022-02-03 19:35:31',0,1,17),(101,'desktop.ini','2021-03-10 00:00:00','2022-02-03 19:54:26',0,1,17);
 /*!40000 ALTER TABLE `document` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -133,7 +133,7 @@ CREATE TABLE `dossier` (
   PRIMARY KEY (`Id_Dossier`),
   KEY `Id_Type_Dossier` (`Id_Type_Dossier`),
   CONSTRAINT `dossier_ibfk_1` FOREIGN KEY (`Id_Type_Dossier`) REFERENCES `type_dossier` (`Id_Type_Dossier`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +142,7 @@ CREATE TABLE `dossier` (
 
 LOCK TABLES `dossier` WRITE;
 /*!40000 ALTER TABLE `dossier` DISABLE KEYS */;
-INSERT INTO `dossier` VALUES (1,'premiere',0,4),(2,'deuxieme',0,4),(3,'troisieme',0,4),(5,'deuxieme',0,2),(6,'deuxieme',0,3),(7,'deuxieme',0,3),(8,'deuxieme',0,3),(9,'deuxieme',0,3),(10,'deuxieme',0,3),(11,'deuxieme',0,3),(12,'deuxieme',0,3),(13,'deuxieme',0,3),(14,'troisieme',0,2),(15,'troisieme',0,2),(16,'troisieme',0,2),(17,'troisieme',0,1),(18,'premiere',0,3),(19,'troisieme',0,1),(20,'troisieme',0,2),(21,'troisieme',0,1),(22,'troisieme',0,1),(23,'troisieme',0,1),(24,'troisieme',0,1),(25,'troisieme',0,1);
+INSERT INTO `dossier` VALUES (1,'premiere',0,4),(2,'deuxieme',0,4),(3,'troisieme',0,4),(5,'deuxieme',0,2),(6,'deuxieme',0,3),(7,'deuxieme',0,3),(8,'deuxieme',0,3),(9,'deuxieme',0,3),(10,'deuxieme',0,3),(11,'deuxieme',0,3),(12,'deuxieme',0,3),(13,'deuxieme',0,3),(14,'troisieme',0,2),(15,'troisieme',0,2),(16,'troisieme',0,2),(17,'troisieme',0,1),(18,'premiere',0,3),(19,'troisieme',0,1),(20,'troisieme',0,2),(21,'troisieme',0,1),(22,'troisieme',0,1),(23,'troisieme',0,1),(24,'troisieme',0,1),(25,'troisieme',0,1),(26,'troisieme',0,2),(27,'deuxieme',0,4),(28,'troisieme',0,2),(29,'troisieme',0,2),(30,'troisieme',0,2);
 /*!40000 ALTER TABLE `dossier` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,7 +232,7 @@ CREATE TABLE `reference` (
   `Id_Reference` int(11) NOT NULL AUTO_INCREMENT,
   `Nom_Reference` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`Id_Reference`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,7 +241,7 @@ CREATE TABLE `reference` (
 
 LOCK TABLES `reference` WRITE;
 /*!40000 ALTER TABLE `reference` DISABLE KEYS */;
-INSERT INTO `reference` VALUES (1,'Neil'),(2,'Eli'),(3,'Meriem'),(4,'Julien'),(5,'Ilir'),(6,'Martin'),(7,'facture'),(8,'C++'),(9,'Java'),(10,'fleurs'),(11,'paysage'),(12,'loop'),(13,'psychedelique'),(14,'voiture'),(15,'dessin'),(16,'programmation'),(17,'wesh'),(24,'hacking'),(25,'Neilllllllllll'),(26,'hsdbfkhsdfhk'),(27,'oooooooo'),(28,'jjjddjdjdjd'),(29,'NNENENENENE'),(30,'EEEEERRRR'),(31,'HFJFJFJFLDSL'),(32,'EEEEERRRR'),(33,'HFJFJFJFLDSL'),(34,'EEEEERRRR'),(35,'HFJFJFJFLDSL'),(36,'EEEEERRRR'),(37,'HFJFJFJFLDSL'),(38,'EEEEERRRR'),(39,'HFJFJFJFLDSL');
+INSERT INTO `reference` VALUES (1,'Neil'),(2,'Eli'),(3,'Meriem'),(4,'Julien'),(5,'Ilir'),(6,'Martin'),(7,'facture'),(8,'C++'),(9,'Java'),(10,'fleurs'),(11,'paysage'),(12,'loop'),(13,'psychedelique'),(14,'voiture'),(15,'dessin'),(16,'programmation'),(17,'wesh'),(24,'hacking'),(25,'Neilllllllllll'),(26,'hsdbfkhsdfhk'),(27,'oooooooo'),(28,'jjjddjdjdjd'),(29,'NNENENENENE'),(30,'EEEEERRRR'),(31,'HFJFJFJFLDSL'),(32,'EEEEERRRR'),(33,'HFJFJFJFLDSL'),(34,'EEEEERRRR'),(35,'HFJFJFJFLDSL'),(36,'EEEEERRRR'),(37,'HFJFJFJFLDSL'),(38,'EEEEERRRR'),(39,'HFJFJFJFLDSL'),(40,'gyvygv'),(41,'gtyyg'),(42,'DIMITRY'),(43,'YEROM'),(44,'ergef'),(45,'egreger'),(46,''),(47,''),(48,''),(49,''),(50,'gfhg'),(51,'hghjg');
 /*!40000 ALTER TABLE `reference` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,6 +270,25 @@ INSERT INTO `scan` VALUES (1,'scan-8m0i5yl89u1f2y'),(2,'scan-2s4n5xp64u3r9p'),(3
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `tags_documents`
+--
+
+DROP TABLE IF EXISTS `tags_documents`;
+/*!50001 DROP VIEW IF EXISTS `tags_documents`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `tags_documents` (
+  `Id_Document` tinyint NOT NULL,
+  `Nom_Document` tinyint NOT NULL,
+  `DateDocument` tinyint NOT NULL,
+  `DateScan` tinyint NOT NULL,
+  `Flag_document` tinyint NOT NULL,
+  `Id_Reference` tinyint NOT NULL,
+  `Nom_reference` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `type_de_document`
 --
 
@@ -284,7 +303,7 @@ CREATE TABLE `type_de_document` (
   PRIMARY KEY (`Id_Type_De_Document`),
   KEY `Id_Dossier` (`Id_Dossier`),
   CONSTRAINT `type_de_document_ibfk_1` FOREIGN KEY (`Id_Dossier`) REFERENCES `dossier` (`Id_Dossier`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,7 +312,7 @@ CREATE TABLE `type_de_document` (
 
 LOCK TABLES `type_de_document` WRITE;
 /*!40000 ALTER TABLE `type_de_document` DISABLE KEYS */;
-INSERT INTO `type_de_document` VALUES (1,'photo',0,3),(2,'document',0,3),(3,'mail',0,3),(4,'manga',0,3),(7,'manga',0,5),(8,'manga',0,6),(9,'manga',0,6),(10,'manga',0,6),(11,'manga',0,6),(12,'manga',0,7),(13,'manga',0,7),(14,'manga',0,7),(15,'document',0,3),(16,'mail',0,3),(17,'mail',0,3),(18,'document',0,3),(19,'document',0,1),(20,'mail',0,3),(21,'document',0,3),(22,'manga',0,3),(23,'manga',0,3),(24,'manga',0,3),(25,'manga',0,3),(26,'manga',0,3);
+INSERT INTO `type_de_document` VALUES (1,'photo',0,3),(2,'document',0,3),(3,'mail',0,3),(4,'manga',0,3),(7,'manga',0,5),(8,'manga',0,6),(9,'manga',0,6),(10,'manga',0,6),(11,'manga',0,6),(12,'manga',0,7),(13,'manga',0,7),(14,'manga',0,7),(15,'document',0,3),(16,'mail',0,3),(17,'mail',0,3),(18,'document',0,3),(19,'document',0,1),(20,'mail',0,3),(21,'document',0,3),(22,'manga',0,3),(23,'manga',0,3),(24,'manga',0,3),(25,'manga',0,3),(26,'manga',0,3),(27,'manga',0,17),(28,'document',0,11),(29,'mail',0,14),(30,'mail',0,20),(31,'mail',0,17);
 /*!40000 ALTER TABLE `type_de_document` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -345,7 +364,7 @@ CREATE TABLE `typer` (
 
 LOCK TABLES `typer` WRITE;
 /*!40000 ALTER TABLE `typer` DISABLE KEYS */;
-INSERT INTO `typer` VALUES (1,6),(1,12),(2,1),(2,2),(2,5),(2,10),(2,13),(2,15),(3,2),(3,4),(3,16),(4,12),(4,14),(4,17),(5,9),(5,14),(6,1),(6,4),(6,6),(6,7),(6,8),(6,10),(6,13),(7,1),(7,17),(8,9),(8,13),(8,17),(9,5),(10,14),(11,4),(11,6),(11,8),(11,12),(12,4),(12,8),(12,14),(13,5),(14,1),(14,2),(14,16),(15,13),(16,14),(17,1),(17,6),(17,9),(18,3),(18,5),(18,10),(18,17),(19,2),(19,9),(19,16),(19,17),(20,9),(20,10),(21,4),(21,7),(22,12),(23,1),(23,2),(23,5),(23,15),(23,17),(24,9),(25,3),(25,10),(25,17),(26,1),(26,3),(27,1),(27,5),(27,7),(27,14),(27,17),(28,2),(28,7),(28,11),(28,12),(29,2),(29,5),(29,6),(29,8),(29,15),(30,6),(30,11),(30,12),(31,5),(31,7),(32,15),(33,17),(33,27),(34,8),(34,12),(34,26),(35,5),(35,10),(35,14),(35,15),(36,4),(37,5),(37,8),(37,12),(37,14),(39,4),(39,9),(39,13),(40,6),(40,17),(41,14),(42,2),(42,4),(42,11),(42,14),(44,2),(44,3),(44,4),(44,10),(45,4),(45,10),(45,16),(46,7),(46,11),(46,12),(46,14),(47,14),(48,1),(48,9),(48,14),(50,10),(50,13),(50,17),(51,11),(51,15),(51,17),(52,1),(52,2),(52,6),(53,2),(53,17),(54,3),(54,6),(55,1),(55,8),(56,3),(56,4),(56,14),(57,1),(57,6),(58,1),(58,15),(59,8),(59,11),(59,14),(60,1),(61,3),(61,12),(61,13),(63,1),(63,16),(63,17),(64,5),(64,15),(65,13),(65,14),(66,11),(66,12),(67,2),(67,4),(67,9),(67,12),(68,6),(70,8),(70,9),(70,13),(71,2),(71,4),(71,10),(71,12),(71,14),(72,1),(72,6),(72,7),(72,12),(91,28),(91,29),(92,30),(92,31),(93,32),(93,33),(94,34),(94,35),(95,36),(95,37),(96,38),(96,39);
+INSERT INTO `typer` VALUES (1,6),(1,12),(2,1),(2,2),(2,5),(2,10),(2,13),(2,15),(3,2),(3,4),(3,16),(4,12),(4,14),(4,17),(5,9),(5,14),(6,1),(6,4),(6,6),(6,7),(6,8),(6,10),(6,13),(7,1),(7,17),(8,9),(8,13),(8,17),(9,5),(10,14),(11,4),(11,6),(11,8),(11,12),(12,4),(12,8),(12,14),(13,5),(14,1),(14,2),(14,16),(15,13),(16,14),(17,1),(17,6),(17,9),(18,3),(18,5),(18,10),(18,17),(19,2),(19,9),(19,16),(19,17),(20,9),(20,10),(21,4),(21,7),(22,12),(23,1),(23,2),(23,5),(23,15),(23,17),(24,9),(25,3),(25,10),(25,17),(26,1),(26,3),(27,1),(27,5),(27,7),(27,14),(27,17),(28,2),(28,7),(28,11),(28,12),(29,2),(29,5),(29,6),(29,8),(29,15),(30,6),(30,11),(30,12),(31,5),(31,7),(32,15),(33,17),(33,27),(34,8),(34,12),(34,26),(35,5),(35,10),(35,14),(35,15),(36,4),(37,5),(37,8),(37,12),(37,14),(39,4),(39,9),(39,13),(40,6),(40,17),(41,14),(42,2),(42,4),(42,11),(42,14),(44,2),(44,3),(44,4),(44,10),(45,4),(45,10),(45,16),(46,7),(46,11),(46,12),(46,14),(47,14),(48,1),(48,9),(48,14),(50,10),(50,13),(50,17),(51,11),(51,15),(51,17),(52,1),(52,2),(52,6),(53,2),(53,17),(54,3),(54,6),(55,1),(55,8),(56,3),(56,4),(56,14),(57,1),(57,6),(58,1),(58,15),(59,8),(59,11),(59,14),(60,1),(61,3),(61,12),(61,13),(63,1),(63,16),(63,17),(64,5),(64,15),(65,13),(65,14),(66,11),(66,12),(67,2),(67,4),(67,9),(67,12),(68,6),(70,8),(70,9),(70,13),(71,2),(71,4),(71,10),(71,12),(71,14),(72,1),(72,6),(72,7),(72,12),(91,28),(91,29),(92,30),(92,31),(93,32),(93,33),(94,34),(94,35),(95,36),(95,37),(96,38),(96,39),(97,40),(97,41),(98,42),(98,43),(99,44),(99,45),(100,48),(100,49),(101,50),(101,51);
 /*!40000 ALTER TABLE `typer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,7 +386,7 @@ CREATE TABLE `utilisateur` (
   PRIMARY KEY (`Id_Utilisateur`),
   KEY `Id_Niveau` (`Id_Niveau`),
   CONSTRAINT `utilisateur_ibfk_1` FOREIGN KEY (`Id_Niveau`) REFERENCES `niveau` (`Id_Niveau`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,7 +395,7 @@ CREATE TABLE `utilisateur` (
 
 LOCK TABLES `utilisateur` WRITE;
 /*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
-INSERT INTO `utilisateur` VALUES (1,'Didi','Neil','neil','test1',1,1),(2,'Cauwenbergh','Eli','eli','test2',1,2),(3,'I','Ilir','ilir','test3',0,3),(4,'Dethioux','Julien','julien','test4',1,4),(5,'Delforge','Laquement','b1@gmail.com','Secret123',0,1),(6,'Browser','Meriem','uht uht','5ebe2294ecd0e0f08eab7690d2a6ee69',0,2),(7,'Nom','Prenom','A','0cc175b9c0f1b6a831c399e269772661',0,1),(8,'dsf','sfg','fsgs','27d779cba60f2b5d48debdd970c8e732',0,1),(9,'Neil','Neil','drnd','020d04ebf72039a093942a6850e56077',0,1),(10,'Franklin','Benjamin','ggg','202cb962ac59075b964b07152d234b70',0,1),(11,'Bebe','Tortue','tortue','c92e5ffb0d3cd851b0609410147692f6',0,1),(12,'','','','d41d8cd98f00b204e9800998ecf8427e',0,1),(13,'Sylvain','Durif','Durif','dcf78929f7ced085219636858ac29c8e',0,1);
+INSERT INTO `utilisateur` VALUES (1,'Didi','Neil','neil','test1',1,1),(2,'Cauwenbergh','Eli','eli','test2',1,2),(3,'I','Ilir','ilir','test3',0,3),(4,'Dethioux','Julien','julien','test4',1,4),(5,'Delforge','Laquement','b1@gmail.com','Secret123',0,1),(6,'Browser','Meriem','uht uht','5ebe2294ecd0e0f08eab7690d2a6ee69',0,2),(7,'Nom','Prenom','A','0cc175b9c0f1b6a831c399e269772661',0,1),(8,'dsf','sfg','fsgs','27d779cba60f2b5d48debdd970c8e732',0,1),(9,'Neil','Neil','drnd','020d04ebf72039a093942a6850e56077',0,1),(10,'Franklin','Benjamin','ggg','202cb962ac59075b964b07152d234b70',0,1),(11,'Bebe','Tortue','tortue','c92e5ffb0d3cd851b0609410147692f6',0,1),(12,'','','','d41d8cd98f00b204e9800998ecf8427e',0,1),(13,'Sylvain','Durif','Durif','dcf78929f7ced085219636858ac29c8e',0,1),(14,'z','z','z','fbade9e36a3f36d3d676c1b808451dd7',0,4),(15,'r','r','r','4b43b0aee35624cd95b910189b3dc231',0,6),(16,'Yeromin','Dimitry','Dim','8ed64ce6e8032ddb62a463ffa78881d9',0,5);
 /*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -807,10 +826,35 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `select_reference`(out lastID int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `select_reference`()
 begin
-	select * from reference;
-SET lastID = LAST_INSERT_ID();
+	select * from reference;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `select_tags_documents` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'IGNORE_SPACE,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `select_tags_documents`(in p_tag1 varchar(50), in p_tag2 varchar(50))
+begin
+	if ((p_tag1 is not null) and (p_tag2 is not null)) then
+	select * from tags_documents where Nom_reference = p_tag1 or Nom_reference = p_tag2;
+	elseif (p_tag1 is not null && p_tag2 is null) then
+	select * from tags_documents where Nom_reference = p_tag1;
+	elseif (p_tag2 is not null && p_tag1 is null) then
+	select * from tags_documents where Nom_reference = p_tag2;
+	END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1134,6 +1178,25 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Final view structure for view `tags_documents`
+--
+
+/*!50001 DROP TABLE IF EXISTS `tags_documents`*/;
+/*!50001 DROP VIEW IF EXISTS `tags_documents`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_unicode_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `tags_documents` AS select `document`.`Id_Document` AS `Id_Document`,`document`.`Nom_Document` AS `Nom_Document`,`document`.`DateDocument` AS `DateDocument`,`document`.`DateScan` AS `DateScan`,`document`.`Flag_document` AS `Flag_document`,`typer`.`Id_Reference` AS `Id_Reference`,`reference`.`Nom_Reference` AS `Nom_reference` from ((`document` join `typer` on(`document`.`Id_Document` = `typer`.`Id_Document`)) join `reference` on(`typer`.`Id_Reference` = `reference`.`Id_Reference`)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1144,4 +1207,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-26 21:40:37
+-- Dump completed on 2022-02-05 20:34:58

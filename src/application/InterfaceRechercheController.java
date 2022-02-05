@@ -57,11 +57,9 @@ public class InterfaceRechercheController implements Initializable
 	@FXML
 	private TextField searchField;
 	@FXML
-	private TextField tag2;
+	private CustomTextField tag1;
 	@FXML
-	private TextField tag1;
-	@FXML
-	private CustomTextField tag3;
+	private CustomTextField tag2;
 	
     //public ObservableList<Document> observableDocs = FXCollections.observableArrayList();
 //    List<Document> listDoc = new LinkedList<Document>();
@@ -94,14 +92,16 @@ public class InterfaceRechercheController implements Initializable
 			
 			ResultSet rst = stmt.getResultSet();
 			
+			observableDoc.clear();
+			
 			while(rst.next())
 			{	
 				observableDoc.add(new Document(rst));
 			}
 			
-			observableDoc.forEach(i -> System.out.println("DOC: "+i.getNomDocument()));
+			//observableDoc.forEach(i -> System.out.println("DOC: "+i.getNomDocument()));
 			ctrlDoc.setListeDoc(observableDoc);
-			ctrlDoc.getListeDoc().forEach(i -> System.out.println("DOC: "+i.getNomDocument()));
+//			ctrlDoc.getListeDoc().forEach(i -> System.out.println("DOC: "+i.getNomDocument()));
 				
 		} 
 		catch(Exception e)
@@ -202,10 +202,13 @@ public class InterfaceRechercheController implements Initializable
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ctrlDoc.getListeDoc().forEach(i -> System.out.println("DOC: "+i.getNomDocument()));
-		documentTable.setItems(ctrlDoc.getListeDoc());
+		//ctrlDoc.getListeDoc().forEach(i -> System.out.println("DOC: "+i.getNomDocument()));
 		
-		ctrlTag.getListeDossier().forEach(i -> System.out.println("TAG: "+i.getNomReference()));
+		//ultra redondant 
+		observableDoc.addAll(ctrlDoc.getListeDoc());
+		documentTable.setItems(observableDoc);
+		
+		//ctrlTag.getListeDossier().forEach(i -> System.out.println("TAG: "+i.getNomReference()));
 		
 		//AUTO COMPLETE TEXTFIELD FOR TAGS
 		//https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions
@@ -233,32 +236,30 @@ public class InterfaceRechercheController implements Initializable
 		
 		//field.getTags().addAll(ctrlTag.getListeDossier().toString());   //getEntries().addAll(YOUR_ARRAY_OF_STRINGS);
 		
-		TextFields.bindAutoCompletion(tag3,ctrlTag.getListeDossier().toString());
-		
+		//AUTOCOMPLETION TEXTFIELD controlsfx (librairie rajoutée dans eclipse et scenebuilder)
+		TextFields.bindAutoCompletion(tag1,ctrlTag.getListeDossier());
+		TextFields.bindAutoCompletion(tag2,ctrlTag.getListeDossier());
+
 		//Listener on observableList, to refresh the tableview when list change
-		ctrlDoc.getListeDoc().addListener(new ListChangeListener<Document>(){
-
-            @Override
-            public void onChanged(javafx.collections.ListChangeListener.Change<? extends Document> pChange) 
-            {
-//                while(pChange.next()) 
-//                {
-//                    // Do your changes here
-//                }
-                documentTable.refresh();
-            }
-
-        });
+//		ctrlDoc.getListeDoc().addListener(new ListChangeListener<Document>(){
+//
+//            @Override
+//            public void onChanged(javafx.collections.ListChangeListener.Change<? extends Document> pChange) 
+//            {
+////                while(pChange.next()) 
+////                {
+////                    // Do your changes here
+////                }
+//                documentTable.refresh();
+//            }
+//
+//        });
 		
 		observableDoc.addListener(new ListChangeListener<Document>(){
 
             @Override
             public void onChanged(Change<? extends Document> pChange) 
             {
-//                while(pChange.next()) 
-//                {
-//                    // Do your changes here
-//                }
                 documentTable.refresh();
             }
 
