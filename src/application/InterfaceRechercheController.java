@@ -83,8 +83,16 @@ public class InterfaceRechercheController implements Initializable
 		{
 			CallableStatement stmt = connectDb.prepareCall(query);
 			
-			stmt.setString(1, tag1.getText());
-			stmt.setString(2, tag2.getText());
+			if(tag1.getText().isBlank())
+			{
+				stmt.setString(1, null);
+				stmt.setString(2, tag2.getText());				
+			}
+			else if(tag2.getText().isBlank())
+			{
+				stmt.setString(1, tag1.getText());
+				stmt.setString(2, null);				
+			}
 
 			stmt.execute(); 
 			
