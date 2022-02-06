@@ -25,6 +25,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import application2.AbstractDAO;
 import entity.Niveau;
 
 /**
@@ -33,7 +34,7 @@ import entity.Niveau;
  * @author Neil
  *
  */
-public class SignInController implements Initializable
+public class SignInController extends AbstractDAO implements Initializable
 {
 	@FXML
 	private Button annuler;
@@ -59,14 +60,14 @@ public class SignInController implements Initializable
 	 */
 	public void validate(ActionEvent event)
 	{	
-		Connection connectDb = DatabaseConnection.getInstance().getConnection();
+		//Connection connectDb = DatabaseConnection.getInstance().getConnection();
 		
 		String query = "{CALL insert_utilisateur(?,?,?,?,?)}";
 		
 		
 		try 
 		{
-			CallableStatement stmt = connectDb.prepareCall(query);
+			CallableStatement stmt = connection.prepareCall(query);
 			stmt.setString(1, nom.getText().trim());
 			stmt.setString(2, prenom.getText().trim());
 			stmt.setString(3, login.getText().trim());
@@ -145,7 +146,7 @@ public class SignInController implements Initializable
 		// TODO Auto-generated method stub
 		ObservableList<Niveau> listNiveau = FXCollections.observableArrayList();
 		
-		Connection connectDb = DatabaseConnection.getInstance().getConnection();
+		//Connection connectDb = DatabaseConnection.getInstance().getConnection();
 		
 		String query = "{CALL select_niveau()}";
 	
@@ -154,7 +155,7 @@ public class SignInController implements Initializable
 		{
 			
 			//Statement statement = connectDb.createStatement();
-			CallableStatement stmt = connectDb.prepareCall(query);
+			CallableStatement stmt = connection.prepareCall(query);
 			
 			ResultSet queryResult = stmt.executeQuery();
 			

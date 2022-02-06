@@ -10,18 +10,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
-import application.DatabaseConnection;
+import application.SingleConnection;
+import application2.AbstractDAO;
 import entity.Document;
 import entity.TypeDeDocument;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 
-public class CtrlTypeDoc{
+public class CtrlTypeDoc extends AbstractDAO{
 	
 	private ObservableList<TypeDeDocument> listeTypeDoc = FXCollections.observableArrayList();
-	private Connection connexion = DatabaseConnection.getInstance().getConnection();
-
+	
 	public ObservableList<TypeDeDocument> getListeTypeDoc() {
 		return listeTypeDoc;
 	}
@@ -33,7 +33,7 @@ public class CtrlTypeDoc{
 	public void charger() throws SQLException {
 		System.out.println("\nCharger type doc\n");
 		
-		CallableStatement fctCall = connexion.prepareCall("{call select_type_de_document()}"); 
+		CallableStatement fctCall = connection.prepareCall("{call select_type_de_document()}"); 
 		ResultSet resultatRequete = fctCall.executeQuery();
 		
 		while(resultatRequete.next())

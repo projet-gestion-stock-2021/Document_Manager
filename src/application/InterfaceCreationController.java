@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import application2.AbstractDAO;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -41,13 +44,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 //import javax.security.auth.callback.Callback;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.stage.DirectoryChooser;
 import java.awt.Desktop;
 
-public class InterfaceCreationController implements Initializable {
+
+
+public class InterfaceCreationController extends AbstractDAO implements Initializable
+{
+	
+	
 
 	// Parametres fxml
 	@FXML
@@ -103,6 +112,7 @@ public class InterfaceCreationController implements Initializable {
 	private CtrlDocument ctrlDoc = new CtrlDocument();
 	private CtrlDossier ctrlDossier = new CtrlDossier();
 	private CtrlTypeDossier ctrlTypeDossier = new CtrlTypeDossier();
+
 	private CtrlTypeDoc ctrlTypeDoc = new CtrlTypeDoc();
 
 	private File selectedDirectory;
@@ -152,12 +162,77 @@ public class InterfaceCreationController implements Initializable {
 	public void validerOnClicked() {
 		Connection connectDb = DatabaseConnection.getInstance().getConnection();
 
+
+	private CtrlTypeDoc  ctrlTypeDoc = new CtrlTypeDoc();
+
+    
+    private File selectedDirectory;
+    public int filecount = 0;
+    public int dircount = 0;
+    
+    Document selectedDoc;
+    
+    TypeDeDocument selectedTypeDoc;
+    TypeDossier selectedTypeDossier;
+    Dossier selectedDossier;
+    CallableStatement stmt;
+    Reference ref;
+    
+    /*
+     * Create the path with the 3 categories if it doesn't exist.
+     * And it copies the file selected in this path.
+     */
+    public void createPathAndCopy()
+    {
+    	String path = "..\\" + tag1.getSelectionModel().getSelectedItem().toString()+ "\\"
+    			+ tag2.getSelectionModel().getSelectedItem().toString()+ "\\"
+    			+ tag3.getSelectionModel().getSelectedItem().toString();
+    	
+    	try 
+    	{
+    		if(!Files.exists(Paths.get(path)))
+			Files.createDirectories(Paths.get(path));
+    		else 
+    			System.out.print("\nPath already exists\n");
+    			
+		} 
+    	catch (IOException e) 
+    	{
+    		System.out.print("\nPROBLEM creating path\n");
+    		
+			e.printStackTrace();
+		}
+    	
+    	try 
+    	{
+    		path += "\\" +selectedDoc.getNomDocument();
+    		
+    		if(!Files.exists(Paths.get(path)))
+			Files.copy(selectedDoc.getDocPath(), Paths.get(path));
+    		else 
+    			System.out.print("\nFile already exists\n");
+    			
+		} 
+    	catch (IOException e) 
+    	{
+    		
+    		System.out.print("\nPROBLEM copy file to path\n");
+    		
+			e.printStackTrace();
+		}
+    }
+    
+    public void validerOnClicked()
+    {
+				
+
 		String query = "{CALL insert_document(?,?,?,?,?)}";
 
 		int lastID_Doc = 0;
 
+
 		try {
-			CallableStatement stmt = connectDb.prepareCall(query);
+			CallableStatement stmt = connection.prepareCall(query);
 			// OPEN THE DOC FIRST, I WILL CHANGE THE METHOD THEN
 			stmt.setString(1, selectedDoc.getNomDocument());// Nom Document
 
@@ -168,6 +243,23 @@ public class InterfaceCreationController implements Initializable {
 
 			stmt.setDate(2, date1);// Date Document
 			stmt.setInt(3, 1);// CreationDoc ID
+
+
+		
+		try 
+		{
+			 stmt = connection.prepareCall(query);
+			//OPEN THE DOC FIRST, I WILL CHANGE THE METHOD THEN
+			stmt.setString(1, selectedDoc.getNomDocument());//Nom Document
+			
+	        Date date = new Date();
+
+	        long timeInMilliSeconds = selectedDoc.getDateDocument().toMillis();
+	        java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
+	        
+			stmt.setDate(2,date1);//Date Document
+			stmt.setInt(3, 1);//CreationDoc ID
+			
 
 			selectedTypeDoc = (TypeDeDocument) tag1.getSelectionModel().getSelectedItem();
 			stmt.setInt(4, selectedTypeDoc.getIdTypeDeDocument());
@@ -188,8 +280,16 @@ public class InterfaceCreationController implements Initializable {
 
 		query = "{CALL insert_type_de_document(?,?)}";
 
+
 		try {
-			CallableStatement stmt = connectDb.prepareCall(query);
+			CallableStatement stmt = connection.prepareCall(query);
+
+		
+		
+		try 
+		{
+			 stmt = connection.prepareCall(query);
+
 
 			selectedTypeDoc = (TypeDeDocument) tag1.getSelectionModel().getSelectedItem();
 			selectedDossier = (Dossier) tag2.getSelectionModel().getSelectedItem();
@@ -197,20 +297,42 @@ public class InterfaceCreationController implements Initializable {
 			stmt.setString(1, selectedTypeDoc.getNomTypeDoc());
 			stmt.setInt(2, selectedDossier.getIdDossier());
 
+
 			stmt.execute();
 			System.out.print("uploaded type_de_document successfully\n");
 
 		} catch (Exception e) {
 
 			System.out.println("\nPROBLEME insert_type_de_document validerOnClicked\n");
+
+			stmt.execute(); 
+			//System.out.print("uploaded type_de_document successfully\n");
+			Alert alert=new Alert(AlertType.ERROR,"upload type_de_document successfully",ButtonType.OK);
+	    	alert.showAndWait();
+				
+		} 
+		catch(Exception e)
+		{
+			Alert alert=new Alert(AlertType.ERROR,"Problem insert_type_de_document validerOnClicked",ButtonType.OK);
+	    	alert.showAndWait();
+			//System.out.println("\nPROBLEME insert_type_de_document validerOnClicked\n");
+
 			e.printStackTrace();
 			e.getCause();
 		}
 
 		query = "{CALL insert_dossier(?,?)}";
 
+
 		try {
-			CallableStatement stmt = connectDb.prepareCall(query);
+			CallableStatement stmt = connection.prepareCall(query);
+
+		
+		
+		try 
+		{
+			 stmt = connection.prepareCall(query);
+
 
 			selectedDossier = (Dossier) tag2.getSelectionModel().getSelectedItem();
 			selectedTypeDossier = (TypeDossier) tag3.getSelectionModel().getSelectedItem();
@@ -218,12 +340,27 @@ public class InterfaceCreationController implements Initializable {
 			stmt.setString(1, selectedDossier.getNomDossier());
 			stmt.setInt(2, selectedTypeDossier.getIdTypeDossier());
 
+
 			stmt.execute();
 			System.out.print("uploaded dossier successfully\n");
 
 		} catch (Exception e) {
 
 			System.out.println("\nPROBLEME insert_dossier validerOnClicked\n");
+
+			stmt.execute(); 
+			Alert alert=new Alert(AlertType.CONFIRMATION,"upload dossier successflly",ButtonType.OK);
+	    	alert.showAndWait();
+			//System.out.print("uploaded dossier successfully\n");
+				
+		} 
+		catch(Exception e)
+		{
+			
+			//System.out.println("\nPROBLEME insert_dossier validerOnClicked\n");
+			Alert alert=new Alert(AlertType.ERROR,"Problem insert_dossier validerOnClicked",ButtonType.OK);
+	    	alert.showAndWait();
+
 			e.printStackTrace();
 			e.getCause();
 		}
@@ -249,10 +386,18 @@ public class InterfaceCreationController implements Initializable {
 
 		query = "{CALL insert_reference(?,?)}";
 		int lastID_Ref1 = 0;
+
 		// int lastID_Ref2 = 0;
 
 		try {
 			CallableStatement stmt = connectDb.prepareCall(query);
+
+		//int lastID_Ref2 = 0;
+		
+		try 
+		{
+			 stmt = connection.prepareCall(query);
+			
 
 			stmt.setString(1, tagPerso1.getText());
 			stmt.registerOutParameter(2, Types.INTEGER);
@@ -264,9 +409,18 @@ public class InterfaceCreationController implements Initializable {
 
 			lastID_Ref1 = stmt.getInt(2);
 
+
 			System.out.print("uploaded tag1 and tag2 successfully lastID_Ref: " + lastID_Ref1 + "\n");
 
 		} catch (Exception e) {
+
+
+			
+			System.out.print("uploaded tag1 and tag2 successfully lastID_Ref: " + lastID_Ref1 +"\n");
+				
+		} 
+		catch(Exception e)
+		{
 
 			System.out.println("\nPROBLEME insert_reference validerOnClicked\n");
 			e.printStackTrace();
@@ -295,12 +449,24 @@ public class InterfaceCreationController implements Initializable {
 //			e.getCause(); 
 //		}
 
+
 		query = "{CALL insert_typer(?,?)}";// insert table pivot pour lier le document enregistré et les tags
 
 		try {
 			CallableStatement stmt = connectDb.prepareCall(query);
 
 			// tag2
+	
+		
+		query = "{CALL insert_typer(?,?)}";//insert table pivot pour lier le document enregistré et les tags
+		
+		
+		try 
+		{
+			stmt = connection.prepareCall(query);
+			
+			//tag2
+
 			stmt.setInt(2, lastID_Ref1);
 			stmt.setInt(1, lastID_Doc);
 			stmt.execute();
@@ -368,6 +534,7 @@ public class InterfaceCreationController implements Initializable {
 
 	}
 
+
 	/*
 	 * Opens the file selected in the list.
 	 */
@@ -384,10 +551,35 @@ public class InterfaceCreationController implements Initializable {
 			try {
 				desktop.open(selectedDoc.getDocPath().toFile().getAbsoluteFile());
 				System.out.println("\n" + selectedDoc.getDocPath().toFile().getAbsoluteFile() + "\n");
+
+    /*
+     * Opens the file selected in the list.
+     */
+    public void onListCellClicked()
+    {
+    	if(!Desktop.isDesktopSupported())
+    	{
+    		//System.out.println("Desktop is not supported");
+    		Alert alert=new Alert(AlertType.ERROR,"Desktop is not supported",ButtonType.OK);
+	    	alert.showAndWait();
+    		return;
+    	}
+    	//selectedDoc = (Document) listViewAffiche.getSelectionModel().getSelectedItem();
+    	Desktop desktop = Desktop.getDesktop();
+    	
+    	
+    	if(selectedDoc.getDocPath().toFile().exists()) 
+    	{
+    		try {
+				desktop.open(selectedDoc.getDocPath().toFile().getAbsoluteFile());
+				
+				//System.out.println("\n"+selectedDoc.getDocPath().toFile().getAbsoluteFile()+"\n");
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 		} else {
 			System.out.println("\nFILE DOESN'T EXIST!!!!\n");
 			System.out.println(selectedDoc.getDocPath().toFile().getAbsoluteFile());
@@ -417,6 +609,42 @@ public class InterfaceCreationController implements Initializable {
 	 * 
 	 * @param event
 	 */
+=======
+    	}
+    	else
+    	{
+    		//System.out.println("\nFILE DOESN'T EXIST!!!!\n");
+    		//System.out.println(selectedDoc.getDocPath().toFile().getAbsoluteFile());
+    		Alert alert=new Alert(AlertType.WARNING,"FILE DOESN'T EXIST",ButtonType.OK);
+	    	alert.showAndWait();
+    	}
+
+    }
+/*    
+    @Override
+    public final void initialize(final URL location,
+            final ResourceBundle resources) 
+	{
+
+		docNamecol.setCellValueFactory(new PropertyValueFactory<Document,String>("nomDocument1"));
+    	
+//    	docNamecol.setCellValueFactory(new Callback<CellDataFeatures<Document, String>, ObservableValue<String>>() {
+//    	     public ObservableValue<String> call(CellDataFeatures<Document, String> p) {
+//    	         // p.getValue() returns the Person instance for a particular TableView row
+//    	         return p.getValue().getNomDocument();
+//    	     }
+//    	  });
+    	
+//		tabView.getColumns().add(docNamecol);
+
+    }
+    */
+    
+    /**
+     * Gets the directory path in a File object.
+     * @param event
+     */
+
 	@FXML
 	private void handleDirectory(ActionEvent event) {
 		// reset list and counts
@@ -444,6 +672,27 @@ public class InterfaceCreationController implements Initializable {
 			showListFiles(selectedDirectory);
 		}
 
+
+		
+	    DirectoryChooser directoryChooser = new DirectoryChooser();
+	    selectedDirectory = directoryChooser.showDialog(null);
+	    
+	    if (selectedDirectory == null) 
+	    {
+	    	//nomDoc.setText("No Directory selected");
+	    	Alert alert=new Alert(AlertType.ERROR,"No Directory selected",ButtonType.OK);
+	    	alert.showAndWait();
+	    	//ATTENTION � supprimer
+	    	
+	    	//selectedDirectory = Paths.get("O:\\[2E]\\_Analyse").toFile();
+	    }
+	    else 
+	    {
+	    	nomDoc.setText(selectedDirectory.getAbsolutePath());
+	    	showListFiles(selectedDirectory);
+	    }
+	    
+>>>>>>> Stashed changes
 	}
 
 	@FXML
@@ -494,6 +743,7 @@ public class InterfaceCreationController implements Initializable {
 //				observableDocs.forEach((Document doc) -> {
 //					System.out.println("  Fichier: " + doc.toString());
 //					});
+
 			listViewAffiche.getItems().addAll(listDoc);
 
 			tabView.setItems(observableDocs);
@@ -505,6 +755,23 @@ public class InterfaceCreationController implements Initializable {
 		}
 		nbfiles.setText("Number of files: " + filecount);
 		nbfolders.setText("Number of folders: " + dircount);
+
+				listViewAffiche.getItems().addAll(listDoc);
+				
+				tabView.setItems(observableDocs);
+    			
+    			//labelPath.setText(selectedFile.getName());
+
+    		}
+    		else 
+    		{
+    			//labelPath.setText("Le dossier n'est pas valide");
+    			Alert alert=new Alert(AlertType.WARNING,"Le dossier n'est pas valide",ButtonType.OK);
+    	    	alert.showAndWait();
+    		}
+		nbfiles.setText("Number of files: "+ filecount);
+		nbfolders.setText("Number of folders: "+ dircount);
+
 	}
 
 	/*

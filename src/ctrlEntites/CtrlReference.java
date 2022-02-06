@@ -9,17 +9,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
-import application.DatabaseConnection;
+import application.SingleConnection;
+import application2.AbstractDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 
 import entity.Reference;
 
-public class CtrlReference{
+public class CtrlReference extends AbstractDAO{
 	
+
 	private ObservableList<Reference> listeReference = FXCollections.observableArrayList();
 	private Connection connexion = DatabaseConnection.getInstance().getConnection();
+
+	private SortedSet<Reference> listeReference = new TreeSet<Reference>();
+
 	
 
 	public ObservableList<Reference> getListeDossier() {
@@ -32,8 +37,14 @@ public class CtrlReference{
 		this.listeReference = listeReference;
 	}
 	
+
 	public void charger() throws SQLException {
 		CallableStatement fctCall = connexion.prepareCall("{call select_reference()}"); 
+=======
+	public void charger() throws SQLException 
+	{
+		CallableStatement fctCall = connection.prepareCall("{call select_reference()}"); 
+
 		ResultSet resultatRequete = fctCall.executeQuery();
 		
 		while(resultatRequete.next())

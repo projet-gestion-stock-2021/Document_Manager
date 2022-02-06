@@ -7,17 +7,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-import application.DatabaseConnection;
+import application.SingleConnection;
+import application2.AbstractDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 
 import entity.Dossier;
 
-public class CtrlDossier{
+public class CtrlDossier extends AbstractDAO{
 	
 	private ObservableList<Dossier> listeTypeDossier = FXCollections.observableArrayList();
-	private Connection connexion = DatabaseConnection.getInstance().getConnection();
+	
 	
 	
 	
@@ -35,7 +36,7 @@ public class CtrlDossier{
 
 	public void charger() throws SQLException 
 	{
-		CallableStatement fctCall = connexion.prepareCall("{call select_dossier()}"); 
+		CallableStatement fctCall = connection.prepareCall("{call select_dossier()}"); 
 		ResultSet resultatRequete = fctCall.executeQuery();
 		
 		while(resultatRequete.next())

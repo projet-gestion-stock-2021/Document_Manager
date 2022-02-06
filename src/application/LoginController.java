@@ -9,12 +9,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+
 import javafx.scene.control.Alert.AlertType;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -22,8 +25,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import application.SignInController;
+import application2.AbstractDAO;
 
-public class LoginController  
+public class LoginController  extends AbstractDAO
 {
 
 	@FXML
@@ -53,7 +57,9 @@ public class LoginController
 		}
 		else
 		{
-			donneeInvalideLabel.setText("Entrez votre MDP et identifiant");
+			
+			Alert alert=new Alert(AlertType.WARNING,"Entrez votre MDP et identifiant",ButtonType.OK);
+	    	alert.showAndWait();
 		}
 
 	}
@@ -66,19 +72,14 @@ public class LoginController
 
 	public void validationIdent()
 	{
-//		DatabaseConnection connectNow = new DatabaseConnection();
-//		Connection connectDb = connectNow.getConnection();
-
-		Connection connectDb = DatabaseConnection.getInstance().getConnection();
-
-		//String query = "select count(1) from client where nomClient = '" + mdpTextField.getText().trim() + "' and prenom = '" + identifiantTextField.getText().trim() + "' ";
+//		
 		String query = "{CALL user_identification(?,?)}";
 
 		try
 		{
 
-			//Statement statement = connectDb.createStatement();
-			CallableStatement stmt = connectDb.prepareCall(query);
+			
+			CallableStatement stmt = connection.prepareCall(query);
 			stmt.setString(1, identifiantTextField.getText().trim());
 			stmt.setString(2, mdpTextField.getText().trim());
 
@@ -88,11 +89,14 @@ public class LoginController
 			{
 				if (queryResult.getInt(1)== 1)
 				{
-					donneeInvalideLabel.setText("congrats");
+					Alert alert=new Alert(AlertType.CONFIRMATION,"vous êtes connectés",ButtonType.OK);
+	    	    	alert.showAndWait();
+					//donneeInvalideLabel.setText("congrats");
 					creerCompte();
 				}
 				else
 				{
+
 					
 					Alert alert=new Alert(AlertType.ERROR,"Mauvaise identification",ButtonType.OK);
 					
@@ -100,6 +104,10 @@ public class LoginController
 					alert.showAndWait();
 					
 					
+
+					Alert alert1=new Alert(AlertType.ERROR,"Identidiant et/ou mot de passe incorrect",ButtonType.OK);
+	    	    	alert1.showAndWait();
+
 				}
 			}
 				

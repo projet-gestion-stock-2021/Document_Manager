@@ -13,7 +13,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+<<<<<<< Updated upstream
 import application2.Utilisateur;
+=======
+import org.controlsfx.control.textfield.CustomTextField;
+import org.controlsfx.control.textfield.TextFields;
+
+import AutoCompletionComponent.AutocompleteMultiSelectionBox;
+import application2.AbstractDAO;
+>>>>>>> Stashed changes
 import ctrlEntites.CtrlDocument;
 import ctrlEntites.CtrlDossier;
 import ctrlEntites.CtrlTypeDoc;
@@ -26,17 +34,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+<<<<<<< Updated upstream
+=======
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuItem;
+>>>>>>> Stashed changes
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
-public class InterfaceRechercheController implements Initializable
+public class InterfaceRechercheController extends AbstractDAO implements Initializable
 {
 
 	@FXML
@@ -52,6 +67,70 @@ public class InterfaceRechercheController implements Initializable
 //    List<Document> listDoc = new LinkedList<Document>();
     
 	private CtrlDocument ctrlDoc = new CtrlDocument();
+<<<<<<< Updated upstream
+=======
+	private CtrlReference ctrlTag = new CtrlReference();
+	private ObservableList<Document> observableDoc = FXCollections.observableArrayList();
+//	private ObservableSet<String> suggestions = FXCollections.observableSet();
+	//private SortedSet<Reference> tagSortedList ;
+
+	
+	public void enterTag1()
+	{
+		
+		
+		String query = "{CALL select_tags_documents(?,?)}";
+		
+		
+		
+		try 
+		{
+			CallableStatement stmt = connection.prepareCall(query);
+			
+			if(tag1.getText().isBlank())
+			{
+				stmt.setString(1, null);
+				stmt.setString(2, tag2.getText());				
+			}
+			else if(tag2.getText().isBlank())
+			{
+				stmt.setString(1, tag1.getText());
+				stmt.setString(2, null);				
+			}
+			else {
+				stmt.setString(2, tag2.getText());
+				stmt.setString(1, tag1.getText());
+			}
+			stmt.execute(); 
+			
+			//System.out.print("select_tags_documents successfull\n");
+			Alert alert=new Alert(AlertType.CONFIRMATION,"select_tags_documents successfull",ButtonType.OK);
+	    	alert.showAndWait();
+			ResultSet rst = stmt.getResultSet();
+			
+			observableDoc.clear();
+			
+			while(rst.next())
+			{	
+				observableDoc.add(new Document(rst));
+			}
+			
+			//observableDoc.forEach(i -> System.out.println("DOC: "+i.getNomDocument()));
+			ctrlDoc.setListeDoc(observableDoc);
+//			ctrlDoc.getListeDoc().forEach(i -> System.out.println("DOC: "+i.getNomDocument()));
+				
+		} 
+		catch(Exception e)
+		{
+			
+			//System.out.println("\nPROBLEME select_tags_documents enterTag1\n");
+			Alert alert=new Alert(AlertType.ERROR,"PROBLEME select_tags_documents enterTag1",ButtonType.OK);
+	    	alert.showAndWait();
+			e.printStackTrace();
+			e.getCause(); 
+		}
+	}
+>>>>>>> Stashed changes
 	
 	public void switchDashboard () 
 	{

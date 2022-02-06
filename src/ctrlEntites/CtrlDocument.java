@@ -14,13 +14,14 @@ import entity.Dossier;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
-import application.DatabaseConnection;
+import application.SingleConnection;
+import application2.AbstractDAO;
 
-public class CtrlDocument{
+public class CtrlDocument extends AbstractDAO{
 	
 	//private Collection<Document> listeDoc = new ArrayList<Document>();
 	private ObservableList<Document> observableDoc = FXCollections.observableArrayList();
-	private Connection connexion = DatabaseConnection.getInstance().getConnection();
+	
 	private int idCourant;
 	
 	public int getIdCourant() 
@@ -36,7 +37,7 @@ public class CtrlDocument{
 	public void charger() throws SQLException
 	{
 		
-		CallableStatement fctCall = connexion.prepareCall("{call select_document()}"); 
+		CallableStatement fctCall = connection.prepareCall("{call select_document()}"); 
 		ResultSet resultatRequete = fctCall.executeQuery();
 		
 		while(resultatRequete.next())
