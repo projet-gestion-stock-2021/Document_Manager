@@ -11,6 +11,10 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import org.controlsfx.control.textfield.CustomTextField;
+import org.controlsfx.control.textfield.TextFields;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -29,6 +33,7 @@ import java.net.URL;
 import entity.Document;
 import entity.Dossier;
 import entity.Reference;
+import entity.Scan;
 import entity.TypeDeDocument;
 import entity.TypeDossier;
 import ctrlEntites.*;
@@ -46,7 +51,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.stage.DirectoryChooser;
 import java.awt.Desktop;
-
 
 
 public class InterfaceCreationController implements Initializable
@@ -71,9 +75,9 @@ public class InterfaceCreationController implements Initializable
 	@FXML
 	private TextField nomDoc;
 	@FXML
-	private TextField tagPerso1;
+	private CustomTextField tagPerso1;
 	@FXML
-	private TextField tagPerso2;
+	private CustomTextField tagPerso2;
 	@FXML
 	private ChoiceBox tag1;
 	@FXML
@@ -108,6 +112,8 @@ public class InterfaceCreationController implements Initializable
 	private CtrlDossier ctrlDossier = new CtrlDossier();
 	private CtrlTypeDossier ctrlTypeDossier = new CtrlTypeDossier();
 	private CtrlTypeDoc  ctrlTypeDoc = new CtrlTypeDoc();
+	private CtrlScan ctrlScan = new CtrlScan();
+	private CtrlReference ctrlTag = new CtrlReference();
 
     
     private File selectedDirectory;
@@ -128,14 +134,38 @@ public class InterfaceCreationController implements Initializable
      */
     public void createPathAndCopy()
     {
-    	String path = "..\\" + tag1.getSelectionModel().getSelectedItem().toString()+ "\\"
-    			+ tag2.getSelectionModel().getSelectedItem().toString()+ "\\"
-    			+ tag3.getSelectionModel().getSelectedItem().toString();
+    	String path = null;
+    	
+    	if(tag3.getSelectionModel().isEmpty())
+    	{
+    		path = "..\\" + tag1.getSelectionModel().getSelectedItem().toString()+ "\\"
+    				+ tag2.getSelectionModel().getSelectedItem().toString();
+    	}
+    	else if(tag2.getSelectionModel().isEmpty() && tag3.getSelectionModel().isEmpty())
+    	{
+    		path = "..\\" + tag1.getSelectionModel().getSelectedItem().toString();
+    	}
+    	else if(tag1.getSelectionModel().isEmpty() && tag2.getSelectionModel().isEmpty() && tag3.getSelectionModel().isEmpty())
+    	{
+    		//MESSAGE POPUP choisir les cat�gories
+    		System.out.print("\nCHOOSE CATEGORIES\n");
+    	}
+    	else
+    	{
+    		path = "..\\" + tag1.getSelectionModel().getSelectedItem().toString()+ "\\"
+    				+ tag2.getSelectionModel().getSelectedItem().toString()+ "\\"
+    				+ tag3.getSelectionModel().getSelectedItem().toString();
+    	}
+    	
+    	Scan scanPath = new Scan();
     	
     	try 
     	{
     		if(!Files.exists(Paths.get(path)))
-			Files.createDirectories(Paths.get(path));
+    		{
+    			Files.createDirectories(Paths.get(path));
+    			scanPath.setpathScan(path);
+    		}
     		else System.out.print("\nPath already exists\n");
 		} 
     	catch (IOException e) 
@@ -159,6 +189,10 @@ public class InterfaceCreationController implements Initializable
 		}
     }
     
+    /*
+     * When the file in the list is validated with tags and categories,
+     * it sends values from textfields, combobox and the document to the DB.
+     */
     public void validerOnClicked()
     {
 		Connection connectDb = DatabaseConnection.getInstance().getConnection();
@@ -251,34 +285,8 @@ public class InterfaceCreationController implements Initializable
 			e.getCause(); 
 		}
 		
-		/*
-		query = "{CALL insert_type_dossier(?)}";
-		
-		
-		try 
-		{
-			CallableStatement stmt = connectDb.prepareCall(query);
-
-			selectedTypeDossier = (TypeDossier) tag3.getSelectionModel().getSelectedItem();
-			
-			stmt.setString(1, selectedTypeDossier.getNomTypeDossier());
-
-			stmt.execute(); 
-			System.out.print("uploaded type_dossier successfully\n");
-				
-		} 
-		catch(Exception e)
-		{
-			
-			System.out.println("\nPROBLEME insert_type_dossier validerOnClicked\n");
-			e.printStackTrace();
-			e.getCause(); 
-		}
-		*/
-		
 		query = "{CALL insert_reference(?,?)}";
 		int lastID_Ref1 = 0;
-		//int lastID_Ref2 = 0;
 		
 		try 
 		{
@@ -304,28 +312,6 @@ public class InterfaceCreationController implements Initializable
 			e.printStackTrace();
 			e.getCause(); 
 		}
-		
-//		query = "{CALL select_reference(?)}";
-//		int lastIDtag = 0;
-//		
-//		try 
-//		{
-//			CallableStatement stmt = connectDb.prepareCall(query);
-//			
-//			lastIDtag = stmt.getInt("");
-//
-//			stmt.execute();
-//			
-//			System.out.print("tag2 lastID\n");
-//				
-//		} 
-//		catch(Exception e)
-//		{
-//			
-//			System.out.println("\nPROBLEME insert_reference validerOnClicked\n");
-//			e.printStackTrace();
-//			e.getCause(); 
-//		}
 		
 		
 		query = "{CALL insert_typer(?,?)}";//insert table pivot pour lier le document enregistré et les tags
@@ -362,6 +348,11 @@ public class InterfaceCreationController implements Initializable
 		listViewAffiche.refresh();
     }
     
+    /*
+     * Called when the Controller is called (when the window InterfaceCreation opens).
+     * In it, the entities are charged in Observable lists and the behaviour of ListView
+     * is changed.
+     */
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
 		//listener de listview, permet de reprendre le document selectionné
@@ -398,6 +389,7 @@ public class InterfaceCreationController implements Initializable
 			ctrlDossier.charger();
 			ctrlTypeDoc.charger();
 			ctrlTypeDossier.charger();
+			ctrlTag.charger();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -407,6 +399,9 @@ public class InterfaceCreationController implements Initializable
 		this.tag1.setItems(ctrlTypeDoc.getListeTypeDoc());
 		this.tag2.setItems(ctrlDossier.getListeTypeDossier());//à refaire, porte à confusion
 		this.tag3.setItems(ctrlTypeDossier.getListeDossier());//à refaire, porte à confusion
+		
+		TextFields.bindAutoCompletion(tagPerso1,ctrlTag.getListeDossier());
+		TextFields.bindAutoCompletion(tagPerso2,ctrlTag.getListeDossier());
 		
 	}
 
@@ -441,25 +436,6 @@ public class InterfaceCreationController implements Initializable
     	}
 
     }
-/*    
-    @Override
-    public final void initialize(final URL location,
-            final ResourceBundle resources) 
-	{
-
-		docNamecol.setCellValueFactory(new PropertyValueFactory<Document,String>("nomDocument1"));
-    	
-//    	docNamecol.setCellValueFactory(new Callback<CellDataFeatures<Document, String>, ObservableValue<String>>() {
-//    	     public ObservableValue<String> call(CellDataFeatures<Document, String> p) {
-//    	         // p.getValue() returns the Person instance for a particular TableView row
-//    	         return p.getValue().getNomDocument();
-//    	     }
-//    	  });
-    	
-//		tabView.getColumns().add(docNamecol);
-
-    }
-    */
     
     /**
      * Gets the directory path in a File object.
@@ -473,22 +449,12 @@ public class InterfaceCreationController implements Initializable
 		dircount = 0;
 		filecount = 0;
 		
-//	    TableColumn<Document, String> docNameCol //
-//	    = new TableColumn<Document, String>("Document Name");
-//	    
-//	    TableColumn<Document, String> docTimeCol //
-//	    = new TableColumn<Document, String>("LastModified");
-		
 	    DirectoryChooser directoryChooser = new DirectoryChooser();
 	    selectedDirectory = directoryChooser.showDialog(null);
 	    
 	    if (selectedDirectory == null) 
 	    {
 	    	nomDoc.setText("No Directory selected");
-	    	
-	    	//ATTENTION � supprimer
-	    	
-	    	//selectedDirectory = Paths.get("O:\\[2E]\\_Analyse").toFile();
 	    }
 	    else 
 	    {
@@ -508,11 +474,17 @@ public class InterfaceCreationController implements Initializable
 		
 	}
 	
+//	private Boolean compareFiles()
+//	{
+//		Files.asByteSource(file).hash(hashFunction);
+//		Files.asB
+//		return null;
+//	}
+//	
 	/**
 	 * Show list of all files in a directory, recursively or not
 	 * @param directoryPath
 	 */
-	@FXML //lier avec la checkbox?
 	private void showListFiles(File directoryPath)
 	{
 		
@@ -545,20 +517,9 @@ public class InterfaceCreationController implements Initializable
 			
 				}
 				
-//				 TableColumn<Document,String> firstNameCol = new TableColumn<Document,String>("First Name"); 
-//				 firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-
-				
-				//observableDocs.addAll(listDoc);
-				//docNamecol.getColumns().addAll(observableDocs);
-//				observableDocs.forEach((Document doc) -> {
-//					System.out.println("  Fichier: " + doc.toString());
-//					});
 				listViewAffiche.getItems().addAll(listDoc);
 				
 				tabView.setItems(observableDocs);
-    			
-    			//labelPath.setText(selectedFile.getName());
 
     		}
     		else 
@@ -597,23 +558,4 @@ public class InterfaceCreationController implements Initializable
 		}
 	}
 
-
-/*
-    public ObservableList<Document> getObsTasks()
-//            throws IDNotValidException, StringNotValidException 
-    {
-
-        ObservableList<Document> obsTasks = FXCollections
-                .observableArrayList();
-
-        Map<Context, Set<Task>> test = TasksContextUtility.INSTANCE
-                .getAllContextsAndTasks();
-
-        test.values().forEach(v -> {
-            v.forEach(b -> obsTasks.add((TaskControl) b));
-        });
-
-        return obsTasks;
-    }
-	*/
 }

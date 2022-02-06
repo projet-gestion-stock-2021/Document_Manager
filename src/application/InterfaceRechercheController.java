@@ -93,6 +93,12 @@ public class InterfaceRechercheController implements Initializable
 				stmt.setString(1, tag1.getText());
 				stmt.setString(2, null);				
 			}
+			else
+			{
+				stmt.setString(1, tag1.getText());
+				stmt.setString(2, tag2.getText());	
+				
+			}
 
 			stmt.execute(); 
 			
@@ -216,53 +222,11 @@ public class InterfaceRechercheController implements Initializable
 		observableDoc.addAll(ctrlDoc.getListeDoc());
 		documentTable.setItems(observableDoc);
 		
-		//ctrlTag.getListeDossier().forEach(i -> System.out.println("TAG: "+i.getNomReference()));
-		
-		//AUTO COMPLETE TEXTFIELD FOR TAGS
-		//https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions
-		//tagSortedList.addAll(ctrlTag.getListeDossier());
-		
-/*		
-		tag3 = new AutoCompleteTextField<Reference>(ctrlTag.getListeDossier());
-		
-		tag3.getEntryMenu().setOnAction(e ->
-		{
-		    ((MenuItem) e.getTarget()).addEventHandler(Event.ANY, event ->
-		    {
-		         if (tag3.getLastSelectedObject() != null)
-		         {
-		        	 tag3.setText(tag3.getLastSelectedObject().toString());
-		            System.out.println(tag3.getLastSelectedObject().getNomReference());
-		         }
-		    });
-		});
-		*/
-		
-//		AutocompleteMultiSelectionBox field = new AutocompleteMultiSelectionBox();
-//		ctrlTag.getListeDossier().forEach(i -> suggestions.add(i.toString()));
-//		field.setSuggestions(suggestions);
-		
-		//field.getTags().addAll(ctrlTag.getListeDossier().toString());   //getEntries().addAll(YOUR_ARRAY_OF_STRINGS);
-		
 		//AUTOCOMPLETION TEXTFIELD controlsfx (librairie rajoutée dans eclipse et scenebuilder)
 		TextFields.bindAutoCompletion(tag1,ctrlTag.getListeDossier());
 		TextFields.bindAutoCompletion(tag2,ctrlTag.getListeDossier());
 
 		//Listener on observableList, to refresh the tableview when list change
-//		ctrlDoc.getListeDoc().addListener(new ListChangeListener<Document>(){
-//
-//            @Override
-//            public void onChanged(javafx.collections.ListChangeListener.Change<? extends Document> pChange) 
-//            {
-////                while(pChange.next()) 
-////                {
-////                    // Do your changes here
-////                }
-//                documentTable.refresh();
-//            }
-//
-//        });
-		
 		observableDoc.addListener(new ListChangeListener<Document>(){
 
             @Override

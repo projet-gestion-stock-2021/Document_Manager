@@ -1,6 +1,9 @@
 package entity;
 
 import javax.persistence.*;
+
+import application.DatabaseConnection;
+
 import java.util.Collection;
 
 @Entity
@@ -13,6 +16,28 @@ public class Utilisateur {
     private Byte flagUtilisateur;
     private Collection<Creationdoc> creationdocsByIdUtilisateur;
     private Niveau niveauByIdNiveau;
+    
+    private static Utilisateur connectedUser;
+    
+    private Utilisateur()
+    {
+    	this.getIdUtilisateur();
+    	this.getNom();
+    	this.getPrenom();
+    	this.getLogin();
+    	this.getNiveauByIdNiveau();
+    }
+    
+    //Access Singleton
+	public static Utilisateur getInstance()
+	{
+		if(connectedUser == null) 
+		{
+			connectedUser = new Utilisateur();
+		}
+		return connectedUser;
+	}
+	
 
     @Id
     @Column(name = "Id_Utilisateur")

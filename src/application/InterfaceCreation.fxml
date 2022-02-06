@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
 
 <AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1500.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InterfaceCreationController">
    <children>
@@ -23,8 +24,6 @@
       <Label layoutX="66.0" layoutY="263.0" text="Type de Dossier" />
       <Label layoutX="66.0" layoutY="206.0" text="Dossier" />
       <TextField fx:id="nomDoc" layoutX="530.0" layoutY="81.0" prefHeight="25.0" prefWidth="333.0" />
-      <TextField fx:id="tagPerso1" layoutX="66.0" layoutY="338.0" />
-      <TextField fx:id="tagPerso2" layoutX="67.0" layoutY="389.0" />
       <Label layoutX="279.0" layoutY="85.0" text="Nom Document" />
       <Label layoutX="66.0" layoutY="321.0" text="TAG Perso 1" />
       <Label layoutX="67.0" layoutY="372.0" prefHeight="18.0" prefWidth="74.0" text="TAG Perso 2" />
@@ -39,5 +38,7 @@
       <Button fx:id="openButton" layoutX="194.0" layoutY="593.0" mnemonicParsing="false" onAction="#onListCellClicked" text="Open File" />
       <Button fx:id="validerButton" layoutX="33.0" layoutY="593.0" mnemonicParsing="false" onAction="#validerOnClicked" text="Valider" />
       <Button fx:id="annulerButton" layoutX="26.0" layoutY="28.0" mnemonicParsing="false" onAction="#switchDashboard" text="Dashboard" />
+      <CustomTextField fx:id="tagPerso1" layoutX="67.0" layoutY="338.0" />
+      <CustomTextField fx:id="tagPerso2" layoutX="67.0" layoutY="400.0" />
    </children>
 </AnchorPane>
