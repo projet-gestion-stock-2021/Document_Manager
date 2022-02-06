@@ -86,6 +86,11 @@ public class Document {
     }
 
 
+	public Document(String string, java.sql.Date date, java.sql.Date date2) {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	//transforme le string en une StringProperty pour pouvoir l'afficher dans la tableview
     public StringProperty documentNameProperty() { 
         if (nomDocument1 == null) nomDocument1 = new SimpleStringProperty(this, "nomDocument");

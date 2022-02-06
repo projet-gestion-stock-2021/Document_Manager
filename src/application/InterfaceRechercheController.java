@@ -2,12 +2,18 @@ package application;
 
 import java.net.URL;
 import java.nio.file.attribute.FileTime;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import application2.Utilisateur;
 import ctrlEntites.CtrlDocument;
 import ctrlEntites.CtrlDossier;
 import ctrlEntites.CtrlTypeDoc;
@@ -34,7 +40,7 @@ public class InterfaceRechercheController implements Initializable
 {
 
 	@FXML
-	private Button annulerButton, switchSceneButton;
+	private Button annulerButton, switchSceneButton,btnRecherche;
 	@FXML
 	private TableView<Document> documentTable;
 	@FXML
@@ -42,7 +48,7 @@ public class InterfaceRechercheController implements Initializable
 	@FXML
 	private TextField labelSearch1, labelSearch2;
 	
-    //public ObservableList<Document> observableDocs = FXCollections.observableArrayList();
+    private ObservableList<Document> observableDocs ;
 //    List<Document> listDoc = new LinkedList<Document>();
     
 	private CtrlDocument ctrlDoc = new CtrlDocument();
@@ -139,4 +145,43 @@ public class InterfaceRechercheController implements Initializable
 		documentTable.setItems(ctrlDoc.getListeDoc());
 		
 	}
+	public void  onActionRecherche() {
+		
+		documentTable.getItems().clear();
+		
+		documentTable=new TableView<Document>();
+		observableDocs = FXCollections.observableArrayList();
+		getAll();
+		documentTable.setItems(observableDocs);
+		observableDocs.addAll(getAll());
+		
+		
+	}
+	public List<Document> getAll(){
+		
+		List<Document>  list =new ArrayList<Document>();
+		Connection connectDb = DatabaseConnection.getInstance().getConnection();
+		PreparedStatement pst=null;
+		ResultSet rs;
+		String sql="select * from utilisateur";
+		try {
+			 pst=connectDb.prepareStatement(sql);
+			System.out.println("succes d'exce de la connection");
+			rs=pst.executeQuery();
+			while(rs.next())
+			{					 
+				
+				  Document u =new Document(rs);
+				 
+			}
+			pst.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return list;
+	
+	
 }
+	
+	}
+

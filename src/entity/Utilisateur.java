@@ -14,7 +14,11 @@ public class Utilisateur {
     private Collection<Creationdoc> creationdocsByIdUtilisateur;
     private Niveau niveauByIdNiveau;
 
-    @Id
+    public Utilisateur(int int1, String string, String string2, String string3, String string4) {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Id
     @Column(name = "Id_Utilisateur")
     public int getIdUtilisateur() {
         return idUtilisateur;
