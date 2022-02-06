@@ -11,13 +11,13 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="750.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DashboardController">
    <children>
-      <Button fx:id="creationDocumentButton" layoutX="40.0" layoutY="167.0" mnemonicParsing="false" onAction="#switchInterfaceCreation" prefHeight="66.0" prefWidth="147.0" text="Création de documents" />
+      <Button fx:id="creationDocumentButton" layoutX="41.0" layoutY="94.0" mnemonicParsing="false" onAction="#switchInterfaceCreation" prefHeight="66.0" prefWidth="147.0" text="Création de documents" />
       <Label layoutX="261.0" layoutY="71.0" prefHeight="46.0" prefWidth="403.0" text="Bienvenue sur le logiciel de gestion de documents">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Button fx:id="rechercheDocumentButton" layoutX="40.0" layoutY="256.0" mnemonicParsing="false" onAction="#switchInterfaceRecherche" prefHeight="66.0" prefWidth="147.0" text="Recherche document" />
+      <Button fx:id="rechercheDocumentButton" layoutX="41.0" layoutY="175.0" mnemonicParsing="false" onAction="#switchInterfaceRecherche" prefHeight="66.0" prefWidth="147.0" text="Recherche document" />
       <Button fx:id="exitDashboard" layoutX="40.0" layoutY="344.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="66.0" prefWidth="147.0" text="Exit" />
       <TextArea layoutX="261.0" layoutY="167.0" prefHeight="244.0" prefWidth="403.0" text="Bienvenue sur le programme de &#10;gestion de Document de l'ASBL.&#10;&#10;une petite blague d'informatique&#10;nulle pour combler la text area:&#10;&#10;Quelle est la différence entre un &#10;clou et Windows 10?&#10;Aucune les 2 plantent&#10;&#10;" />
       <ToolBar prefHeight="40.0" prefWidth="750.0">
@@ -30,5 +30,6 @@
             <Image url="@../../../../OneDrive/Bureau/pngwing.com.png" />
          </image>
       </ImageView>
+      <Button fx:id="affichageUtiButton" layoutX="41.0" layoutY="256.0" mnemonicParsing="false" onAction="#switchInterfaceUti" prefHeight="66.0" prefWidth="147.0" text="Affichage utilisateurs" />
    </children>
 </AnchorPane>

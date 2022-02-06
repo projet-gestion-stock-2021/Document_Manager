@@ -3,6 +3,7 @@ package entity;
 import javax.persistence.*;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 
 @Entity
@@ -22,7 +23,16 @@ public class Utilisateur {
 	}
 
 	public Utilisateur(ResultSet resultatRequete) {
-		// TODO Auto-generated constructor stub
+		try 
+    	{
+			this.setNom(resultatRequete.getString("Nom"));
+			this.setPrenom(resultatRequete.getString("Prenom"));						
+		} 
+    	catch (SQLException e) 
+    	{
+			System.out.println("\nProbleme Utilisateur(ResultSet rst)\n");
+			e.printStackTrace();
+		}
 	}
 
 	@Id

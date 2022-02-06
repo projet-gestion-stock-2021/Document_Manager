@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class DashboardController {
 	
 	@FXML
-	private Button creationDocumentButton, rechercheDocumentButton, exitDashboard;
+	private Button creationDocumentButton, rechercheDocumentButton, exitDashboard, affichageUtiButton;
 	
 	public void switchInterfaceCreation () 
 	{
@@ -53,4 +53,25 @@ public class DashboardController {
 	public void cancelButtonOnAction(ActionEvent event) {
 		Stage stage = (Stage) exitDashboard.getScene().getWindow();
 		stage.close(); }
+	
+	public void switchInterfaceUti () 
+	{
+		try 
+		{
+			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("AffichageUtilisateurs.fxml"));
+			Stage individuStage = new Stage();
+			
+			individuStage.setScene(new Scene(root));
+			individuStage.show();
+			Stage stage = (Stage) affichageUtiButton.getScene().getWindow();
+			stage.close();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			e.getCause();
+		}
+	}
 }
+
+

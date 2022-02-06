@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import application.DatabaseConnection;
-import entity.TypeDeDocument;
 import entity.Utilisateur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,10 +31,11 @@ public class CtrlUser {
 		
 		while(resultatRequete.next())
 		{
-			 if(!resultatRequete.getBoolean("Flag_type_de_document"))
-			 {
+			 //if(!resultatRequete.getBoolean("Flag_type_de_document"))
+			// {
 				 listeAfficheUti.add(new Utilisateur(resultatRequete));
-			 }		     
+			// }		     
 		}
 	}
+	
 }

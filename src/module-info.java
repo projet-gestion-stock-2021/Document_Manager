@@ -16,4 +16,5 @@ module Document_Manager {
 	requires jdk.jpackage;
 	requires java.base;
 	opens application to javafx.graphics, javafx.fxml;
+	opens entity; 
 }
