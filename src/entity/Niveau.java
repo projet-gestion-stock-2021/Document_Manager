@@ -1,10 +1,17 @@
 package entity;
 
 import javax.persistence.*;
+
+import application.DatabaseConnection;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.Collection;
 
 @Entity
-public class Niveau {
+public class Niveau 
+{
     private int idNiveau;
     private String nomNiveau;
     private Collection<NivScan> nivScansByIdNiveau;
@@ -23,8 +30,47 @@ public class Niveau {
 //		return niveau.getItems().stream().filter(ap -> 
 //		ap.getNomNiveau().equals(string)).findFirst().orElse(null);
 //	}
+    
+    public Niveau(ResultSet resultatRequete) 
+    {
+    	
+    }
 
-    @Id
+    public Niveau(int id) 
+    {
+    	Connection connectDb = DatabaseConnection.getInstance().getConnection();
+    	String query = "{CALL select_niveau_byID(?)}";
+    	
+    	try
+		{
+
+			//Statement statement = connectDb.createStatement();
+			CallableStatement stmt = connectDb.prepareCall(query);
+			stmt.setInt(1, id);
+
+			ResultSet queryResult = stmt.executeQuery();
+
+			while(queryResult.next())
+			{
+				this.setIdNiveau(id);
+				this.setNomNiveau(queryResult.getString("Nom_Niveau"));
+			}
+				
+		} 
+    	catch(Exception e)
+		{
+    		System.out.println("\nProbleme Niveau(int id) \n");
+			e.printStackTrace();
+			e.getCause(); 
+		}
+		
+	}
+
+	public Niveau() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Id
     @Column(name = "Id_Niveau")
     public int getIdNiveau() {
         return idNiveau;

@@ -4,6 +4,9 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -27,11 +30,13 @@ import javafx.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 
 import entity.Document;
 import entity.Dossier;
+import entity.Parametre;
 import entity.Reference;
 import entity.Scan;
 import entity.TypeDeDocument;
@@ -65,6 +70,8 @@ public class InterfaceCreationController implements Initializable
 	@FXML
 	private Button bnt_browser;
 	@FXML
+	private Button bnt_categorie;
+	@FXML
 	private Button openButton;
 	@FXML
 	private Button validerButton;
@@ -72,6 +79,8 @@ public class InterfaceCreationController implements Initializable
 	private TextArea textarea;
 	@FXML
 	private Label labelPath;
+	@FXML
+	private Label pathCategorie;
 	@FXML
 	private TextField nomDoc;
 	@FXML
@@ -128,6 +137,9 @@ public class InterfaceCreationController implements Initializable
     
     Reference ref;
     
+    Scan scanPath = new Scan();
+    Parametre pathStockage = new Parametre();
+    
     /*
      * Create the path with the 3 categories if it doesn't exist.
      * And it copies the file selected in this path.
@@ -136,14 +148,15 @@ public class InterfaceCreationController implements Initializable
     {
     	String path = null;
     	
+    	//Creation du path grâce aux categories declaration du scan
     	if(tag3.getSelectionModel().isEmpty())
     	{
-    		path = "..\\" + tag1.getSelectionModel().getSelectedItem().toString()+ "\\"
+    		path = pathStockage.getPathStock()+ "\\" + tag1.getSelectionModel().getSelectedItem().toString()+ "\\"
     				+ tag2.getSelectionModel().getSelectedItem().toString();
     	}
     	else if(tag2.getSelectionModel().isEmpty() && tag3.getSelectionModel().isEmpty())
     	{
-    		path = "..\\" + tag1.getSelectionModel().getSelectedItem().toString();
+    		path = pathStockage.getPathStock()+ "\\" + tag1.getSelectionModel().getSelectedItem().toString();
     	}
     	else if(tag1.getSelectionModel().isEmpty() && tag2.getSelectionModel().isEmpty() && tag3.getSelectionModel().isEmpty())
     	{
@@ -152,12 +165,12 @@ public class InterfaceCreationController implements Initializable
     	}
     	else
     	{
-    		path = "..\\" + tag1.getSelectionModel().getSelectedItem().toString()+ "\\"
+    		path = pathStockage.getPathStock()+ "\\" + tag1.getSelectionModel().getSelectedItem().toString()+ "\\"
     				+ tag2.getSelectionModel().getSelectedItem().toString()+ "\\"
     				+ tag3.getSelectionModel().getSelectedItem().toString();
     	}
     	
-    	Scan scanPath = new Scan();
+    	//Creation du dossier
     	
     	try 
     	{
@@ -174,13 +187,16 @@ public class InterfaceCreationController implements Initializable
 			e.printStackTrace();
 		}
     	
+    	//Copie du fichier
+    	
     	try 
     	{
     		path += "\\" +selectedDoc.getNomDocument();
     		
     		if(!Files.exists(Paths.get(path)))
 			Files.copy(selectedDoc.getDocPath(), Paths.get(path));
-    		else System.out.print("\nFile already exists\n");
+    		else 
+    		System.out.print("\nFile already exists\n");
 		} 
     	catch (IOException e) 
     	{
@@ -204,7 +220,6 @@ public class InterfaceCreationController implements Initializable
 		try 
 		{
 			CallableStatement stmt = connectDb.prepareCall(query);
-			//OPEN THE DOC FIRST, I WILL CHANGE THE METHOD THEN
 			stmt.setString(1, selectedDoc.getNomDocument());//Nom Document
 			
 	        Date date = new Date();
@@ -343,7 +358,7 @@ public class InterfaceCreationController implements Initializable
 		}
 		
 		this.createPathAndCopy();
-		//listDoc.remove(listViewAffiche.getSelectionModel().getSelectedIndex());
+		listDoc.remove(listViewAffiche.getSelectionModel().getSelectedIndex());
 		listViewAffiche.getItems().remove(listViewAffiche.getSelectionModel().getSelectedItem());//OK Ã§a marche
 		listViewAffiche.refresh();
     }
@@ -385,7 +400,7 @@ public class InterfaceCreationController implements Initializable
 		
 		try 
 		{
-//			ctrlDoc.charger();
+			ctrlDoc.charger();
 			ctrlDossier.charger();
 			ctrlTypeDoc.charger();
 			ctrlTypeDossier.charger();
@@ -408,7 +423,7 @@ public class InterfaceCreationController implements Initializable
     /*
      * Opens the file selected in the list.
      */
-    public void onListCellClicked()
+    public void onListCellClicked()//à renommer
     {
     	if(!Desktop.isDesktopSupported())
     	{
@@ -439,10 +454,13 @@ public class InterfaceCreationController implements Initializable
     
     /**
      * Gets the directory path in a File object.
+     * Browse Button click.
+     * 
      * @param event
+     * @throws Exception 
      */
 	@FXML
-	private void handleDirectory(ActionEvent event) 
+	private void handleDirectory(ActionEvent event) throws Exception //à renommer
 	{
 		//reset list and counts
 		clearListView();
@@ -465,7 +483,23 @@ public class InterfaceCreationController implements Initializable
 	}
 	
 	@FXML
-	private void checkBoxSetOnAction()
+	private void browsePathStockage()
+	{
+	    DirectoryChooser directoryChooser = new DirectoryChooser();
+	    pathStockage.setPathStock(directoryChooser.showDialog(null).toString());
+	    
+	    if (pathStockage.getPathStock() == null) 
+	    {
+	    	pathCategorie.setText("No Directory selected");
+	    }
+	    else 
+	    {
+	    	pathCategorie.setText(pathStockage.getPathStock());
+	    }
+	}
+	
+	@FXML
+	private void checkBoxSetOnAction() throws Exception
 	{
 		clearListView();
 		dircount = 0;
@@ -474,23 +508,19 @@ public class InterfaceCreationController implements Initializable
 		
 	}
 	
-//	private Boolean compareFiles()
-//	{
-//		Files.asByteSource(file).hash(hashFunction);
-//		Files.asB
-//		return null;
-//	}
-//	
+	
 	/**
 	 * Show list of all files in a directory, recursively or not
 	 * @param directoryPath
+	 * @throws Exception 
 	 */
-	private void showListFiles(File directoryPath)
+	private void showListFiles(File directoryPath) throws Exception
 	{
 		
 		if (directoryPath != null) 
     		{
 				File[] files = directoryPath.listFiles();
+				String tempPath = null;
 				
 				for(int i = 0; i < files.length; i++)
 				{
@@ -502,8 +532,52 @@ public class InterfaceCreationController implements Initializable
 	                } 
 					else 
 	                {
-						listDoc.add(new Document(files[i].toPath().toAbsolutePath()));
-						observableDocs.add(new Document(files[i].toPath().toAbsolutePath()));
+						//Normalement je devrais comparer que les fichiers qui ne sont pas dans la DB
+						//en chargeant le CtrlDoc et en comparant les noms des fichiers
+						//mais je vais directement comparer les checksum
+						//faudrait peut-être stocker le checksum dans la DB pour aller plus vite
+						
+						Connection connexion = DatabaseConnection.getInstance().getConnection();
+						try 
+						{							
+							CallableStatement stmt = connexion.prepareCall("{call search_document_by_name(?,?)}"); 
+							
+							stmt.setString(1, files[i].getName());
+							stmt.registerOutParameter(2,Types.VARCHAR);
+							stmt.execute();
+
+							tempPath = stmt.getString(2);
+							System.out.print(tempPath+"\n");
+								
+						} 
+						catch(Exception e)
+						{
+							
+							System.out.println("\nPROBLEME showListFiles {call search_document_by_name(?,?)}\n");
+							e.printStackTrace();
+							e.getCause(); 
+						}
+
+						//Compare Checksum
+						tempPath = pathStockage +"\\"+ tempPath;
+						if(Files.exists(Paths.get(tempPath)))
+						{
+							if(MD5Checksum.getMD5Checksum(files[i].toPath().toAbsolutePath().toString()) 
+									== MD5Checksum.getMD5Checksum(tempPath))
+							{
+								System.out.println("\nMEME FICHIER non modifié\n");
+							}
+							else
+							{
+								System.out.println("\nMEME nom de FICHIER peut-être modifié\n");
+							}
+							
+						}
+						else
+						{
+							listDoc.add(new Document(files[i].toPath().toAbsolutePath()));
+							observableDocs.add(new Document(files[i].toPath().toAbsolutePath()));							
+						}
 						
 						//listViewAffiche.getItems().add(listDoc.);
 	                    //System.out.println("  Fichier: " + files[i].getName());

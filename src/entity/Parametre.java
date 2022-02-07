@@ -12,6 +12,11 @@ public class Parametre {
     private String pathBackup;
     private String directoryPath;
 
+    public Parametre()
+    {
+    	this.setPathStock("..\\");
+    }
+    
     @Id
     @Column(name = "Id_Parametre")
     public int getIdParametre() {

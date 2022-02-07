@@ -6,6 +6,7 @@ import java.util.Collection;
 
 @Entity
 public class Creationdoc {
+	public static int count;
     private int idCreationDoc;
     private Timestamp dateCreation;
     private Utilisateur utilisateurByIdUtilisateur;

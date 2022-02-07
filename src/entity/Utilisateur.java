@@ -3,7 +3,10 @@ package entity;
 import javax.persistence.*;
 
 import application.DatabaseConnection;
+import javafx.beans.property.SimpleStringProperty;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
 
 @Entity
@@ -31,13 +34,40 @@ public class Utilisateur {
     //Access Singleton
 	public static Utilisateur getInstance()
 	{
-		if(connectedUser == null) 
+		if(getConnectedUser() == null) 
 		{
-			connectedUser = new Utilisateur();
+			setConnectedUser(new Utilisateur());
 		}
-		return connectedUser;
+		return getConnectedUser();
 	}
 	
+	public static Utilisateur getConnectedUser() 
+	{
+		return connectedUser;
+	}
+
+	public static void setConnectedUser(Utilisateur connectedUser) 
+	{
+		Utilisateur.connectedUser = connectedUser;
+	}
+
+	public Utilisateur(ResultSet resultatRequete) 
+	{
+	  	try 
+    	{
+    		this.setIdUtilisateur(resultatRequete.getInt("Id_Utilisateur"));
+    		this.setNom(resultatRequete.getString("Nom"));
+    		this.setPrenom(resultatRequete.getString("Prenom"));
+    		this.setLogin(resultatRequete.getString("Login"));
+    		this.setNiveauByIdNiveau(new Niveau(resultatRequete.getInt("Id_Niveau")));
+    		
+    	} 
+    	catch (SQLException e) 
+    	{
+    		System.out.println("\nProbleme Utilisateur(ResultSet rst)\n");
+    		e.printStackTrace();
+    	}
+	}
 
     @Id
     @Column(name = "Id_Utilisateur")

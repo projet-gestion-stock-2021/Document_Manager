@@ -30,7 +30,7 @@ import entity.Niveau;
 /**
  * Controller of the signIn Window. The main purpose of this Controller is to create a new user.
  * 
- * @author Neil
+ * 
  *
  */
 public class SignInController implements Initializable
