@@ -524,6 +524,8 @@ public class InterfaceCreationController implements Initializable
 				
 				for(int i = 0; i < files.length; i++)
 				{
+					tempPath = null;
+					
 					if (files[i].isDirectory() == true) 
 					{
 						//listViewAffiche.getItems().add(files[i].getName());
@@ -546,6 +548,8 @@ public class InterfaceCreationController implements Initializable
 							stmt.registerOutParameter(2,Types.VARCHAR);
 							stmt.execute();
 
+							//resultset
+							
 							tempPath = stmt.getString(2);
 							System.out.print(tempPath+"\n");
 								
@@ -559,7 +563,9 @@ public class InterfaceCreationController implements Initializable
 						}
 
 						//Compare Checksum
-						tempPath = pathStockage +"\\"+ tempPath;
+						tempPath = pathStockage.getPathStock() +"\\"+ tempPath;
+						System.out.print(tempPath+"\n");
+						
 						if(Files.exists(Paths.get(tempPath)))
 						{
 							if(MD5Checksum.getMD5Checksum(files[i].toPath().toAbsolutePath().toString()) 
