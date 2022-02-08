@@ -39,8 +39,8 @@ public class TypeDeDocument {
     @Override
     public String toString() 
     {
-		return this.getNomTypeDoc();
-    	
+		return this.getIdTypeDeDocument() +" "+ this.getNomTypeDoc();
+    	 
     }
     
     @Id

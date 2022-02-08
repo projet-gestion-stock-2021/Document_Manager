@@ -37,7 +37,7 @@ public class TypeDossier {
     @Override
     public String toString() 
     {
-		return this.getNomTypeDossier();
+		return this.getIdTypeDossier() + " "+ this.getNomTypeDossier();
     	
     }
 

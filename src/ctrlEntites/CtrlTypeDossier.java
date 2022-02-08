@@ -18,18 +18,18 @@ import entity.TypeDossier;
 
 public class CtrlTypeDossier{
 	
-	private ObservableList<TypeDossier> listeDossier = FXCollections.observableArrayList();
+	private ObservableList<TypeDossier> listeTypeDossier = FXCollections.observableArrayList();
 	private Connection connexion = DatabaseConnection.getInstance().getConnection();
 	
 
-	public ObservableList<TypeDossier> getListeDossier() {
-		return listeDossier;
+	public ObservableList<TypeDossier> getListeTypeDossier() {
+		return listeTypeDossier;
 	}
 
 
 
-	public void setListeDossier(ObservableList<TypeDossier> listeDossier) {
-		this.listeDossier = listeDossier;
+	public void setListeTypeDossier(ObservableList<TypeDossier> listeTypeDossier) {
+		this.listeTypeDossier = listeTypeDossier;
 	}
 	
 	public void charger() throws SQLException {
@@ -40,7 +40,7 @@ public class CtrlTypeDossier{
 		{
 			 if(!resultatRequete.getBoolean("Flag_type_dossier"))
 			 {
-				 listeDossier.add(new TypeDossier(resultatRequete));
+				 listeTypeDossier.add(new TypeDossier(resultatRequete));
 			 }		     
 		}
 	}

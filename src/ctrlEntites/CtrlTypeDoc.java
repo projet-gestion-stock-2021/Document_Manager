@@ -26,7 +26,7 @@ public class CtrlTypeDoc{
 		return listeTypeDoc;
 	}
 
-	public void setListeTag(ObservableList<TypeDeDocument> listeTypeDoc) {
+	public void setListeTypeDoc(ObservableList<TypeDeDocument> listeTypeDoc) {
 		this.listeTypeDoc = listeTypeDoc;
 	}
 

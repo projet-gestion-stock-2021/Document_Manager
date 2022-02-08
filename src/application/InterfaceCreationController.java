@@ -88,11 +88,11 @@ public class InterfaceCreationController implements Initializable
 	@FXML
 	private CustomTextField tagPerso2;
 	@FXML
-	private ChoiceBox tag1;
+	private ChoiceBox tag_typeDossier;
 	@FXML
-	private ChoiceBox tag2;
+	private ChoiceBox tag_dossier;
 	@FXML
-	private ChoiceBox tag3;
+	private ChoiceBox tag_typeDocument;
     @FXML
 	private DatePicker dateC;
     @FXML
@@ -149,25 +149,25 @@ public class InterfaceCreationController implements Initializable
     	String path = null;
     	
     	//Creation du path gr�ce aux categories declaration du scan
-    	if(tag3.getSelectionModel().isEmpty())
+    	if(tag_typeDocument.getSelectionModel().isEmpty())
     	{
-    		path = pathStockage.getPathStock()+ "\\" + tag1.getSelectionModel().getSelectedItem().toString()+ "\\"
-    				+ tag2.getSelectionModel().getSelectedItem().toString();
+    		path = pathStockage.getPathStock()+ "\\" + tag_typeDossier.getSelectionModel().getSelectedItem().toString()+ "\\"
+    				+ tag_dossier.getSelectionModel().getSelectedItem().toString();
     	}
-    	else if(tag2.getSelectionModel().isEmpty() && tag3.getSelectionModel().isEmpty())
+    	else if(tag_dossier.getSelectionModel().isEmpty() && tag_typeDocument.getSelectionModel().isEmpty())
     	{
-    		path = pathStockage.getPathStock()+ "\\" + tag1.getSelectionModel().getSelectedItem().toString();
+    		path = pathStockage.getPathStock()+ "\\" + tag_typeDossier.getSelectionModel().getSelectedItem().toString();
     	}
-    	else if(tag1.getSelectionModel().isEmpty() && tag2.getSelectionModel().isEmpty() && tag3.getSelectionModel().isEmpty())
+    	else if(tag_typeDossier.getSelectionModel().isEmpty() && tag_dossier.getSelectionModel().isEmpty() && tag_typeDocument.getSelectionModel().isEmpty())
     	{
     		//MESSAGE POPUP choisir les cat�gories
     		System.out.print("\nCHOOSE CATEGORIES\n");
     	}
     	else
     	{
-    		path = pathStockage.getPathStock()+ "\\" + tag1.getSelectionModel().getSelectedItem().toString()+ "\\"
-    				+ tag2.getSelectionModel().getSelectedItem().toString()+ "\\"
-    				+ tag3.getSelectionModel().getSelectedItem().toString();
+    		path = pathStockage.getPathStock()+ "\\" + tag_typeDossier.getSelectionModel().getSelectedItem().toString()+ "\\"
+    				+ tag_dossier.getSelectionModel().getSelectedItem().toString()+ "\\"
+    				+ tag_typeDocument.getSelectionModel().getSelectedItem().toString();
     	}
     	
     	//Creation du dossier
@@ -230,7 +230,9 @@ public class InterfaceCreationController implements Initializable
 			stmt.setDate(2,date1);//Date Document
 			stmt.setInt(3, 1);//CreationDoc ID
 			
-			selectedTypeDoc = (TypeDeDocument) tag1.getSelectionModel().getSelectedItem();
+			selectedTypeDoc = (TypeDeDocument) tag_typeDocument.getSelectionModel().getSelectedItem();
+			System.out.print("***typeDocument: "+ tag_typeDocument.getSelectionModel().getSelectedItem().toString() +"\n");
+			
 			stmt.setInt(4, selectedTypeDoc.getIdTypeDeDocument());
 			stmt.registerOutParameter(5,Types.INTEGER);
 
@@ -244,10 +246,7 @@ public class InterfaceCreationController implements Initializable
 		} 
 		catch(Exception e)
 		{
-			
 			System.out.println("\nPROBLEME insert_document validerOnClicked\n");
-			e.printStackTrace();
-			e.getCause(); 
 		}
 		
 		query = "{CALL insert_type_de_document(?,?)}";
@@ -257,8 +256,9 @@ public class InterfaceCreationController implements Initializable
 		{
 			CallableStatement stmt = connectDb.prepareCall(query);
 
-			selectedTypeDoc = (TypeDeDocument) tag1.getSelectionModel().getSelectedItem();
-			selectedDossier = (Dossier) tag2.getSelectionModel().getSelectedItem();
+			selectedTypeDoc = (TypeDeDocument) tag_typeDocument.getSelectionModel().getSelectedItem();
+			selectedDossier = (Dossier) tag_dossier.getSelectionModel().getSelectedItem();
+			System.out.print("***Dossier: "+ tag_dossier.getSelectionModel().getSelectedItem().toString() +"\n");
 			
 			stmt.setString(1, selectedTypeDoc.getNomTypeDoc());
 			stmt.setInt(2, selectedDossier.getIdDossier());
@@ -269,10 +269,7 @@ public class InterfaceCreationController implements Initializable
 		} 
 		catch(Exception e)
 		{
-			
 			System.out.println("\nPROBLEME insert_type_de_document validerOnClicked\n");
-			e.printStackTrace();
-			e.getCause(); 
 		}
 		
 		query = "{CALL insert_dossier(?,?)}";
@@ -282,8 +279,9 @@ public class InterfaceCreationController implements Initializable
 		{
 			CallableStatement stmt = connectDb.prepareCall(query);
 
-			selectedDossier = (Dossier) tag2.getSelectionModel().getSelectedItem();
-			selectedTypeDossier = (TypeDossier) tag3.getSelectionModel().getSelectedItem();
+			selectedDossier = (Dossier) tag_dossier.getSelectionModel().getSelectedItem();
+			selectedTypeDossier = (TypeDossier) tag_typeDossier.getSelectionModel().getSelectedItem();
+			System.out.print("***typeDossier: "+ tag_typeDossier.getSelectionModel().getSelectedItem().toString() +"\n");
 			
 			stmt.setString(1, selectedDossier.getNomDossier());
 			stmt.setInt(2, selectedTypeDossier.getIdTypeDossier());
@@ -294,10 +292,7 @@ public class InterfaceCreationController implements Initializable
 		} 
 		catch(Exception e)
 		{
-			
 			System.out.println("\nPROBLEME insert_dossier validerOnClicked\n");
-			e.printStackTrace();
-			e.getCause(); 
 		}
 		
 		query = "{CALL insert_reference(?,?)}";
@@ -317,15 +312,12 @@ public class InterfaceCreationController implements Initializable
 			
 			lastID_Ref1 = stmt.getInt(2);
 		      
-			System.out.print("uploaded tag1 and tag2 successfully lastID_Ref: " + lastID_Ref1 +"\n");
+			System.out.print("uploaded tag_perso1 and tag_perso2 successfully lastID_Ref: " + lastID_Ref1 +"\n");
 				
 		} 
 		catch(Exception e)
 		{
-			
 			System.out.println("\nPROBLEME insert_reference validerOnClicked\n");
-			e.printStackTrace();
-			e.getCause(); 
 		}
 		
 		
@@ -336,12 +328,12 @@ public class InterfaceCreationController implements Initializable
 		{
 			CallableStatement stmt = connectDb.prepareCall(query);
 			
-			//tag2
+			//tag_dossier
 			stmt.setInt(2, lastID_Ref1);
 			stmt.setInt(1, lastID_Doc);
 			stmt.execute();
 			
-			//tag1
+			//tag_typeDossier
 			stmt.setInt(2, lastID_Ref1 - 1);
 			stmt.setInt(1, lastID_Doc);
 			stmt.execute();
@@ -351,10 +343,8 @@ public class InterfaceCreationController implements Initializable
 		} 
 		catch(Exception e)
 		{
-			
 			System.out.println("\nPROBLEME insert_typer validerOnClicked\n");
-			e.printStackTrace();
-			e.getCause(); 
+
 		}
 		
 		this.createPathAndCopy();
@@ -411,9 +401,9 @@ public class InterfaceCreationController implements Initializable
 			e.printStackTrace();
 		}
 
-		this.tag1.setItems(ctrlTypeDoc.getListeTypeDoc());
-		this.tag2.setItems(ctrlDossier.getListeTypeDossier());//à refaire, porte à confusion
-		this.tag3.setItems(ctrlTypeDossier.getListeDossier());//à refaire, porte à confusion
+		this.tag_typeDocument.setItems(ctrlTypeDoc.getListeTypeDoc());
+		this.tag_dossier.setItems(ctrlDossier.getListeDossier());//à refaire, porte à confusion
+		this.tag_typeDossier.setItems(ctrlTypeDossier.getListeTypeDossier());//à refaire, porte à confusion
 		
 		TextFields.bindAutoCompletion(tagPerso1,ctrlTag.getListeDossier());
 		TextFields.bindAutoCompletion(tagPerso2,ctrlTag.getListeDossier());
@@ -551,7 +541,7 @@ public class InterfaceCreationController implements Initializable
 							//resultset
 							
 							tempPath = stmt.getString(2);
-							System.out.print(tempPath+"\n");
+							//System.out.print(tempPath+"\n");
 								
 						} 
 						catch(Exception e)
@@ -563,10 +553,13 @@ public class InterfaceCreationController implements Initializable
 						}
 
 						//Compare Checksum
-						tempPath = pathStockage.getPathStock() +"\\"+ tempPath;
-						System.out.print(tempPath+"\n");
+						if(tempPath != null)
+						{
+							tempPath = pathStockage.getPathStock() +"\\"+ tempPath;							
+						}
+						System.out.print(tempPath+" found in DB doesn't exists yet in directory path!"+"\n");
 						
-						if(Files.exists(Paths.get(tempPath)))
+						if(tempPath != null && Files.exists(Paths.get(tempPath)))
 						{
 							if(MD5Checksum.getMD5Checksum(files[i].toPath().toAbsolutePath().toString()) 
 									== MD5Checksum.getMD5Checksum(tempPath))
