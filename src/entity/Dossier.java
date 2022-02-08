@@ -36,7 +36,7 @@ public class Dossier {
     @Override
     public String toString() 
     {
-		return this.getIdDossier()+" "+ this.getNomDossier();
+		return this.getNomDossier();
     	
     }
     

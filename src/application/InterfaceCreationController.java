@@ -41,6 +41,7 @@ import entity.Reference;
 import entity.Scan;
 import entity.TypeDeDocument;
 import entity.TypeDossier;
+import entity.Utilisateur;
 import ctrlEntites.*;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -146,38 +147,16 @@ public class InterfaceCreationController implements Initializable
      */
     public void createPathAndCopy()
     {
-    	String path = null;
+    	String path ="";
     	
-    	//Creation du path grâce aux categories declaration du scan
-    	if(tag_typeDocument.getSelectionModel().isEmpty())
-    	{
-    		path = pathStockage.getPathStock()+ "\\" + tag_typeDossier.getSelectionModel().getSelectedItem().toString()+ "\\"
-    				+ tag_dossier.getSelectionModel().getSelectedItem().toString();
-    	}
-    	else if(tag_dossier.getSelectionModel().isEmpty() && tag_typeDocument.getSelectionModel().isEmpty())
-    	{
-    		path = pathStockage.getPathStock()+ "\\" + tag_typeDossier.getSelectionModel().getSelectedItem().toString();
-    	}
-    	else if(tag_typeDossier.getSelectionModel().isEmpty() && tag_dossier.getSelectionModel().isEmpty() && tag_typeDocument.getSelectionModel().isEmpty())
-    	{
-    		//MESSAGE POPUP choisir les catégories
-    		System.out.print("\nCHOOSE CATEGORIES\n");
-    	}
-    	else
-    	{
-    		path = pathStockage.getPathStock()+ "\\" + tag_typeDossier.getSelectionModel().getSelectedItem().toString()+ "\\"
-    				+ tag_dossier.getSelectionModel().getSelectedItem().toString()+ "\\"
-    				+ tag_typeDocument.getSelectionModel().getSelectedItem().toString();
-    	}
-    	
+
     	//Creation du dossier
     	
     	try 
     	{
-    		if(!Files.exists(Paths.get(path)))
+    		if(!Files.exists(Paths.get(scanPath.getpathScan().toString())))
     		{
-    			Files.createDirectories(Paths.get(path));
-    			scanPath.setpathScan(path);
+    			Files.createDirectories(Paths.get(scanPath.getpathScan().toString()));
     		}
     		else System.out.print("\nPath already exists\n");
 		} 
@@ -191,7 +170,7 @@ public class InterfaceCreationController implements Initializable
     	
     	try 
     	{
-    		path += "\\" +selectedDoc.getNomDocument();
+    		path = scanPath.getpathScan().toString() +"\\" +selectedDoc.getNomDocument();
     		
     		if(!Files.exists(Paths.get(path)))
 			Files.copy(selectedDoc.getDocPath(), Paths.get(path));
@@ -211,67 +190,12 @@ public class InterfaceCreationController implements Initializable
      */
     public void validerOnClicked()
     {
+    	//j'ai insert dans le mauvais ordre!!!!
 		Connection connectDb = DatabaseConnection.getInstance().getConnection();
-		
-		String query = "{CALL insert_document(?,?,?,?,?)}";
-		
 		int lastID_Doc = 0;
-		
-		try 
-		{
-			CallableStatement stmt = connectDb.prepareCall(query);
-			stmt.setString(1, selectedDoc.getNomDocument());//Nom Document
-			
-	        Date date = new Date();
-
-	        long timeInMilliSeconds = selectedDoc.getDateDocument().toMillis();
-	        java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
-	        
-			stmt.setDate(2,date1);//Date Document
-			stmt.setInt(3, 1);//CreationDoc ID
-			
-			selectedTypeDoc = (TypeDeDocument) tag_typeDocument.getSelectionModel().getSelectedItem();
-			System.out.print("***typeDocument: "+ tag_typeDocument.getSelectionModel().getSelectedItem().toString() +"\n");
-			
-			stmt.setInt(4, selectedTypeDoc.getIdTypeDeDocument());
-			stmt.registerOutParameter(5,Types.INTEGER);
-
-			stmt.execute(); 
-			
-			lastID_Doc = stmt.getInt(5);
-			
-			System.out.print("uploaded doc successfully\n");
-			
-				
-		} 
-		catch(Exception e)
-		{
-			System.out.println("\nPROBLEME insert_document validerOnClicked\n");
-		}
-		
-		query = "{CALL insert_type_de_document(?,?)}";
-		
-		
-		try 
-		{
-			CallableStatement stmt = connectDb.prepareCall(query);
-
-			selectedTypeDoc = (TypeDeDocument) tag_typeDocument.getSelectionModel().getSelectedItem();
-			selectedDossier = (Dossier) tag_dossier.getSelectionModel().getSelectedItem();
-			System.out.print("***Dossier: "+ tag_dossier.getSelectionModel().getSelectedItem().toString() +"\n");
-			
-			stmt.setString(1, selectedTypeDoc.getNomTypeDoc());
-			stmt.setInt(2, selectedDossier.getIdDossier());
-
-			stmt.execute(); 
-			System.out.print("uploaded type_de_document successfully\n");
-				
-		} 
-		catch(Exception e)
-		{
-			System.out.println("\nPROBLEME insert_type_de_document validerOnClicked\n");
-		}
-		
+		String query = "";
+	
+		/*
 		query = "{CALL insert_dossier(?,?)}";
 		
 		
@@ -294,6 +218,30 @@ public class InterfaceCreationController implements Initializable
 		{
 			System.out.println("\nPROBLEME insert_dossier validerOnClicked\n");
 		}
+		
+		query = "{CALL insert_type_de_document(?,?)}";		
+		
+		try 
+		{
+			CallableStatement stmt = connectDb.prepareCall(query);
+
+			selectedTypeDoc = (TypeDeDocument) tag_typeDocument.getSelectionModel().getSelectedItem();
+			selectedDossier = (Dossier) tag_dossier.getSelectionModel().getSelectedItem();
+			System.out.print("***Dossier: "+ tag_dossier.getSelectionModel().getSelectedItem().toString() +"\n");
+			
+			stmt.setString(1, selectedTypeDoc.getNomTypeDoc());
+			stmt.setInt(2, selectedDossier.getIdDossier());
+
+			stmt.execute(); 
+			System.out.print("uploaded type_de_document successfully\n");
+				
+		} 
+		catch(Exception e)
+		{
+			System.out.println("\nPROBLEME insert_type_de_document validerOnClicked\n");
+		}
+		*/
+		
 		
 		query = "{CALL insert_reference(?,?)}";
 		int lastID_Ref1 = 0;
@@ -320,7 +268,103 @@ public class InterfaceCreationController implements Initializable
 			System.out.println("\nPROBLEME insert_reference validerOnClicked\n");
 		}
 		
+    	//Creation du path grï¿½ce aux categories declaration du scan
+    	if(tag_typeDocument.getSelectionModel().isEmpty())
+    	{
+    		scanPath.setpathScan(
+    				pathStockage.getPathStock()+ "\\" 
+    				+ tag_typeDossier.getSelectionModel().getSelectedItem().toString()+ "\\"
+    				+ tag_dossier.getSelectionModel().getSelectedItem().toString());
+    	}
+    	else if(tag_dossier.getSelectionModel().isEmpty() && tag_typeDocument.getSelectionModel().isEmpty())
+    	{
+    		scanPath.setpathScan(
+    				pathStockage.getPathStock()+ "\\" 
+    				+ tag_typeDossier.getSelectionModel().getSelectedItem().toString());
+    	}
+    	else if(tag_typeDossier.getSelectionModel().isEmpty() && tag_dossier.getSelectionModel().isEmpty() && tag_typeDocument.getSelectionModel().isEmpty())
+    	{
+    		//MESSAGE POPUP choisir les catï¿½gories
+    		System.out.print("\nCHOOSE CATEGORIES\n");
+    	}
+    	else
+    	{
+    		scanPath.setpathScan(
+    				pathStockage.getPathStock()+ "\\" 
+    				+ tag_typeDossier.getSelectionModel().getSelectedItem().toString()+ "\\"
+    				+ tag_dossier.getSelectionModel().getSelectedItem().toString()+ "\\"
+    				+ tag_typeDocument.getSelectionModel().getSelectedItem().toString());
+    	}
+    	
+		/*
+		 * INSERT DOCUMENT IN BEFORE LAST
+		 */
+		query = "{CALL insert_document(?,?,?,?,?,?)}";
 		
+		try 
+		{
+			CallableStatement stmt = connectDb.prepareCall(query);
+			stmt.setString(1, selectedDoc.getNomDocument());//Nom Document
+			
+			Date date = new Date();
+			
+			long timeInMilliSeconds = selectedDoc.getDateDocument().toMillis();
+			java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
+			
+			stmt.setDate(2,date1);//Date Document
+			stmt.setInt(3, Utilisateur.getConnectedUser().getIdUtilisateur());
+			
+			//selectedTypeDoc = (TypeDeDocument) tag_typeDocument.getSelectionModel().getSelectedItem();
+			//System.out.print("***typeDocument: "+ tag_typeDocument.getSelectionModel().getSelectedItem().toString() +"\n");
+			
+			//stmt.setInt(4, selectedTypeDoc.getIdTypeDeDocument());
+			stmt.setInt(4, 3);
+			stmt.registerOutParameter(5,Types.INTEGER);
+			
+			stmt.setString(6, scanPath.getpathScan().toString() +"\\" +selectedDoc.getNomDocument());
+			
+			stmt.execute(); 
+			
+			lastID_Doc = stmt.getInt(5);
+			
+			System.out.print("uploaded doc successfully\n");
+			
+			
+		} 
+		catch(Exception e)
+		{
+			System.out.println("\nPROBLEME insert_document validerOnClicked\n");
+			
+		}
+		
+		query = "{CALL insert_reference(?,?)}";
+		
+		
+		try 
+		{
+			CallableStatement stmt = connectDb.prepareCall(query);
+			
+			stmt.setString(1, tagPerso1.getText());
+			stmt.registerOutParameter(2,Types.INTEGER);
+			stmt.execute();
+			
+			stmt.setString(1, tagPerso2.getText());
+			stmt.registerOutParameter(2,Types.INTEGER);
+			stmt.execute();
+			
+			lastID_Ref1 = stmt.getInt(2);
+		      
+			System.out.print("uploaded tag_perso1 and tag_perso2 successfully lastID_Ref: " + lastID_Ref1 +"\n");
+				
+		} 
+		catch(Exception e)
+		{
+			System.out.println("\nPROBLEME insert_reference validerOnClicked\n");
+		}
+		
+		/*
+		 * INSERT PIVOt in last
+		 */
 		query = "{CALL insert_typer(?,?)}";//insert table pivot pour lier le document enregistrÃ© et les tags
 		
 		
@@ -346,6 +390,29 @@ public class InterfaceCreationController implements Initializable
 			System.out.println("\nPROBLEME insert_typer validerOnClicked\n");
 
 		}
+		
+		query = "{CALL insert_scan_with_level(?,?,?)}";
+		
+		
+		try 
+		{
+			CallableStatement stmt = connectDb.prepareCall(query);
+			int lastID = 0;
+			stmt.setString(1, scanPath.getpathScan().toString());
+			stmt.setInt(2,Utilisateur.getConnectedUser().getIdUtilisateur());
+			stmt.registerOutParameter(3,Types.INTEGER);
+			stmt.execute();
+			
+			lastID = stmt.getInt(3);
+		      
+			System.out.print("uploaded sacnPath successfully\n");
+				
+		} 
+		catch(Exception e)
+		{
+			System.out.println("\nPROBLEME insert_scan_with_level validerOnClicked\n");
+		}
+
 		
 		this.createPathAndCopy();
 		listDoc.remove(listViewAffiche.getSelectionModel().getSelectedIndex());
@@ -413,7 +480,7 @@ public class InterfaceCreationController implements Initializable
     /*
      * Opens the file selected in the list.
      */
-    public void onListCellClicked()//à renommer
+    public void onListCellClicked()//ï¿½ renommer
     {
     	if(!Desktop.isDesktopSupported())
     	{
@@ -450,7 +517,7 @@ public class InterfaceCreationController implements Initializable
      * @throws Exception 
      */
 	@FXML
-	private void handleDirectory(ActionEvent event) throws Exception //à renommer
+	private void handleDirectory(ActionEvent event) throws Exception //ï¿½ renommer
 	{
 		//reset list and counts
 		clearListView();
@@ -527,12 +594,12 @@ public class InterfaceCreationController implements Initializable
 						//Normalement je devrais comparer que les fichiers qui ne sont pas dans la DB
 						//en chargeant le CtrlDoc et en comparant les noms des fichiers
 						//mais je vais directement comparer les checksum
-						//faudrait peut-être stocker le checksum dans la DB pour aller plus vite
+						//faudrait peut-ï¿½tre stocker le checksum dans la DB pour aller plus vite
 						
 						Connection connexion = DatabaseConnection.getInstance().getConnection();
 						try 
 						{							
-							CallableStatement stmt = connexion.prepareCall("{call search_document_by_name(?,?)}"); 
+							CallableStatement stmt = connexion.prepareCall("{call search_document(?,?)}"); 
 							
 							stmt.setString(1, files[i].getName());
 							stmt.registerOutParameter(2,Types.VARCHAR);
@@ -552,23 +619,25 @@ public class InterfaceCreationController implements Initializable
 							e.getCause(); 
 						}
 
-						//Compare Checksum
-						if(tempPath != null)
-						{
-							tempPath = pathStockage.getPathStock() +"\\"+ tempPath;							
-						}
+//						//Compare Checksum
+//						if(tempPath != null)
+//						{
+//							tempPath = pathStockage.getPathStock() +"\\"+ tempPath;							
+//						}
 						System.out.print(tempPath+" found in DB doesn't exists yet in directory path!"+"\n");
+//						MD5Checksum.getMD5Checksum(files[i].toPath().toAbsolutePath().toString());
+//						MD5Checksum.getMD5Checksum(tempPath);
 						
 						if(tempPath != null && Files.exists(Paths.get(tempPath)))
 						{
 							if(MD5Checksum.getMD5Checksum(files[i].toPath().toAbsolutePath().toString()) 
 									== MD5Checksum.getMD5Checksum(tempPath))
 							{
-								System.out.println("\nMEME FICHIER non modifié\n");
+								System.out.println("\nMEME FICHIER non modifie\n");
 							}
 							else
 							{
-								System.out.println("\nMEME nom de FICHIER peut-être modifié\n");
+								System.out.println("\nMEME nom de FICHIER peut-etre modifie\n");
 							}
 							
 						}

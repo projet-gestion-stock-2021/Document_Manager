@@ -33,6 +33,7 @@ public class MD5Checksum {
 	       result +=
 	          Integer.toString( ( b[i] & 0xff ) + 0x100, 16).substring( 1 );
 	      }
+	     System.out.println("CheckSUM for "+filename+ " is "+ result + "\n");
 	     return result;
 	   }
 }

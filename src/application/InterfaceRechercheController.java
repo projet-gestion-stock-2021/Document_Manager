@@ -1,6 +1,10 @@
 package application;
 
+import java.awt.Desktop;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.attribute.FileTime;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -24,6 +28,7 @@ import ctrlEntites.CtrlTypeDoc;
 import ctrlEntites.CtrlTypeDossier;
 import entity.Document;
 import entity.TypeDeDocument;
+import entity.Utilisateur;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -36,10 +41,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableRow;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -171,10 +178,11 @@ public class InterfaceRechercheController implements Initializable
 		//ok ça crée bien une colonne avec le bon nom
 		TableColumn<Document, String> col_DocumentName = new TableColumn<Document, String>("Nom document");
 		TableColumn<Document, String> col_DocumentDate = new TableColumn<Document, String>("Date de scan");
-		TableColumn<Document, String> col_DocumentLastModified = new TableColumn<Document, String>("Dernière modification");
+		TableColumn<Document, String> col_DocumentLastModified = new TableColumn<Document, String>("Derniere modification");
+		TableColumn<Document, Number> col_level = new TableColumn<Document, Number>("Level");
 		//TableColumn<Document, String> col_DocumentPath = new TableColumn<Document, String>("Chemin");
 		
-		documentTable.getColumns().setAll(col_DocumentName, col_DocumentDate, col_DocumentLastModified);
+		documentTable.getColumns().setAll(col_DocumentName, col_DocumentDate, col_DocumentLastModified, col_level);
 		
 		//ENFIN!!!!!! le nom du doc s'affiche dans la colonne, Merci Oracle!
 		col_DocumentName.setCellValueFactory(new Callback<CellDataFeatures<Document, String>, ObservableValue<String>>() 
@@ -185,6 +193,7 @@ public class InterfaceRechercheController implements Initializable
 		         return p.getValue().documentNameProperty();
 		     }
 		  });
+		
 		
 		col_DocumentDate.setCellValueFactory(new Callback<CellDataFeatures<Document, String>, ObservableValue<String>>() 
 		{
@@ -203,7 +212,56 @@ public class InterfaceRechercheController implements Initializable
 		         return p.getValue().documentDateModifiedProperty();
 		     }
 		  });
-		 
+		
+		col_level.setCellValueFactory(new Callback<CellDataFeatures<Document, Number>, ObservableValue<Number>>() 
+		{
+		     public ObservableValue<Number> call(CellDataFeatures<Document, Number> p) 
+		     {
+		         // p.getValue() returns the Person instance for a particular TableView row
+		         return  p.getValue().level();
+		     }
+		  });
+		customiseFactory(col_level);
+		
+		//double-click on document to open it
+		documentTable.setRowFactory( tv -> {
+		    TableRow<Document> row = new TableRow<>();
+		    row.setOnMouseClicked(event -> {
+		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+		        	Document rowData = row.getItem();
+		           	if(!Desktop.isDesktopSupported())
+		        	{
+		        		System.out.println("Desktop is not supported");
+		        		return;
+		        	}
+		        	//selectedDoc = (Document) listViewAffiche.getSelectionModel().getSelectedItem();
+		        	Desktop desktop = Desktop.getDesktop();
+		        	
+		        	
+		        	if(Files.exists(Paths.get(rowData.getPathScan()))) 
+		        	{
+		        		try {
+		        			if(rowData.getId_user() == Utilisateur.getConnectedUser().getIdUtilisateur())
+		    				desktop.open(Paths.get(rowData.getPathScan()).toFile());
+		        			else
+		        				System.out.println("\nUtilisateur n'a pas les droits sur ce fichier\n");
+		    				//System.out.println("\n"+rowData.getPathScan()+"\n");
+		    			} catch (IOException e) {
+		    				// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    			}
+		        	}
+		        	else
+		        	{
+		        		System.out.println("\nFILE DOESN'T EXIST!!!!\n");
+		        		System.out.println(rowData.getPathScan());
+		        	}
+		            System.out.println(rowData);
+		        }
+		    });
+		    return row ;
+		});
+		
 		
 		try 
 		{
@@ -237,6 +295,31 @@ public class InterfaceRechercheController implements Initializable
 
         });
 		
+	}
+	
+	//CHANGE COLOR OF A COLUMN, access level?
+	private void customiseFactory(TableColumn<Document, Number> calltypel) {
+	    calltypel.setCellFactory(column -> {
+	        return new TableCell<Document, Number>() {
+	            @Override
+	            protected void updateItem(Number item, boolean empty) {
+	                super.updateItem(item, empty);
+
+	                setText(empty ? "" : getItem().toString());
+	                setGraphic(null);
+
+	                TableRow<Document> currentRow = getTableRow();
+
+	                if (!isEmpty()) {
+
+	                    if(item.equals(Utilisateur.getConnectedUser().getIdUtilisateur())) 
+	                        currentRow.setStyle("-fx-background-color:lightcoral");
+	                    else
+	                        currentRow.setStyle("-fx-background-color:lightgreen");
+	                }
+	            }
+	        };
+	    });
 	}
 	
 	

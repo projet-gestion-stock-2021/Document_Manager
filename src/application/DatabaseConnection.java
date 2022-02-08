@@ -20,7 +20,7 @@ public class DatabaseConnection {
 	
 	private DatabaseConnection()
 	{
-		DatabaseConnection.databaseName = "a";
+		DatabaseConnection.databaseName = "testdm2";
 		DatabaseConnection.databaseUser = "root";
 		DatabaseConnection.databasePassword = "Dddd1234";
 		DatabaseConnection.url = "jdbc:mariadb://localhost:3306/" + getDatabaseName();

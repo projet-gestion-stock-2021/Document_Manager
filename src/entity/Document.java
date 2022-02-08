@@ -3,6 +3,7 @@ package entity;
 import java.util.*;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -29,8 +30,44 @@ public class Document {
     private StringProperty p_dateScan;
     private Boolean flagDocument;
     private Path docPath;
+    private String pathScan;
+    private int id_user;
+    private SimpleIntegerProperty p_id_user;
     
-    public Document(Path filePath)
+    public SimpleIntegerProperty getP_id_user() {
+		return p_id_user;
+	}
+
+	public void setP_id_user(SimpleIntegerProperty p_id_user) {
+		this.p_id_user = p_id_user;
+	}
+
+	public SimpleIntegerProperty level() { 
+        if (p_id_user == null) p_id_user = new SimpleIntegerProperty(this, "id_user");
+        return p_id_user; 
+    }
+    
+    public int getId_user() {
+		return id_user;
+	}
+
+
+	public void setId_user(int id_user) {
+		this.id_user = id_user;
+	}
+
+
+	public String getPathScan() {
+		return pathScan;
+	}
+
+
+	public void setPathScan(String pathScan) {
+		this.pathScan = pathScan;
+	}
+
+
+	public Document(Path filePath)
     {
     	this.idDocument = 0;
     	this.nomDocument = filePath.getFileName().toString();
@@ -79,6 +116,10 @@ public class Document {
     		this.p_dateScan = new SimpleStringProperty(resultatRequete.getTimestamp("DateScan").toString());
     		
     		this.setFlagDocument(resultatRequete.getBoolean("Flag_document"));
+    		this.setPathScan(resultatRequete.getString("pathScan"));
+    		
+    		this.setId_user(resultatRequete.getInt("Id_Utilisateur"));
+    		this.p_id_user = new SimpleIntegerProperty(resultatRequete.getInt("Id_Utilisateur"));
     		
     		System.out.println(getNomDocument());
     	} 
