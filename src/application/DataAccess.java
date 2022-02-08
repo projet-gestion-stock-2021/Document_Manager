@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import entites.Utilisateur;
+import entity.Utilisateur;
 
 public class DataAccess {
 	 String databaseName = "testdm";

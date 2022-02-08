@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import application.SignInController;
+import entity.Utilisateur;
 
 public class LoginController  
 {
@@ -83,24 +84,29 @@ public class LoginController
 
 			while(queryResult.next())
 			{
-				if (queryResult.getInt(1)== 1)
+				if (queryResult.getInt("verif")== 1)
 				{
 					donneeInvalideLabel.setText("congrats");
 					creerCompte();
+					Utilisateur.getInstance();
+					Utilisateur.setConnectedUser(new Utilisateur(queryResult));
 				}
 				else
 				{
 					donneeInvalideLabel.setText("Mauvaise identification");
 				}
 			}
-				
+			
+						
 		} catch(Exception e)
 		{
 			
-			System.out.println("fuck\n");
+			System.out.println("\nvalidationIdent\n");
 			e.printStackTrace();
 			e.getCause(); 
 		}
+		System.out.println("\n"+ Utilisateur.getConnectedUser().getLogin() + " est connecté!\n");
+		System.out.println("Niveau: "+ Utilisateur.getConnectedUser().getNiveauByIdNiveau().getNomNiveau()+"\n");
 		
 	}
 	

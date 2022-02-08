@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="809.0" prefWidth="1165.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InterfaceRechercheController">
+   <children>
+      <TableView fx:id="documentTable" layoutX="224.0" layoutY="147.0" prefHeight="645.0" prefWidth="924.0" />
+      <TextField fx:id="searchField" layoutX="224.0" layoutY="114.0" prefHeight="25.0" prefWidth="294.0" promptText="recherche par titre" />
+      <Button fx:id="switchSceneButton" layoutX="14.0" layoutY="751.0" mnemonicParsing="false" onAction="#switchSceneOnAction" text="Creation" />
+      <Button fx:id="annulerButton" layoutX="89.0" layoutY="751.0" mnemonicParsing="false" onAction="#switchDashboard" text="Annuler" />
+      <CustomTextField fx:id="tag1" layoutX="14.0" layoutY="166.0" onAction="#enterTag1" promptText="tag1" styleClass="auto-complete-popup" stylesheets="@style.css" />
+      <CustomTextField fx:id="tag2" layoutX="14.0" layoutY="207.0" onAction="#enterTag1" promptText="tag2" styleClass="auto-complete-popup" stylesheets="@style.css" />
+   </children>
+</AnchorPane>

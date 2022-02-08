@@ -6,7 +6,6 @@ import ctrlEntites.CtrlDocument;
 
 import java.util.List;
 
-import entites.Utilisateur;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

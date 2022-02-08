@@ -12,24 +12,29 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 
+import entity.Dossier;
+
 public class CtrlDossier{
 	
-	private ObservableList<String> listeTypeDossier = FXCollections.observableArrayList();
+	private ObservableList<Dossier> listeDossier = FXCollections.observableArrayList();
 	private Connection connexion = DatabaseConnection.getInstance().getConnection();
 	
 	
 	
-	public ObservableList<String> getListeTypeDossier() {
-		return listeTypeDossier;
+	public ObservableList<Dossier> getListeDossier() 
+	{
+		return listeDossier;
 	}
 
 
 
-	public void setListeTypeDossier(ObservableList<String> listeTypeDossier) {
-		this.listeTypeDossier = listeTypeDossier;
+	public void setListeDossier(ObservableList<Dossier> listeDossier) 
+	{
+		this.listeDossier = listeDossier;
 	}
 
-	public void charger() throws SQLException {
+	public void charger() throws SQLException 
+	{
 		CallableStatement fctCall = connexion.prepareCall("{call select_dossier()}"); 
 		ResultSet resultatRequete = fctCall.executeQuery();
 		
@@ -37,7 +42,8 @@ public class CtrlDossier{
 		{
 			 if(!resultatRequete.getBoolean("Flag_dossier"))
 			 {
-				 listeTypeDossier.add(resultatRequete.getString("Nom_dossier"));
+				 
+				 listeDossier.add(new Dossier(resultatRequete));
 			 }		     
 		}
 	}

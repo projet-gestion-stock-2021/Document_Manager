@@ -14,20 +14,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 
+import entity.TypeDossier;
+
 public class CtrlTypeDossier{
 	
-	private ObservableList<String> listeDossier = FXCollections.observableArrayList();
+	private ObservableList<TypeDossier> listeTypeDossier = FXCollections.observableArrayList();
 	private Connection connexion = DatabaseConnection.getInstance().getConnection();
 	
 
-	public ObservableList<String> getListeDossier() {
-		return listeDossier;
+	public ObservableList<TypeDossier> getListeTypeDossier() {
+		return listeTypeDossier;
 	}
 
 
 
-	public void setListeDossier(ObservableList<String> listeDossier) {
-		this.listeDossier = listeDossier;
+	public void setListeTypeDossier(ObservableList<TypeDossier> listeTypeDossier) {
+		this.listeTypeDossier = listeTypeDossier;
 	}
 	
 	public void charger() throws SQLException {
@@ -38,7 +40,7 @@ public class CtrlTypeDossier{
 		{
 			 if(!resultatRequete.getBoolean("Flag_type_dossier"))
 			 {
-				 listeDossier.add(resultatRequete.getString("Nom_type_dossier"));
+				 listeTypeDossier.add(new TypeDossier(resultatRequete));
 			 }		     
 		}
 	}

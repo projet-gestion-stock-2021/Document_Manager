@@ -9,54 +9,68 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
 
-import entites.Document;
+import entity.Document;
+import entity.Dossier;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import application.DatabaseConnection;
 
 public class CtrlDocument{
 	
-	private Collection<Document> listeDoc = new ArrayList<Document>();
+	//private Collection<Document> listeDoc = new ArrayList<Document>();
+	private ObservableList<Document> observableDoc = FXCollections.observableArrayList();
 	private Connection connexion = DatabaseConnection.getInstance().getConnection();
 	private int idCourant;
 	
-	public int getIdCourant() {
+	public int getIdCourant() 
+	{
 		return idCourant;
 	}
 
-	public void setIdCourant(int idCourant) {
+	public void setIdCourant(int idCourant) 
+	{
 		this.idCourant = idCourant;
 	}
 
-	public void charger() throws SQLException {
+	public void charger() throws SQLException
+	{
 		
 		CallableStatement fctCall = connexion.prepareCall("{call select_document()}"); 
 		ResultSet resultatRequete = fctCall.executeQuery();
 		
 		while(resultatRequete.next())
-		{
-			 int idDocument = resultatRequete.getInt("Id_Document");
-		     String nomDocument = resultatRequete.getString("Nom_Document");
-		     Date dateDocument = resultatRequete.getDate("DateDocument");
-		     Timestamp dateScan = resultatRequete.getTimestamp("DateScan");
-		     Boolean flagDocument = resultatRequete.getBoolean("Flag_document");
+		{	     
+		     //listeDoc.add(new Document(resultatRequete));
+			observableDoc.add(new Document(resultatRequete));
 		     
-		     listeDoc.add(new Document(idDocument,nomDocument,dateDocument,dateScan,flagDocument));
-		     
-		     if(!resultatRequete.next()) {
-		    	 this.setIdCourant(idDocument);
-		     }
+//		     if(!resultatRequete.next()) {
+//		    	 this.setIdCourant(resultatRequete.getInt("Id_Document"));
+//		     }
 		}
 		
 	}
 
-	public Collection<Document> getListeDoc() {
-		return listeDoc;
+//	public Collection<Document> getListeDoc() {
+//		return listeDoc;
+//	}
+//
+//	public void setListeDoc(Collection<Document> listeDoc) {
+//		this.listeDoc = listeDoc;
+//	}
+
+	public ObservableList<Document> getListeDoc() 
+	{
+		//observableDoc.forEach(i -> System.out.println(i.getNomDocument()));
+		return observableDoc;
 	}
 
-	public void setListeDoc(Collection<Document> listeDoc) {
-		this.listeDoc = listeDoc;
-	}
 
+
+	public void setListeDoc(ObservableList<Document> listeDoc) 
+	{
+		this.observableDoc = listeDoc;
+	}
 
 	
 	
